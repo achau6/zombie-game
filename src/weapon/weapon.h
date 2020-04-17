@@ -5,6 +5,7 @@
 class weapons
 {
 public:
+    //constructor
     weapons();
 	//accessors
     void shotgun();
@@ -12,25 +13,28 @@ public:
     void pistol();
     void mine();
     void smg();
-
     void melee();
 
 	//mutators
-    void pick_Up_Gun(int array[]);
+    //-------------Main Functions----
+    void decrease_Bullets(int array[]);
     void fire(int array[]);
-
-    bool pop(int array[]);
-    void top();
+    void reload(int array[]);
     void push(int array[]);
+    //--------------------------
+
+
+    void pick_Up_Gun(int array[]);
+    void pop(int array[]);
+    void top();
     int size(int array[]);
     int mag_Size(int array[]);
     int check_Mag(int array[]);
     int bullet_Count(int array[]);
-    void decrease_Bullets(int array[]);
-    void reload(int array[]);
 	void reSize(int array[], int ammo);
 
     //array
+//protected:
     int *smgAmmo;
     int *shotgunAmmo;
     int *rifleAmmo;

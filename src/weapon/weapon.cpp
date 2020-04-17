@@ -32,7 +32,7 @@ void weapons::pick_Up_Gun(int array[])
         std::cout<<"testing"<<std::endl;
         usedTemp = usedSMG;
         for (int i = 0; i < usedTemp + SMG_MAG; i ++) {
-            smgAmmo[i] = 1;
+            array[i] = 1;
         }
     } else if(array == shotgunAmmo){
         //usedTemp is for calculatin TOTAL amount of bullets
@@ -42,7 +42,7 @@ void weapons::pick_Up_Gun(int array[])
         //increase the amount of bullets starting from 0
         //to how much he picks up
         for (int i = 0; i < usedTemp + SHOTGUN_MAG; i ++) {
-            shotgunAmmo[i] = 1;
+            array[i] = 1;
             usedShotgun ++;
 
         }
@@ -61,13 +61,38 @@ void weapons::pick_Up_Gun(int array[])
 }
 
 //adding ammo to the gun
+//although there is nothing of value to transfer
+//which I can just delete the array and then remake it
+//but maybe there will be important values inside the array
 void weapons::push(int array[])
 {
     if(array == smgAmmo){
         usedSMG += SMG_MAG;
 
     } else if(array == shotgunAmmo){
+        //add the bullets to the reserve
         usedShotgun += SHOTGUN_MAG;
+        //make sure reserve ammo doesnt exceed capacities
+        while(usedShotgun > TOTAL_SHOTGUN)
+        {
+            usedShotgun --;
+            std::cout<<"Reducing Ammo"<<std::endl;
+        }
+        //create temp copy of array
+        int *temp = new int[usedShotgun];
+        //intialize the values
+        for(int i = 0; i < usedShotgun; i ++){
+            temp[i] = 1;
+        }
+        //delete that array
+        delete[] array;
+
+        //create a new copy of that array
+        array = new int[usedShotgun];
+        //transfer the values
+        for(int i = 0; i < usedShotgun; i ++){
+            array[i] = temp[i];
+        }
 
     }else if(array == rifleAmmo){
         usedRifle += RIFLE_MAG;
@@ -84,24 +109,26 @@ void weapons::fire(int array[])
     if(array == smgAmmo){
         pop(array);
 		std::cout<<"Fire SMG"<<std::endl;
-		if(pop(array)==false)
-		{
-			reload(array);
-		}
+		// if(pop(array)==false)
+		// {
+		// 	reload(array);
+		// }
 
 
     } else if(array == shotgunAmmo){
         //first check if I have ammo
-		if(pop(array)==false)
-		{
-            //if no ammo, then exit the function
-			std::cout<<"Start Reload"<<std::endl;
-			reload(array);
-			std::cout<<"Reload Shotgun"<<std::endl;
-			return;
-		} else
+		// if(pop(array)==false)
+		// {
+        //     //if no ammo, then exit the function
+		// 	std::cout<<"Start Reload"<<std::endl;
+		// 	reload(array);
+		// 	std::cout<<"Reload Shotgun"<<std::endl;
+		// 	return;
+		// } else
+        //{
             //if there is bullets, then fire and pop a bullet
             pop(array);
+        //}
 		std::cout<<"Fire SHotgun"<<std::endl;
 
 
@@ -237,19 +264,27 @@ int weapons::bullet_Count(int array[])
 
 //pops a bullet of the stack and return true/false if
 //a bullet exist
-bool weapons::pop(int array[])
+void weapons::pop(int array[])
 {
     int usedMag = mag_Size(array);
-    int *temp = new int[usedMag];
-    int used = bullet_Count(array);
 
+    //if there is ABSOLUTELY no ammo
     if(size(array)<= 0)
 	{
 		std::cout<<"No Bullets"<<std::endl;
-		return false;
+		return;
 	}
 
+    //decrease the bullet of respected gun
     decrease_Bullets(array);
+    //get the bullets left on the gun
+    int used = bullet_Count(array);
+    //use it to create a temp array
+    int *temp = new int[used];
+
+
+	std::cout<<"ShotGun : "<<size(shotgunAmmo)<<std::endl;
+
     for(int i = 0; i < used; i ++){
         temp[i] = array[i];
     }
@@ -260,7 +295,6 @@ bool weapons::pop(int array[])
         //cout<<"data: "<<data[i]<<endl;
     }
     delete [] temp;
-	return true;
 }
 
 // void weapons::reSize(int array[], int ammo)
