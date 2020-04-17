@@ -1,10 +1,15 @@
 #include "Platform/Platform.hpp"
 #include <vector>
+#include "weapon/weapon.h"
+#include <iostream>
 
 int main()
 {
 	util::Platform platform;
+	weapons w;
 	std::vector<int> vector2;
+
+
 
 #if defined(_DEBUG)
 	std::cout << "Hello World!" << std::endl;
@@ -25,6 +30,7 @@ int main()
 	rectangle.setTexture(&shapeTexture);
 
 	sf::Event event;
+	w.pick_Up_Gun(w.shotgunAmmo);
 
 	while (window.isOpen())
 	{
@@ -37,7 +43,31 @@ int main()
 					break;
 				case sf::Event::MouseButtonPressed:
 					std::cout<<"Mouse Button Pressed"<<std::endl;
+					switch(event.key.code)
+					{
+						case sf::Mouse::Left:
+							std::cout<<"Left Mouse Button Pressed"<<std::endl;
+							std::cout<<"ShotGun Ammo: "<<w.size(w.shotgunAmmo)<<std::endl;
+							w.fire(w.shotgunAmmo);
+							std::cout<<"ShotGun Ammo: "<<w.size(w.shotgunAmmo)<<std::endl;
+							std::cout<<std::endl<<std::endl;
+							std::cout<<"==================="<<std::endl;
+
+							break;
+						case sf::Mouse::Right:
+							std::cout<<"Right Mouse Button Pressed"<<std::endl;
+							std::cout<<"ShotGun Ammo: "<<w.size(w.shotgunAmmo)<<std::endl;
+							w.push(w.shotgunAmmo);
+							std::cout<<"ShotGun Ammo: "<<w.size(w.shotgunAmmo)<<std::endl;
+							break;
+						case sf::Event::MouseWheelMoved:
+							window.close();
+							break;
+						default:
+							break;
+					}
 					break;
+
 				default:
 					break;
 			}

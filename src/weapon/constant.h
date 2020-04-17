@@ -13,4 +13,10 @@ int PISTOL_CLIP = 5;
 int SHOTGUN_CLIP = 3;
 int MINE_CLIP = 3;
 
+int TOTAL_SMG = 60;
+int TOTAL_RIFLE = 45;
+int TOTAL_PISTOL = 50;
+int TOTAL_SHOTGUN = 15;
+
+
 #endif // CONSTANT_H
