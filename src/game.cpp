@@ -43,7 +43,7 @@ void Game::Update() {
 
 void Game::Render() {
 	window.clear();
-	window.setView(view);
+	// window.setView(view);
 	if (!states.empty())
 		states.top()->Render();
 	window.display();

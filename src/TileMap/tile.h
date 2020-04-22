@@ -5,14 +5,17 @@
 class Tile {
 		public:
 			Tile() = default;
-			Tile(sf::Vector2f size) : shape(size) {
+			Tile(sf::Vector2f pos) {
 				// if(!texture.loadFromFile("dirt.png")) {
 				// 	std::cout << "failed to load" << std::endl;
 				// }
 				// shape.setTexture(&texture);
-				// temp fix until i can get the texture to load in properly
+				// temp fix until i can get the texture to load in properlys
+
+				// TODO: figure out how to have size of grid and size of the actual shape(in pixels)
+				shape.setSize({25,25});
 				shape.setFillColor(sf::Color(139,69,19));
-				shape.setPosition(size);
+				shape.setPosition(pos);
 				shape.setOutlineThickness(1);
 				shape.setOutlineColor(sf::Color::Green);
 			}

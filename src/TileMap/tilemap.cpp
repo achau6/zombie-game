@@ -6,7 +6,9 @@ TileMap::TileMap() {
 		game_map.push_back(std::vector<Tile>());
 		game_map[i].resize(grid_size);
 		for(size_t j = 0; j < grid_size; j++) {
-			game_map[i].push_back(Tile(sf::Vector2f(i*grid_sizef, j*grid_sizef)));
+			// TODO: remove the magic nums from testing
+			sf::Vector2f pos = sf::Vector2f(i*grid_sizef, j*grid_sizef);
+			game_map[i].push_back(Tile(pos));
 		}
 	}
 }

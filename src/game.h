@@ -18,6 +18,6 @@ private:
 	util::Platform platform;
 	sf::RenderWindow window;
 	sf::Event event;
-	sf::View view;
+	// sf::View view;
 	std::stack<State*> states;
 };
