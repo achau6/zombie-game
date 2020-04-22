@@ -1,5 +1,7 @@
 #include "game_state.h"
 
+// TODO: add delta time so high fps will not mess up the game
+
 class Game {
 public:
 	Game();

@@ -29,6 +29,8 @@ void Game::UpdateEvents() {
 			case sf::Event::MouseButtonPressed:
 				std::cout << "Mouse Button Pressed" << std::endl;
 				break;
+			case sf::Event::KeyPressed:
+				break;
 			default:
 				break;
 		}
@@ -52,6 +54,7 @@ void Game::initWindow() {
 	float screenScalingFactor = platform.getScreenScalingFactor(window.getSystemHandle());
 	// Use the screenScalingFactor
 	window.create(sf::VideoMode(1280 * screenScalingFactor, 720 * screenScalingFactor), "Untitled Zombie Game");
+	window.setFramerateLimit(60);
 	platform.setIcon(window.getSystemHandle());
 }
 

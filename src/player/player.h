@@ -8,7 +8,7 @@ class player
 {
 public:
 	player();
-	void movement(sf::Event event);
+	void movement();
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
 private:

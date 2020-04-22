@@ -1,5 +1,6 @@
 #include "state.h"
 #include "TileMap/tilemap.h"
+#include "player/player.h"
 
 class GameState : public State {
 public:
@@ -9,4 +10,5 @@ public:
 	virtual void Render();
 private:
 	TileMap map;
+	player p1;
 };

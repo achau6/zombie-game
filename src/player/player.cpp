@@ -7,10 +7,10 @@ player::player(){
 	character.setRadius(RADIUS);
 	character.setFillColor(sf::Color::Red);
 	character.setPosition(positionx, positiony);
-	characterCenter = sf::Vector2f(positionx + RADIUS,positiony + RADIUS);
+	characterCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
 }
 
-void player::movement(sf::Event event){
+void player::movement(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		character.setPosition(positionx, positiony - UNITS);
 		positiony -= UNITS;
@@ -22,6 +22,7 @@ void player::movement(sf::Event event){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		character.setPosition(positionx, positiony + UNITS);
 		positiony += UNITS;
+		// std::cout << "S works" << std::endl;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		character.setPosition(positionx + UNITS, positiony);
