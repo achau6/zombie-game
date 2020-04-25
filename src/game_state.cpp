@@ -1,5 +1,10 @@
 #include "game_state.h"
 
+GameState::GameState(sf::RenderWindow* wdw)
+	: State(wdw), p1(window) {
+
+}
+
 GameState::~GameState() {
 
 }

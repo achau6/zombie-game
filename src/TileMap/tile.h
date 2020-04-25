@@ -5,15 +5,13 @@
 class Tile {
 		public:
 			Tile() = default;
-			Tile(sf::Vector2f pos) {
+			Tile(sf::Vector2f size, sf::Vector2f pos)
+				: tile_size{size} {
 				// if(!texture.loadFromFile("dirt.png")) {
 				// 	std::cout << "failed to load" << std::endl;
 				// }
 				// shape.setTexture(&texture);
-				// temp fix until i can get the texture to load in properlys
-
-				// TODO: figure out how to have size of grid and size of the actual shape(in pixels)
-				shape.setSize({50,50});
+				shape.setSize(tile_size);
 				shape.setFillColor(sf::Color(139,69,19));
 				shape.setPosition(pos);
 				shape.setOutlineThickness(1);
@@ -21,10 +19,12 @@ class Tile {
 			}
 
 			void Render(sf::RenderWindow* window) {
-				window->draw(shape); // seg fault
+				window->draw(shape);
 			}
+
+			sf::Vector2f getTileSize() {return tile_size;}
 
 		private:
 			sf::RectangleShape shape;
-			sf::Texture texture;
+			sf::Vector2f tile_size;
 	};

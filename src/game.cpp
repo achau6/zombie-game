@@ -11,7 +11,7 @@ void Game::initWindow() {
 	float screenScalingFactor = platform.getScreenScalingFactor(window.getSystemHandle());
 	// Use the screenScalingFactor
 	window.create(sf::VideoMode(settings.window_width * screenScalingFactor, settings.window_height * screenScalingFactor), "Untitled Zombie Game");
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(144);
 	platform.setIcon(window.getSystemHandle());
 }
 
@@ -58,6 +58,7 @@ void Game::UpdateEvents() {
 }
 
 void Game::Update() {
+	// TODO: REMOVE MAGIC NUMBERS
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		view.move(0.f, -10.f);
 	}
