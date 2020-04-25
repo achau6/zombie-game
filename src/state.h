@@ -19,7 +19,7 @@ public:
 protected:
 	// using ptr to window so its easier draw objs without constantly passing window
 	sf::RenderWindow* window;
-	std::vector<sf::Texture> textures;
+	std::vector<sf::Texture> textures; // TODO: add textures here!
 	bool IsPaused;
 };
 

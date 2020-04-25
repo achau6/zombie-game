@@ -13,7 +13,7 @@ class Tile {
 				// temp fix until i can get the texture to load in properlys
 
 				// TODO: figure out how to have size of grid and size of the actual shape(in pixels)
-				shape.setSize({25,25});
+				shape.setSize({50,50});
 				shape.setFillColor(sf::Color(139,69,19));
 				shape.setPosition(pos);
 				shape.setOutlineThickness(1);

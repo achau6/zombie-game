@@ -1,5 +1,5 @@
 struct GameSettings {
 	GameSettings() = default;
-	float window_height = 1280;
-	float window_width = 720;
+	float window_width = 1280;
+	float window_height = 720;
 };

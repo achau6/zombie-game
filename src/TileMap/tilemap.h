@@ -11,6 +11,6 @@ public:
 
 private:
 	std::vector<std::vector<Tile>> game_map;
-	size_t grid_size = 25;
-	float grid_sizef = 25;
+	size_t grid_size = 50;
+	float grid_sizef = 50;
 };
