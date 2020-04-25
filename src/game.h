@@ -1,4 +1,5 @@
 #include "game_state.h"
+#include "GameSettings.h"
 
 // TODO: add delta time so high fps will not mess up the game
 
@@ -18,6 +19,7 @@ private:
 	util::Platform platform;
 	sf::RenderWindow window;
 	sf::Event event;
-	// sf::View view;
+	sf::View view;
 	std::stack<State*> states;
+	GameSettings settings;
 };

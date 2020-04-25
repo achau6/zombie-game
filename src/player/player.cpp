@@ -1,9 +1,9 @@
 #include "player.h"
 
-player::player(){
-	positionx = 300;
-	positiony = 300;
-	HP = 100;
+player::player(sf::RenderTarget* target){
+	positionx = target->getSize().x/2.f;
+	positiony = target->getSize().y/2.f;
+	this->target = target;
 	character.setRadius(RADIUS);
 	character.setFillColor(sf::Color::Red);
 	character.setPosition(positionx, positiony);

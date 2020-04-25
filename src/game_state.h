@@ -4,7 +4,7 @@
 
 class GameState : public State {
 public:
-	GameState(sf::RenderWindow* wdw) : State(wdw){}
+	GameState(sf::RenderWindow* wdw) : State(wdw), p1(window) {}
 	virtual ~GameState();
 	virtual void Update();
 	virtual void Render();
