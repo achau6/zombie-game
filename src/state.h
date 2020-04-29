@@ -12,7 +12,7 @@ public:
 	State(sf::RenderWindow* wdw) : window(wdw) {}
 	virtual ~State();
 
-	// function must be defined in derived class
+	// forces function to be defined in derived class
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 

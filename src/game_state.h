@@ -10,5 +10,5 @@ public:
 	virtual void Render();
 private:
 	TileMap map;
-	player p1;
+	Player p1;
 };

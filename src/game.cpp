@@ -71,6 +71,9 @@ void Game::Update() {
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		view.move(10, 0.f);
 	}
+
+	if (!states.empty())
+		states.top()->Update();
 }
 
 void Game::Render() {
