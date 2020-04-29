@@ -1,6 +1,6 @@
 #include "player.h"
 
-player::player(sf::RenderTarget* target){
+Player::Player(sf::RenderTarget* target){
 	positionx = target->getSize().x/2.f;
 	positiony = target->getSize().y/2.f;
 	this->target = target;
@@ -10,7 +10,7 @@ player::player(sf::RenderTarget* target){
 	characterCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
 }
 
-void player::movement(){
+void Player::movement(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		character.setPosition(positionx, positiony - UNITS);
 		positiony -= UNITS;
@@ -30,7 +30,7 @@ void player::movement(){
 	}
 }
 
-void player::look(sf::RenderWindow& window){
+void Player::look(sf::RenderWindow& window){
 	characterCenter = sf::Vector2f(positionx + RADIUS,positiony + RADIUS);
 	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 	directionalView = mousePosition - characterCenter;
@@ -38,6 +38,6 @@ void player::look(sf::RenderWindow& window){
 	directionalViewNormalized.y = directionalView.y / sqrt(pow(directionalView.y, 2));
 }
 
-void player::Draw(sf::RenderWindow& window){
+void Player::Draw(sf::RenderWindow& window){
 	window.draw(character);
 }

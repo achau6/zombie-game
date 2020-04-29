@@ -11,7 +11,11 @@ public:
 	virtual void Render();
 private:
 	TileMap map;
+<<<<<<< HEAD
 	player p1;
 	Bullet b;
 
+=======
+	Player p1;
+>>>>>>> map
 };

@@ -6,7 +6,6 @@
 
 
 // TODO: add delta time so high fps will not mess up the game
-// FIXME: bug where rapidly pressing a movement key moves character a small amount.
 
 class Game {
 public:

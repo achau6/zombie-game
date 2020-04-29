@@ -5,11 +5,11 @@
 #include <vector>
 #include "constant.h"
 
-class player
+class Player
 {
 public:
-	player() = default;
-	player(sf::RenderTarget* window);
+	Player() = default;
+	Player(sf::RenderTarget* window);
 	void movement();
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
@@ -17,6 +17,7 @@ private:
 	float positionx = 0;
 	float positiony = 0;
 	float HP = 100;
+
 	sf::Vector2f characterCenter;
 	sf::Vector2f directionalView;
 	sf::Vector2f mousePosition;
