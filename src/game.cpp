@@ -28,6 +28,9 @@ void Game::UpdateEvents() {
 				break;
 			case sf::Event::MouseButtonPressed:
 				std::cout << "Mouse Button Pressed" << std::endl;
+				b.looks(window);
+				b.fire(2);
+				b.Draw(window, 2);
 				break;
 			case sf::Event::KeyPressed:
 				break;

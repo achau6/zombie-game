@@ -1,4 +1,6 @@
 #include "game_state.h"
+#include "weapon/smg.h"
+#include "gun_graphic/bullet.h"
 
 // TODO: add delta time so high fps will not mess up the game
 
@@ -10,6 +12,7 @@ public:
 	void UpdateEvents();
 	void Update();
 	void Render();
+	Bullet b;
 
 private:
 	void initWindow();

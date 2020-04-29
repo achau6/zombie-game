@@ -8,8 +8,18 @@ void GameState::Update() {
 }
 
 void GameState::Render() {
-	map.Render(window);
-	p1.movement();
-	p1.Draw(*window);
+	window->setFramerateLimit(60);
+	// while(window->isOpen())
+	// {
+		//map.Render(window);
+		p1.movement();
+		//g.movement();
+		p1.Draw(*window);
+		//g.Draw(*window);
+		b.looks(*window);
+		b.fire(2);
+		b.Draw(*window, 2);
+	//}
+
 }
 
