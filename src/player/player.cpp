@@ -38,6 +38,17 @@ void Player::look(sf::RenderWindow& window){
 	directionalViewNormalized.y = directionalView.y / sqrt(pow(directionalView.y, 2));
 }
 
+float Player::getPositionX(){
+	return positionx;
+}
+
+float Player::getPositionY(){
+	return positiony;
+}
+
+sf::Vector2f Player::getdirectionalViewNormalized(){
+	return directionalViewNormalized;
+}
 void Player::Draw(sf::RenderWindow& window){
 	window.draw(character);
 }

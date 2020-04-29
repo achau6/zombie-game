@@ -21,7 +21,6 @@ private:
 	void initWindow();
 	void initStates();
 	void initView();
-
 	util::Platform platform;
 	sf::RenderWindow window;
 	sf::Event event;

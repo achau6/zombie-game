@@ -8,11 +8,17 @@
 class Player
 {
 public:
+//constructor
 	Player() = default;
 	Player(sf::RenderTarget* window);
+//mutators
 	void movement();
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
+//accessors
+	float getPositionX();
+	float getPositionY();
+	sf::Vector2f getdirectionalViewNormalized();
 private:
 	float positionx = 0;
 	float positiony = 0;
