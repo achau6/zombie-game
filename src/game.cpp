@@ -3,6 +3,26 @@
 Game::Game() {
 	initWindow();
 	initStates();
+	initView();
+}
+
+void Game::initWindow() {
+    // in Windows at least, this must be called before creating the window
+	float screenScalingFactor = platform.getScreenScalingFactor(window.getSystemHandle());
+	// Use the screenScalingFactor
+	window.create(sf::VideoMode(settings.window_width * screenScalingFactor, settings.window_height * screenScalingFactor), "Untitled Zombie Game");
+	window.setFramerateLimit(144);
+	platform.setIcon(window.getSystemHandle());
+}
+
+void Game::initStates() {
+	states.push(new GameState(&window));
+	// states.push(new MenuState());
+}
+
+void Game::initView() {
+	view.setSize(window.getSize().x, window.getSize().y);
+	view.setCenter(window.getSize().x/2.f, window.getSize().y/2.f);
 }
 
 Game::~Game() {
@@ -41,7 +61,19 @@ void Game::UpdateEvents() {
 }
 
 void Game::Update() {
-
+	// TODO: REMOVE MAGIC NUMBERS
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		view.move(0.f, -10.f);
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		view.move(-10.f, 0.f);
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		view.move(0.f, 10);
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		view.move(10, 0.f);
+	}
 }
 
 void Game::Render() {
@@ -49,20 +81,8 @@ void Game::Render() {
 	window.setView(view);
 	if (!states.empty())
 		states.top()->Render();
+	window.setView(window.getDefaultView());
 	window.display();
 }
 
-void Game::initWindow() {
-    // in Windows at least, this must be called before creating the window
-	float screenScalingFactor = platform.getScreenScalingFactor(window.getSystemHandle());
-	// Use the screenScalingFactor
-	window.create(sf::VideoMode(1280 * screenScalingFactor, 720 * screenScalingFactor), "Untitled Zombie Game");
-	window.setFramerateLimit(60);
-	platform.setIcon(window.getSystemHandle());
-}
-
-void Game::initStates() {
-	states.push(new GameState(&window));
-	// states.push(new MenuState());
-}
 
