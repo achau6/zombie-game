@@ -7,13 +7,14 @@ smg::smg()
 }
 
 void smg::push(sf::CircleShape bullet,
-                    sf::Vector2f velocity)
+                    sf::Vector2f velocity, sf::Vector2f position)
 {
     node<sf::CircleShape>* temp = new node<sf::CircleShape>;
     temp->key = 2;
     temp->shape = bullet;
     temp->prev = nullptr;
     temp->next = nullptr;
+    temp->shape.setPosition(position);
     temp->currentVelocity = velocity;
     if (smgs == nullptr){
         smgs = temp;
@@ -75,6 +76,16 @@ void smg::current()
 
 }
 
+int smg::size()
+{
+    int count = 0;
+    node<sf::CircleShape>* temp = smgs;
+    while(temp != nullptr){
+        count += 1;
+        temp = temp->next;
+    }
+    return count;
+}
 void smg::currentDraw(sf::RenderWindow& window)
 {
     node<sf::CircleShape>* temp = smgs;
@@ -88,14 +99,14 @@ void smg::currentDraw(sf::RenderWindow& window)
     }
 }
 
-void smg::erase()
+void smg::erase(sf::RenderWindow& window)
 {
     node<sf::CircleShape>* temp = smgs;
     int count = 0;
     while(temp != nullptr){
         if(count == currentIndex){
-            if(temp->shape.getPosition().x < 5 || temp->shape.getPosition().x > 20
-            ||temp->shape.getPosition().y < 5 || temp->shape.getPosition().y > 20)
+            if(temp->shape.getPosition().x < -1100 || temp->shape.getPosition().x > window.getSize().x
+            ||temp->shape.getPosition().y < -1640 || temp->shape.getPosition().y > window.getSize().y)
             {
                 std::cout<<"erase"<<std::endl;
                 remove();
@@ -106,10 +117,10 @@ void smg::erase()
     }
 }
 
-void smg::reload(sf::CircleShape bullet, sf::Vector2f velocity)
+void smg::reload(sf::CircleShape bullet, sf::Vector2f velocity, sf::Vector2f position)
 {
 	for(int i = 0; i < 15; i ++)
 	{
-		push(bullet, velocity);
+		push(bullet, velocity, position);
 	}
 }

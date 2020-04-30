@@ -7,13 +7,14 @@ rifle::rifle()
 }
 
 void rifle::push(sf::CircleShape bullet,
-                    sf::Vector2f velocity)
+                    sf::Vector2f velocity, sf::Vector2f position)
 {
     node<sf::CircleShape>* temp = new node<sf::CircleShape>;
     temp->key = 3;
     temp->shape = bullet;
     temp->prev = nullptr;
     temp->next = nullptr;
+    temp->shape.setPosition(position);
     temp->currentVelocity = velocity;
     if (rifles == nullptr){
         rifles = temp;
@@ -74,7 +75,16 @@ void rifle::current()
     }
 
 }
-
+int rifle::size()
+{
+    int count = 0;
+    node<sf::CircleShape>* temp = rifles;
+    while(temp != nullptr){
+        count += 1;
+        temp = temp->next;
+    }
+    return count;
+}
 void rifle::currentDraw(sf::RenderWindow& window)
 {
     node<sf::CircleShape>* temp = rifles;
@@ -88,10 +98,29 @@ void rifle::currentDraw(sf::RenderWindow& window)
     }
 }
 
-void rifle::reload(sf::CircleShape bullet, sf::Vector2f velocity)
+void rifle::erase(sf::RenderWindow& window)
+{
+    node<sf::CircleShape>* temp = rifles;
+    int count = 0;
+    while(temp != nullptr){
+        if(count == currentIndex){
+            if(temp->shape.getPosition().x < -1100 || temp->shape.getPosition().x > window.getSize().x
+            ||temp->shape.getPosition().y < -1640 || temp->shape.getPosition().y > window.getSize().y)
+            {
+                std::cout<<"erase"<<std::endl;
+                remove();
+            }
+        }
+        count += 1;
+        temp = temp->next;
+    }
+}
+
+
+void rifle::reload(sf::CircleShape bullet, sf::Vector2f velocity, sf::Vector2f position)
 {
 	for(int i = 0; i < 15; i ++)
 	{
-		push(bullet, velocity);
+		push(bullet, velocity, position);
 	}
 }

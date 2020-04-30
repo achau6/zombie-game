@@ -7,21 +7,43 @@
 #include "weapon/smg.h"
 #include "weapon/pistol.h"
 #include "weapon/rifle.h"
+#include "player/player.h"
 
 class Bullet
 {
 public:
 	Bullet();
 	smg s;
+	rifle r;
+	pistol p;
+	Player p1;
     //typedef Sequence_Iterator<sf::CircleShape> iter;
-	void fire(int identifier);
+	void fire(int identifier, sf::RenderWindow& window);
 	void Draw(sf::RenderWindow& window, int identifier);
 	void looks(sf::RenderWindow& window);
 	void update();
+	void pick_up_ammo(int identifier);
+
+	//temp counter for reload/give ammo
+	//for now just intiliaze ammo
+	int countSMG = 15;
+	//for now give it extra ammo
+	int maxSMG = 15;
+	int shotsSMG = 0;
+
+	int countRifle = 15;
+	int maxRifle = 15;
+	int shotsRifle = 0;
+
+	int countPistol = 15;
+	int maxPistol = 15;
+	int shotsPistol = 0;
+
 
 private:
-	float positionx;
-	float positiony;
+	float positionx = 0;
+	float positiony = 0;
+	sf::Vector2f positioned;
 	float maxSpeed;
 	float dupePosx;
 	float dupePosy;
