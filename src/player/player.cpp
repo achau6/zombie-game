@@ -39,6 +39,7 @@ void Player::movement(){
 			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
 		}
 	}
+	//TEST CASE
 	else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && (sf::Keyboard::isKeyPressed(sf::Keyboard::A))){
 		if (collisionCheck.legalMovement(positionx - UNITS, positiony - UNITS)){
 			character.setPosition(positionx - UNITS, positiony - UNITS);
@@ -47,6 +48,15 @@ void Player::movement(){
 			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
 		}
 	}
+}
+
+sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
+	if(positionx > 0)
+		grid_pos.x = positionx / grid_size.x;
+	if(positiony > 0)
+		grid_pos.y = positiony / grid_size.y;
+
+	return grid_pos;
 }
 
 void Player::look(sf::RenderWindow& window){
