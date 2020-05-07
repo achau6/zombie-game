@@ -15,6 +15,9 @@ TileMap::TileMap() {
 			}
 		}
 	}
+	// Wall.setPosition(300, 300);
+	// Wall.setSize(sf::Vector2f(100, 100));
+	// Wall.setFillColor(sf::Color::White);
 }
 
 void TileMap::Update() {
@@ -29,4 +32,5 @@ void TileMap::Render(sf::RenderWindow* window) {
 			}
 		}
 	}
+	//window->draw(Wall);
 }

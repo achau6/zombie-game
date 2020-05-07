@@ -39,18 +39,23 @@ void Player::movement(){
 			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
 		}
 	}
+	else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && (sf::Keyboard::isKeyPressed(sf::Keyboard::A))){
+		if (collisionCheck.legalMovement(positionx - UNITS, positiony - UNITS)){
+			character.setPosition(positionx - UNITS, positiony - UNITS);
+			positionx -= UNITS;
+			positiony -= UNITS;
+			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+		}
+	}
 }
 
 void Player::look(sf::RenderWindow& window){
 	characterCenter = sf::Vector2f(positionx + RADIUS,positiony + RADIUS);
 	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 	directionalView = mousePosition - characterCenter;
-	directionalViewNormalized.x = directionalView.x / sqrt(pow(directionalView.x, 2));
-	directionalViewNormalized.y = directionalView.y / sqrt(pow(directionalView.y, 2));
+	directionalViewNormalized = directionalView / (float)(sqrt(pow(directionalView.x, 2) + pow(directionalView.y, 2)));
 }
-// sf::Vector2f& Player::getPosition(){
-//     return character.getPosition;
-// }
+
 float& Player::getPositionX(){
 	return positionx;
 }
