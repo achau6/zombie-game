@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <cctype>
 #include <ctime>
+#include <sstream>
 #include "Platform/Platform.hpp"
 
 class State {

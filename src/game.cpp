@@ -1,10 +1,8 @@
 #include "game.h"
 
 Game::Game() {
-
 	initWindow();
 	initStates();
-	initView();
 }
 
 void Game::initWindow() {
@@ -19,11 +17,6 @@ void Game::initWindow() {
 void Game::initStates() {
 	states.push(new GameState(&window));
 	// states.push(new MenuState());
-}
-
-void Game::initView() {
-	view.setSize(window.getSize().x, window.getSize().y);
-	view.setCenter(window.getSize().x/2.f, window.getSize().y/2.f);
 }
 
 Game::~Game() {
@@ -48,7 +41,7 @@ void Game::UpdateEvents() {
 				window.close();
 				break;
 			case sf::Event::MouseButtonPressed:
-				std::cout << "Mouse Button Pressed" << std::endl;
+				// std::cout << "Mouse Button Pressed" << std::endl;
 				break;
 			case sf::Event::KeyPressed:
 				break;
@@ -59,30 +52,14 @@ void Game::UpdateEvents() {
 }
 
 void Game::Update() {
-	// TODO: REMOVE MAGIC NUMBERS
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		view.move(0.f, -10.f);
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		view.move(-10.f, 0.f);
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		view.move(0.f, 10);
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		view.move(10, 0.f);
-	}
-
 	if (!states.empty())
 		states.top()->Update();
 }
 
 void Game::Render() {
 	window.clear();
-	window.setView(view);
 	if (!states.empty())
 		states.top()->Render();
-	window.setView(window.getDefaultView());
 	window.display();
 }
 
