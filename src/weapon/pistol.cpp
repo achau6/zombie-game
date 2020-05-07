@@ -7,13 +7,14 @@ pistol::pistol()
 }
 
 void pistol::push(sf::CircleShape bullet,
-                    sf::Vector2f velocity)
+                    sf::Vector2f velocity, sf::Vector2f position)
 {
     node<sf::CircleShape>* temp = new node<sf::CircleShape>;
     temp->key = 1;
     temp->shape = bullet;
     temp->prev = nullptr;
     temp->next = nullptr;
+    temp->shape.setPosition(position);
     temp->currentVelocity = velocity;
     if (pistols == nullptr){
         pistols = temp;
@@ -75,6 +76,17 @@ void pistol::current()
 
 }
 
+int pistol::size()
+{
+    int count = 0;
+    node<sf::CircleShape>* temp = pistols;
+    while(temp != nullptr){
+        count += 1;
+        temp = temp->next;
+    }
+    return count;
+}
+
 void pistol::currentDraw(sf::RenderWindow& window)
 {
     node<sf::CircleShape>* temp = pistols;
@@ -88,10 +100,28 @@ void pistol::currentDraw(sf::RenderWindow& window)
     }
 }
 
-void pistol::reload(sf::CircleShape bullet, sf::Vector2f velocity)
+void pistol::erase(sf::RenderWindow& window)
+{
+    node<sf::CircleShape>* temp = pistols;
+    int count = 0;
+    while(temp != nullptr){
+        if(count == currentIndex){
+            if(temp->shape.getPosition().x < -1100 || temp->shape.getPosition().x > window.getSize().x
+            ||temp->shape.getPosition().y < -1640 || temp->shape.getPosition().y > window.getSize().y)
+            {
+                std::cout<<"erase"<<std::endl;
+                remove();
+            }
+        }
+        count += 1;
+        temp = temp->next;
+    }
+}
+
+void pistol::reload(sf::CircleShape bullet, sf::Vector2f velocity, sf::Vector2f position)
 {
 	for(int i = 0; i < 15; i ++)
 	{
-		push(bullet, velocity);
+		push(bullet, velocity, position);
 	}
 }

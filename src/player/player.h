@@ -17,8 +17,9 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
 //accessors
-	float getPositionX();
-	float getPositionY();
+	float& getPositionX();
+	float& getPositionY();
+	sf::Vector2f& getPosition();
 	sf::Vector2f getdirectionalViewNormalized();
 private:
 	float positionx = 0;

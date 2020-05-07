@@ -19,16 +19,17 @@ public:
 	smg();
 	node<sf::CircleShape>* smgs;
 	void reload(sf::CircleShape bullet,
-                sf::Vector2f velocity);
+                sf::Vector2f velocity, sf::Vector2f position);
 	void push(sf::CircleShape bullet,
-            	sf::Vector2f velocity);
-	void erase();
+            	sf::Vector2f velocity, sf::Vector2f position);
+	void erase(sf::RenderWindow& window);
 	void current();
     void currentDraw(sf::RenderWindow& window);
 	bool is_item();
 	void start();
 	void advance();
 	void remove();
+	int size();
 	int currentIndex;
 private:
 
