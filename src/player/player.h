@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include "constant.h"
+#include "Collision\collision.h"
 
 class Player
 {
@@ -30,6 +31,7 @@ private:
 	sf::Vector2f directionalViewNormalized;
 	sf::CircleShape character;
 	sf::RenderTarget* target;
+	Collision collisionCheck;
 };
 
 #endif // PLAYER_H

@@ -5,28 +5,39 @@ Player::Player(sf::RenderTarget* target){
 	positiony = target->getSize().y/2.f;
 	this->target = target;
 	character.setRadius(RADIUS);
-	character.setFillColor(sf::Color::Red);
+	character.setFillColor(sf::Color::Blue);
 	character.setPosition(positionx, positiony);
 	characterCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
 }
 
 void Player::movement(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		character.setPosition(positionx, positiony - UNITS);
-		positiony -= UNITS;
+		if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
+			character.setPosition(positionx, positiony - UNITS);
+			positiony -= UNITS;
+			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		character.setPosition(positionx - UNITS, positiony);
-		positionx -= UNITS;
+		if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
+			character.setPosition(positionx - UNITS, positiony);
+			positionx -= UNITS;
+			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		character.setPosition(positionx, positiony + UNITS);
-		positiony += UNITS;
-		// std::cout << "S works" << std::endl;
+		if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
+			character.setPosition(positionx, positiony + UNITS);
+			positiony += UNITS;
+			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		character.setPosition(positionx + UNITS, positiony);
-		positionx += UNITS;
+		if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
+			character.setPosition(positionx + UNITS, positiony);
+			positionx += UNITS;
+			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+		}
 	}
 }
 
@@ -49,6 +60,7 @@ float Player::getPositionY(){
 sf::Vector2f Player::getdirectionalViewNormalized(){
 	return directionalViewNormalized;
 }
+
 void Player::Draw(sf::RenderWindow& window){
 	window.draw(character);
 }
