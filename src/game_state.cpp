@@ -6,7 +6,8 @@ GameState::GameState(sf::RenderWindow* wdw)
 		font.loadFromFile("content/arial.ttf");
 		cord_pos.setFont(font);
 		cord_pos.setFillColor(sf::Color::White);
-		cord_pos.setCharacterSize(30);
+		// TODO: REMOVE MAGIC NUMS 15
+		cord_pos.setCharacterSize(15);
 }
 
 GameState::~GameState() {
@@ -39,12 +40,14 @@ void GameState::Update() {
 }
 
 void GameState::Render() {
-	// g.Draw(*window);
+	// GAME VIEW
 	map.Render(window);
 	p1.Draw(*window);
 	b.Draw(*window, 2);
+
+	// UI VIEW (SO TEXT DOESNT MOVE WITH CAM)
+	window->setView(window->getDefaultView());
 	window->draw(cord_pos);
-	// window->setView(window->getDefaultView());
 }
 
 void GameState::initMousePositions() {
