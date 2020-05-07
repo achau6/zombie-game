@@ -17,13 +17,13 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
 //accessors
-	float& getPositionX();
-	float& getPositionY();
-	sf::Vector2f& getPosition();
+	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
+	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
 private:
 	float positionx = 0;
 	float positiony = 0;
+	sf::Vector2u grid_pos;
 	float HP = 100;
 
 	sf::Vector2f characterCenter;

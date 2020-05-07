@@ -41,22 +41,21 @@ void Player::movement(){
 	}
 }
 
+sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
+	if(positionx > 0)
+		grid_pos.x = positionx / grid_size.x;
+	if(positiony > 0)
+		grid_pos.y = positiony / grid_size.y;
+
+	return grid_pos;
+}
+
 void Player::look(sf::RenderWindow& window){
 	characterCenter = sf::Vector2f(positionx + RADIUS,positiony + RADIUS);
 	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 	directionalView = mousePosition - characterCenter;
 	directionalViewNormalized.x = directionalView.x / sqrt(pow(directionalView.x, 2));
 	directionalViewNormalized.y = directionalView.y / sqrt(pow(directionalView.y, 2));
-}
-// sf::Vector2f& Player::getPosition(){
-//     return character.getPosition;
-// }
-float& Player::getPositionX(){
-	return positionx;
-}
-
-float& Player::getPositionY(){
-	return positiony;
 }
 
 sf::Vector2f Player::getdirectionalViewNormalized(){
