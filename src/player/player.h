@@ -20,8 +20,8 @@ public:
 	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
-	float& Player::getPositionX();
-	float& Player::getPositionY();
+	float& getPositionX();
+	float& getPositionY();
 private:
 	float positionx = 0;
 	float positiony = 0;
