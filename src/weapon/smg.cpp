@@ -99,14 +99,14 @@ void smg::currentDraw(sf::RenderWindow& window)
     }
 }
 
-void smg::erase(sf::RenderWindow& window)
+void smg::erase()
 {
     node<sf::CircleShape>* temp = smgs;
     int count = 0;
     while(temp != nullptr){
         if(count == currentIndex){
-            if(temp->shape.getPosition().x < -1100 || temp->shape.getPosition().x > window.getSize().x
-            ||temp->shape.getPosition().y < -1640 || temp->shape.getPosition().y > window.getSize().y)
+            if(temp->shape.getPosition().x < 0 || temp->shape.getPosition().x > 2480
+            ||temp->shape.getPosition().y < 0 || temp->shape.getPosition().y > 2480)
             {
                 std::cout<<"erase"<<std::endl;
                 remove();

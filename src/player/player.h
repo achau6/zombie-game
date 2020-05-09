@@ -5,6 +5,7 @@
 #include <vector>
 #include "constant.h"
 #include "Collision\collision.h"
+#include <stdio.h>
 
 class Player
 {
@@ -19,7 +20,15 @@ public:
 //accessors
 	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
-	sf::Vector2f getdirectionalViewNormalized();
+	sf::Vector2f getCharacterCenter();
+	float getPositionY();
+	float getPositionX();
+	// float getMosPositionY();
+	// float getMosPositionX();
+	// float mousePositionY;
+	// float mousePositionX;
+
+
 private:
 	float positionx = 0;
 	float positiony = 0;

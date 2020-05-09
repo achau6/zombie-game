@@ -4,34 +4,51 @@
 #include <assert.h>
 Bullet::Bullet()
 {
-	positioned.x = 305;
-	positioned.y = 305;
-	bullet.setRadius(10);
+
+	bullet.setRadius(5);
 	bullet.setFillColor(sf::Color::White);
-	bullet.setPosition(bulletCenter);
 	velocity = sf::Vector2f(0.f, 0.f);
-	maxSpeed = 15.f;
+	maxSpeed = 5.f;
 	pistolFireRate = 0;
-	smgFireRate = 0;
+	smgFireRate = 14;
 	shotgunFireRate = 0;
 	rifleFireRate = 0;
 }
 
-void Bullet::fire(int identifier, sf::RenderWindow& window)
+void Bullet::fire(int identifier, sf::RenderWindow& window, float Xpos, float Ypos)
 {
+	bulletCenter = sf::Vector2f(Xpos + RADIUS, Ypos + RADIUS);
+
+	bullet.setPosition(bulletCenter);
+
+
+	mousePosition.x = sf::Mouse::getPosition(window).x;
+    mousePosition.y = sf::Mouse::getPosition(window).y;
+	mousePosition.x -= 640;
+    mousePosition.y -= 360;
+    mousePosition.x += Xpos;
+    mousePosition.y += Ypos;
+	std::cout<<"MousePos: "<<mousePosition.x<<", "<<mousePosition.y<<std::endl;
+
+	aimView = mousePosition - bulletCenter;
+
+	float num = sqrt(pow(aimView.x, 2) + pow(aimView.y, 2));
+	aimViewNormalized = aimView / num;
+
+
 	velocity = aimViewNormalized * maxSpeed;
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		std::cout<<"Left Mouse of bullet"<<std::endl;
 		if(identifier == 2){
 			std::cout<<"smg"<<std::endl;
-			if(smgFireRate < 6)
+			if(smgFireRate < 14)
 			{
 				smgFireRate ++;
 			}
 			if(shotsSMG < (countSMG*5))
 			{
 				std::cout<<"Add Ammo"<<std::endl;
-				if(smgFireRate >= 5)
+				if(smgFireRate >= 13)
 				{
 					for(int i = 0; i < 15; i ++){
 						s.push(bullet, velocity, bulletCenter);
@@ -59,10 +76,7 @@ void Bullet::fire(int identifier, sf::RenderWindow& window)
 				std::cout<<"New Ammo Count: "<<countSMG<<std::endl;
 
 			}
-			for (s.start(); s.is_item(); s.advance()) {
-				s.current();
-				s.erase(window);
-			}
+
 
 		} else if(identifier == 1){
 			std::cout<<"pistol"<<std::endl;
@@ -101,10 +115,7 @@ void Bullet::fire(int identifier, sf::RenderWindow& window)
 				std::cout<<"New Ammo Count: "<<countPistol<<std::endl;
 
 			}
-			for (p.start(); p.is_item(); p.advance()) {
-				p.current();
-				p.erase(window);
-			}
+
 
 
 		}else if(identifier == 3){
@@ -144,46 +155,36 @@ void Bullet::fire(int identifier, sf::RenderWindow& window)
 				std::cout<<"New Ammo Count: "<<countRifle<<std::endl;
 
 			}
-			for (r.start(); r.is_item(); r.advance()) {
-				r.current();
-				r.erase(window);
-			}
 
 
 		}
 
 	}
 
+	update(identifier, window);
 }
 
-void Bullet::looks(sf::RenderWindow& window)
+void Bullet::update(int identifier, sf::RenderWindow& window)
 {
-	bulletCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
-	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
-	aimView = mousePosition - bulletCenter;
-	aimViewNormalized = aimView / (float)(sqrt(pow(aimView.x, 2) + pow(aimView.y, 2)));
-	//aimViewNormalized.y = aimView.y / sqrt(pow(aimView.y, 2));
-	//std::cout<<"x: "<<aimView.x<<std::endl;
-	//std::cout<<"y: "<<aimView.y<<std::endl;
-
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		bullet.setPosition(positionx, positiony - UNITS);
-		positiony -= UNITS;
+	if(identifier == 1)
+	{
+		for (p.start(); p.is_item(); p.advance()) {
+			p.current();
+			p.erase(window);
+		}
+	} else if(identifier == 2)
+	{
+		for (s.start(); s.is_item(); s.advance()) {
+			s.current();
+			s.erase();
+		}
+	} else if(identifier == 3)
+	{
+		for (r.start(); r.is_item(); r.advance()) {
+			r.current();
+			r.erase(window);
+		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		bullet.setPosition(positionx - UNITS, positiony);
-		positionx -= UNITS;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		bullet.setPosition(positionx, positiony + UNITS);
-		positiony += UNITS;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		bullet.setPosition(positionx + UNITS, positiony);
-		positionx += UNITS;
-	}
-
 }
 
 void Bullet::pick_up_ammo(int identifier)

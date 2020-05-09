@@ -11,10 +11,13 @@ Player::Player(sf::RenderTarget* target){
 }
 
 void Player::movement(){
+
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
 			character.setPosition(positionx, positiony - UNITS);
 			positiony -= UNITS;
+
 			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
 		}
 	}
@@ -22,6 +25,7 @@ void Player::movement(){
 		if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
 			character.setPosition(positionx - UNITS, positiony);
 			positionx -= UNITS;
+
 			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
 		}
 	}
@@ -29,6 +33,7 @@ void Player::movement(){
 		if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
 			character.setPosition(positionx, positiony + UNITS);
 			positiony += UNITS;
+
 			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
 		}
 	}
@@ -36,6 +41,7 @@ void Player::movement(){
 		if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
 			character.setPosition(positionx + UNITS, positiony);
 			positionx += UNITS;
+
 			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
 		}
 	}
@@ -54,12 +60,19 @@ void Player::look(sf::RenderWindow& window){
 	characterCenter = sf::Vector2f(positionx + RADIUS,positiony + RADIUS);
 	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 	directionalView = mousePosition - characterCenter;
-	directionalViewNormalized.x = directionalView.x / sqrt(pow(directionalView.x, 2));
-	directionalViewNormalized.y = directionalView.y / sqrt(pow(directionalView.y, 2));
+	float num = sqrt(pow(directionalView.x, 2) + pow(directionalView.y, 2));
+	directionalViewNormalized = directionalView / num;
 }
 
-sf::Vector2f Player::getdirectionalViewNormalized(){
-	return directionalViewNormalized;
+sf::Vector2f Player::getCharacterCenter(){
+	return characterCenter;
+}
+
+float Player::getPositionX(){
+	return positionx;
+}
+float Player::getPositionY(){
+	return positiony;
 }
 
 void Player::Draw(sf::RenderWindow& window){

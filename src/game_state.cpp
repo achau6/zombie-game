@@ -21,17 +21,18 @@ void GameState::Update() {
 	// p1.getGridPosition(map.getGridSize()).x;
 
 	//g.movement();
-	b.looks(*window);
-	b.fire(2, *window);
+	p1.look(*window);
+	//sf::Vector2f temp = sf::Vector2f(floatcamera.getCamView());
+	b.fire(2, *window, p1.getPositionX(), p1.getPositionY());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
 
 	ss << "Screen: " << mouse_pos_screen.x << " " << mouse_pos_screen.y << "\n";
 	ss << "Window: " << mouse_pos_window.x << " " << mouse_pos_window.y << "\n";
+	ss << "Character: " << p1.getPositionX() <<" " << p1.getPositionY() << std::endl;
 	ss << "View: " << mouse_pos_view.x << " " << mouse_pos_view.y << "\n";
 	ss << "Grid: " << p1.getGridPosition(map.getGridSize()).x << " " << p1.getGridPosition(map.getGridSize()).y << "\n";
-
 	cord_pos.setString(ss.str());
 	// clearing string stream
 	ss.str("");
@@ -59,4 +60,3 @@ void GameState::initMousePositions() {
 	if(mouse_pos_view.y > 0)
 		mouse_pos_grid.y = mouse_pos_view.y / map.getGridSize().y;
 }
-
