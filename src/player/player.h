@@ -20,6 +20,7 @@ public:
 //accessors
 	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
+<<<<<<< HEAD
 	sf::Vector2f getCharacterCenter();
 	float getPositionY();
 	float getPositionX();
@@ -29,6 +30,11 @@ public:
 	// float mousePositionX;
 
 
+=======
+	sf::Vector2f getdirectionalViewNormalized();
+	float& getPositionX();
+	float& getPositionY();
+>>>>>>> 76515cc4c4fb5b4f25b365cd57272b6273045eac
 private:
 	float positionx = 0;
 	float positiony = 0;

@@ -16,5 +16,5 @@ private:
 	sf::Vector2u grid_size = {50,50};
 	size_t layers = 2;
 	sf::Vector2f tile_size = {50,50};
-
+	sf::RectangleShape Wall;
 };
