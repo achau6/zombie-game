@@ -3,6 +3,7 @@
 Player::Player(sf::RenderTarget* target){
 	positionx = target->getSize().x/2.f;
 	positiony = target->getSize().y/2.f;
+	std::cout<<positionx<<" "<<positiony<<std::endl;
 	this->target = target;
 	character.setRadius(RADIUS);
 	character.setFillColor(sf::Color::Blue);
@@ -11,41 +12,88 @@ Player::Player(sf::RenderTarget* target){
 }
 
 void Player::movement(){
+	//Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
 			character.setPosition(positionx, positiony - UNITS);
 			positiony -= UNITS;
-			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+			//Diagonally move up and right
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+				if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
+					character.setPosition(positionx + UNITS, positiony);
+					positionx += UNITS;
+				}
+			}
+			//Diagonally move up and left
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+				if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
+					character.setPosition(positionx - UNITS, positiony);
+					positionx -= UNITS;
+				}
+			}
 		}
 	}
+	//Move Left
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
 			character.setPosition(positionx - UNITS, positiony);
 			positionx -= UNITS;
-			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+			//Diagonally move left and up
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+				if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
+					character.setPosition(positionx, positiony - UNITS);
+					positiony -= UNITS;
+				}
+			}
+			//Diagonally move left and down
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+				if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
+					character.setPosition(positionx, positiony + UNITS);
+					positiony += UNITS;
+				}
+			}
 		}
 	}
+	//Move Down
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
 			character.setPosition(positionx, positiony + UNITS);
 			positiony += UNITS;
-			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+			//Diagonally move down and right
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+				if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
+					character.setPosition(positionx + UNITS, positiony);
+					positionx += UNITS;
+				}
+			}
+			//Diagonally move down and left
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+				if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
+					character.setPosition(positionx - UNITS, positiony);
+					positionx -= UNITS;
+				}
+			}
 		}
 	}
+	//Move Right
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
 			character.setPosition(positionx + UNITS, positiony);
 			positionx += UNITS;
-			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
-		}
-	}
-	//TEST CASE
-	else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && (sf::Keyboard::isKeyPressed(sf::Keyboard::A))){
-		if (collisionCheck.legalMovement(positionx - UNITS, positiony - UNITS)){
-			character.setPosition(positionx - UNITS, positiony - UNITS);
-			positionx -= UNITS;
-			positiony -= UNITS;
-			std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
+			//Diagonally move right and up
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+				if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
+					character.setPosition(positionx, positiony - UNITS);
+					positiony -= UNITS;
+				}
+			}
+			//Diagonally move right and down
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+				if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
+					character.setPosition(positionx, positiony + UNITS);
+					positiony += UNITS;
+				}
+			}
 		}
 	}
 }
