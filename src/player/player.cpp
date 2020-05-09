@@ -81,17 +81,8 @@ float& Player::getPositionX(){
 
 float& Player::getPositionY(){
 	return positiony;
-
-sf::Vector2f Player::getCharacterCenter(){
-	return characterCenter;
 }
 
-float Player::getPositionX(){
-	return positionx;
-}
-float Player::getPositionY(){
-	return positiony;
-}
 
 void Player::Draw(sf::RenderWindow& window){
 	window.draw(character);
