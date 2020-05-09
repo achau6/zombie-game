@@ -111,7 +111,10 @@ void Player::look(sf::RenderWindow& window){
 	characterCenter = sf::Vector2f(positionx + RADIUS,positiony + RADIUS);
 	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 	directionalView = mousePosition - characterCenter;
-	directionalViewNormalized = directionalView / (float)(sqrt(pow(directionalView.x, 2) + pow(directionalView.y, 2)));
+
+	float num = sqrt(pow(directionalView.x, 2) + pow(directionalView.y, 2));
+	directionalViewNormalized = directionalView / num;
+
 }
 
 float& Player::getPositionX(){
@@ -122,9 +125,6 @@ float& Player::getPositionY(){
 	return positiony;
 }
 
-sf::Vector2f Player::getdirectionalViewNormalized(){
-	return directionalViewNormalized;
-}
 
 void Player::Draw(sf::RenderWindow& window){
 	window.draw(character);

@@ -18,17 +18,17 @@ public:
 	pistol p;
 	Player p1;
     //typedef Sequence_Iterator<sf::CircleShape> iter;
-	void fire(int identifier, sf::RenderWindow& window);
+	void fire(int identifier, sf::RenderWindow& window, float Xpos, float Ypos);
 	void Draw(sf::RenderWindow& window, int identifier);
-	void looks(sf::RenderWindow& window);
-	void update();
+	void update(int identifier, sf::RenderWindow& window);
 	void pick_up_ammo(int identifier);
+
 
 	//temp counter for reload/give ammo
 	//for now just intiliaze ammo
 	int countSMG = 15;
 	//for now give it extra ammo
-	int maxSMG = 15;
+	int maxSMG = 900;
 	int shotsSMG = 0;
 
 	int countRifle = 15;

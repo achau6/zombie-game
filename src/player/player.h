@@ -5,6 +5,7 @@
 #include <vector>
 #include "constant.h"
 #include "Collision\collision.h"
+#include <stdio.h>
 
 class Player
 {
