@@ -9,7 +9,7 @@ Player::Player(sf::RenderTarget* target){
 	character.setFillColor(sf::Color::Blue);
 	character.setPosition(positionx, positiony);
 	//characterCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
-	if (!texture.loadFromFile("C:/Users/Jimmy/Desktop/Project/Project/zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png")){
+	if (!texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png")){
 		std::cout<<"Shit dont work\n";
 	}
 	playerSprite.setTexture(texture);
