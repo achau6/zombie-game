@@ -25,7 +25,6 @@ void Player::movement(){
 			character.setPosition(positionx, positiony - UNITS);
 			playerSprite.setPosition(positionx, positiony - UNITS);
 			positiony -= UNITS;
-<<<<<<< HEAD
 			//Diagonally move up and right
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 				if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
@@ -42,9 +41,6 @@ void Player::movement(){
 					positionx -= UNITS;
 				}
 			}
-=======
-			// std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
->>>>>>> zombies
 		}
 	}
 	//Move Left
@@ -53,7 +49,6 @@ void Player::movement(){
 			character.setPosition(positionx - UNITS, positiony);
 			playerSprite.setPosition(positionx - UNITS, positiony);
 			positionx -= UNITS;
-<<<<<<< HEAD
 			//Diagonally move left and up
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 				if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
@@ -70,9 +65,6 @@ void Player::movement(){
 					positiony += UNITS;
 				}
 			}
-=======
-			// std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
->>>>>>> zombies
 		}
 	}
 	//Move Down
@@ -81,7 +73,6 @@ void Player::movement(){
 			character.setPosition(positionx, positiony + UNITS);
 			playerSprite.setPosition(positionx, positiony + UNITS);
 			positiony += UNITS;
-<<<<<<< HEAD
 			//Diagonally move down and right
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 				if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
@@ -98,9 +89,6 @@ void Player::movement(){
 					positionx -= UNITS;
 				}
 			}
-=======
-			// std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
->>>>>>> zombies
 		}
 	}
 	//Move Right
@@ -109,7 +97,6 @@ void Player::movement(){
 			character.setPosition(positionx + UNITS, positiony);
 			playerSprite.setPosition(positionx + UNITS, positiony);
 			positionx += UNITS;
-<<<<<<< HEAD
 			//Diagonally move right and up
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 				if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
@@ -126,9 +113,6 @@ void Player::movement(){
 					positiony += UNITS;
 				}
 			}
-=======
-			// std::cout<<"XXXXX: "<<positionx<<" NEW Y: "<<positiony<<std::endl;
->>>>>>> zombies
 		}
 	}
 }

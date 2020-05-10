@@ -23,6 +23,8 @@ public:
 	sf::Vector2f getdirectionalViewNormalized();
 	float& getPositionX();
 	float& getPositionY();
+	sf::Sprite getPlayerSprite() {return playerSprite;}
+
 private:
 	float positionx = 0;
 	float positiony = 0;

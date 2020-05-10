@@ -5,7 +5,7 @@
 class Tile {
 public:
 	Tile() = default;
-	Tile(sf::Vector2f size, sf::Vector2f pos, sf::Texture texture = sf::Texture())
+	Tile(sf::Vector2f size, sf::Vector2f pos)
 		: tile_size{size} {
 		shape.setSize(tile_size);
 		shape.setFillColor(sf::Color(139,69,19));
