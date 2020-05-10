@@ -1,7 +1,8 @@
- #include "bullet.h"
+#include "bullet.h"
 #include "math.h"
 #include <vector>
 #include <assert.h>
+
 Bullet::Bullet()
 {
 
