@@ -23,25 +23,22 @@ void Player::movement(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
 			character.setPosition(positionx, positiony - UNITS);
-			playerSprite.setPosition(spritePosX, spritePosY - UNITS);
+			playerSprite.setPosition(positionx, positiony - UNITS);
 			positiony -= UNITS;
-			spritePosY -= UNITS;
 			//Diagonally move up and right
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 				if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
 					character.setPosition(positionx + UNITS, positiony);
-					playerSprite.setPosition(spritePosX + UNITS, spritePosY);
+					playerSprite.setPosition(positionx + UNITS, positiony);
 					positionx += UNITS;
-					spritePosX += UNITS;
 				}
 			}
 			//Diagonally move up and left
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 				if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
 					character.setPosition(positionx - UNITS, positiony);
-					playerSprite.setPosition(spritePosX - UNITS, spritePosY);
+					playerSprite.setPosition(positionx - UNITS, positiony);
 					positionx -= UNITS;
-					spritePosX -= UNITS;
 				}
 			}
 		}
@@ -50,25 +47,22 @@ void Player::movement(){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
 			character.setPosition(positionx - UNITS, positiony);
-			playerSprite.setPosition(spritePosX - UNITS, spritePosY);
+			playerSprite.setPosition(positionx - UNITS, positiony);
 			positionx -= UNITS;
-			spritePosX -= UNITS;
 			//Diagonally move left and up
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 				if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
 					character.setPosition(positionx, positiony - UNITS);
-					playerSprite.setPosition(spritePosX, spritePosY - UNITS);
+					playerSprite.setPosition(positionx, positiony - UNITS);
 					positiony -= UNITS;
-					spritePosY -= UNITS;
 				}
 			}
 			//Diagonally move left and down
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 				if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
 					character.setPosition(positionx, positiony + UNITS);
-					playerSprite.setPosition(spritePosX, spritePosY + UNITS);
+					playerSprite.setPosition(positionx, positiony + UNITS);
 					positiony += UNITS;
-					spritePosY += UNITS;
 				}
 			}
 		}
@@ -77,25 +71,22 @@ void Player::movement(){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
 			character.setPosition(positionx, positiony + UNITS);
-			playerSprite.setPosition(spritePosX, spritePosY + UNITS);
+			playerSprite.setPosition(positionx, positiony + UNITS);
 			positiony += UNITS;
-			spritePosY += UNITS;
 			//Diagonally move down and right
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 				if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
 					character.setPosition(positionx + UNITS, positiony);
-					playerSprite.setPosition(spritePosX + UNITS, spritePosY);
+					playerSprite.setPosition(positionx + UNITS, positiony);
 					positionx += UNITS;
-					spritePosX += UNITS;
 				}
 			}
 			//Diagonally move down and left
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 				if (collisionCheck.legalMovement(positionx - UNITS, positiony)){
 					character.setPosition(positionx - UNITS, positiony);
-					playerSprite.setPosition(spritePosX - UNITS, spritePosY);
+					playerSprite.setPosition(positionx - UNITS, positiony);
 					positionx -= UNITS;
-					spritePosX -= UNITS;
 				}
 			}
 		}
@@ -104,25 +95,22 @@ void Player::movement(){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		if (collisionCheck.legalMovement(positionx + UNITS, positiony)){
 			character.setPosition(positionx + UNITS, positiony);
-			playerSprite.setPosition(spritePosX + UNITS, spritePosY);
+			playerSprite.setPosition(positionx + UNITS, positiony);
 			positionx += UNITS;
-			spritePosX += UNITS;
 			//Diagonally move right and up
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 				if (collisionCheck.legalMovement(positionx, positiony - UNITS)){
 					character.setPosition(positionx, positiony - UNITS);
-					playerSprite.setPosition(spritePosX, spritePosY - UNITS);
+					playerSprite.setPosition(positionx, positiony - UNITS);
 					positiony -= UNITS;
-					spritePosY -= UNITS;
 				}
 			}
 			//Diagonally move right and down
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 				if (collisionCheck.legalMovement(positionx, positiony + UNITS)){
 					character.setPosition(positionx, positiony + UNITS);
-					playerSprite.setPosition(spritePosX, spritePosY + UNITS);
+					playerSprite.setPosition(positionx, positiony + UNITS);
 					positiony += UNITS;
-					spritePosY += UNITS;
 				}
 			}
 		}
