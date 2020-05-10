@@ -1,11 +1,17 @@
- #include "bullet.h"
+#include "bullet.h"
 #include "math.h"
 #include <vector>
 #include <assert.h>
 Bullet::Bullet()
 {
+<<<<<<< HEAD
 
 	bullet.setRadius(5);
+=======
+	positioned.x = 305;
+	positioned.y = 305;
+	bullet.setRadius(1);
+>>>>>>> zombies
 	bullet.setFillColor(sf::Color::White);
 	velocity = sf::Vector2f(0.f, 0.f);
 	maxSpeed = 5.f;
@@ -15,7 +21,12 @@ Bullet::Bullet()
 	rifleFireRate = 0;
 }
 
+<<<<<<< HEAD
 void Bullet::fire(int identifier, sf::RenderWindow& window, float Xpos, float Ypos)
+=======
+// FIXME: MAGIC NUMBERS HERE BIG NO NO
+void Bullet::fire(int identifier, sf::RenderWindow& window)
+>>>>>>> zombies
 {
 	bulletCenter = sf::Vector2f(Xpos + RADIUS, Ypos + RADIUS);
 
