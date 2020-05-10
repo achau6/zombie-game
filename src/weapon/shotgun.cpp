@@ -1,79 +1,152 @@
 #include "shotgun.h"
-#include <vector>
-//#include "constant.h"
 
-shotgun::shotgun()
+Shotgun::Shotgun()
 {
-	positionx = 305;
-	positiony = 305;
-	bulletCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
+	shotguns = nullptr;
+	currentIndex = 0;
+}
+
+void Shotgun::push(sf::CircleShape bullet,
+                    sf::Vector2f velocity, sf::Vector2f position)
+{
+    Nodes<sf::CircleShape>* temp = new Nodes<sf::CircleShape>;
+    temp->key = 4;
+    temp->shape1 = bullet;
+    temp->shape2 = bullet;
+    temp->shape3 = bullet;
+
+    temp->prev = nullptr;
+    temp->next = nullptr;
+
+    temp->shape1.setPosition(position);
+    temp->shape2.setPosition(position);
+    temp->shape3.setPosition(position);
+
+    temp->currentVelocity1 = velocity;
+    temp->currentVelocity2 = sf::Vector2f(velocity.x - 1.00, velocity.y+1.00);
+    temp->currentVelocity3 = sf::Vector2f(velocity.x + 1.00, velocity.y-1.00);
+
+    if (shotguns == nullptr){
+        shotguns = temp;
+    } else {
+        temp->next = shotguns;
+        shotguns->prev = temp;
+        shotguns = temp;
+    }
+}
+
+void Shotgun::remove()
+{
+    Nodes<sf::CircleShape>* temp = shotguns;
+    if(temp == nullptr){
+
+    } else{
+        temp = temp->next;
+        temp = nullptr;
+        shotguns = temp;
+    }
+}
+
+bool Shotgun::is_item(){
+    int count = 0;
+    Nodes<sf::CircleShape>* temp = shotguns;
+    while(temp != nullptr){
+        if(count == currentIndex){
+            if(temp == nullptr) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        count ++;
+        temp = temp->next;
+    }
+    return false;
+}
+
+void Shotgun::start() {
+    currentIndex = 0;
+}
+
+void Shotgun::advance(){
+    currentIndex ++;
+}
+
+void Shotgun::current()
+{
+    int count = 0;
+    Nodes<sf::CircleShape>* temp = shotguns;
+    while(temp != nullptr){
+        if(count == currentIndex){
+            temp->shape1.move(temp->currentVelocity1);
+			temp->shape2.move(temp->currentVelocity2);
+			temp->shape3.move(temp->currentVelocity3);
+        }
+        count += 1;
+        temp = temp->next;
+    }
 
 }
 
-void shotgun::add_ammo()
+int Shotgun::size()
 {
-
+    int count = 0;
+    Nodes<sf::CircleShape>* temp = shotguns;
+    while(temp != nullptr){
+        count += 1;
+        temp = temp->next;
+    }
+    return count;
 }
 
-void shotgun::looks(sf::RenderWindow& window)
+void Shotgun::currentDraw(sf::RenderWindow& window)
 {
-	bulletCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
-	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
-	aimView = mousePosition - bulletCenter;
-	aimViewNormalized.x = aimView.x / sqrt(pow(aimView.x, 2));
-	aimViewNormalized.y = aimView.y / sqrt(pow(aimView.y, 2));
-
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		//b.setPosition(positionx, positiony - UNITS);
-		positiony -= UNITS;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		//b.setPosition(positionx - UNITS, positiony);
-		positionx -= UNITS;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		//b.setPosition(positionx, positiony + UNITS);
-		positiony += UNITS;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		//b.setPosition(positionx + UNITS, positiony);
-		positionx += UNITS;
-	}
-
+    Nodes<sf::CircleShape>* temp = shotguns;
+    int count = 0;
+    while(temp != nullptr){
+        if(count == currentIndex){
+            window.draw(temp->shape1);
+			window.draw(temp->shape2);
+			window.draw(temp->shape3);
+        }
+        count += 1;
+        temp = temp->next;
+    }
 }
 
-void shotgun::fire()
+void Shotgun::erase(float X, float Y)
 {
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		std::cout<<"Left Mouse of bullet"<<std::endl;
-		b.shape.setPosition(bulletCenter);
-		b.velocity = aimViewNormalized * b.maxSpeed;
-		bullets.push_back(bullet(b));
-
-		}
-		for(size_t i = 0; i < bullets.size(); i ++){
-			bullets[i].shape.move(bullets[i].velocity);
-		}
+    Nodes<sf::CircleShape>* temp = shotguns;
+    int count = 0;
+    while(temp != nullptr){
+        if(count == currentIndex){
+			//A REALLY LONG CHECK OF CONDITIONS
+            if(temp->shape1.getPosition().x < (X - 100) || temp->shape1.getPosition().x > (X + 100)
+            ||temp->shape1.getPosition().y < (Y - 100) || temp->shape1.getPosition().y > (X + 100)
+            ||temp->shape1.getPosition().x < 0 || temp->shape1.getPosition().y < 0
+            ||temp->shape1.getPosition().y > 2480 || temp->shape1.getPosition().x > 2480
+			||temp->shape2.getPosition().x < (X - 100) || temp->shape2.getPosition().x > (X + 100)
+            ||temp->shape2.getPosition().y < (Y - 100) || temp->shape2.getPosition().y > (X + 100)
+            ||temp->shape2.getPosition().x < 0 || temp->shape2.getPosition().y < 0
+            ||temp->shape2.getPosition().y > 2480 || temp->shape2.getPosition().x > 2480
+			||temp->shape3.getPosition().x < (X - 100) || temp->shape3.getPosition().x > (X + 100)
+            ||temp->shape3.getPosition().y < (Y - 100) || temp->shape3.getPosition().y > (X + 100)
+            ||temp->shape3.getPosition().x < 0 || temp->shape3.getPosition().y < 0
+            ||temp->shape3.getPosition().y > 2480 || temp->shape3.getPosition().x > 2480)
+            {
+                std::cout<<"erase"<<std::endl;
+                remove();
+            }
+        }
+        count += 1;
+        temp = temp->next;
+    }
 }
 
-void shotgun::draw(sf::RenderWindow& window)
+void Shotgun::reload(sf::CircleShape bullet, sf::Vector2f velocity, sf::Vector2f position)
 {
-	for(size_t i = 0; i < bullets.size(); i ++){
-		window.draw(bullets[i].shape);
-	}
-}
-//shotgun does 4 dmg
-int shotgun::damage(int& type)
-{
-	//type is the zombie while 5 equals the health
-	//dont need this check but I want to know its
-	//if its the right zombie
-	if(type == 5)
+	for(int i = 0; i < 15; i ++)
 	{
-		type -= 5;
+		push(bullet, velocity, position);
 	}
-
-	//return the health of the zombie
-	return type;
 }

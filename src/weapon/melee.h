@@ -1,29 +1,35 @@
-#ifndef SHOTGUN_H
-#define SHOTGUN_H
+#ifndef MELEE_H
+#define MELEE_H
 #include <iostream>
 #include "weapon/weapon.h"
 #include "player/player.h"
 
 template<class T>
-struct Nodes{
+struct Node{
     sf::CircleShape shape1;
-    sf::CircleShape shape2;
+	sf::CircleShape shape2;
     sf::CircleShape shape3;
+    sf::CircleShape shape4;
+    sf::CircleShape shape5;
 
-    Nodes<T>* next;
-    Nodes<T>* prev;
+
+    Node<T>* next;
+    Node<T>* prev;
     int key;
     sf::Vector2f currentVelocity1;
-	sf::Vector2f currentVelocity2;
+    sf::Vector2f currentVelocity2;
     sf::Vector2f currentVelocity3;
+    sf::Vector2f currentVelocity4;
+	sf::Vector2f currentVelocity5;
+
 
 };
 
-class Shotgun
+class Melee
 {
 public:
-	Shotgun();
-	Nodes<sf::CircleShape>* shotguns;
+	Melee();
+	Node<sf::CircleShape>* melees;
 	Player p1;
 	void reload(sf::CircleShape bullet,
                 sf::Vector2f velocity, sf::Vector2f position);
@@ -41,5 +47,4 @@ public:
 private:
 
 };
-
-#endif // SHOTGUN_H
+#endif // MELEE_H

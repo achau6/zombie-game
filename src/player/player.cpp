@@ -3,7 +3,7 @@
 Player::Player(sf::RenderTarget* target){
 	positionx = target->getSize().x/2.f;
 	positiony = target->getSize().y/2.f;
-	std::cout<<positionx<<" "<<positiony<<std::endl;
+	//std::cout<<positionx<<" "<<positiony<<std::endl;
 	this->target = target;
 	character.setRadius(RADIUS);
 	character.setFillColor(sf::Color::Blue);

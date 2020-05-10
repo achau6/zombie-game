@@ -2,7 +2,7 @@
 #define SMG_H
 #include <iostream>
 #include "weapon/weapon.h"
-
+#include "player/player.h"
 
 // template<class T>
 // struct node{
@@ -18,11 +18,12 @@ class smg
 public:
 	smg();
 	node<sf::CircleShape>* smgs;
+	Player p1;
 	void reload(sf::CircleShape bullet,
                 sf::Vector2f velocity, sf::Vector2f position);
 	void push(sf::CircleShape bullet,
             	sf::Vector2f velocity, sf::Vector2f position);
-	void erase();
+	void erase(float X, float Y);
 	void current();
     void currentDraw(sf::RenderWindow& window);
 	bool is_item();

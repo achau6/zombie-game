@@ -22,8 +22,8 @@ void GameState::Update() {
 
 	//g.movement();
 	p1.look(*window);
-	//sf::Vector2f temp = sf::Vector2f(floatcamera.getCamView());
-	b.fire(2, *window, p1.getPositionX(), p1.getPositionY());
+
+	b.fire(*window, p1.getPositionX(), p1.getPositionY());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
@@ -44,7 +44,7 @@ void GameState::Render() {
 	// GAME VIEW
 	map.Render(window);
 	p1.Draw(*window);
-	b.Draw(*window, 2);
+	b.Draw(*window, b.GLOBALDRAW);
 
 	// UI VIEW (SO TEXT DOESNT MOVE WITH CAM)
 	window->setView(window->getDefaultView());
