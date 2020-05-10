@@ -26,7 +26,11 @@ public:
 private:
 	float positionx = 0;
 	float positiony = 0;
+	float spritePosX = 0;
+	float spritePosY = 0;
 	sf::Vector2u grid_pos;
+	sf::Sprite playerSprite;
+	sf::Texture texture;
 	float HP = 100;
 	sf::Vector2f characterCenter;
 	sf::Vector2f directionalView;
