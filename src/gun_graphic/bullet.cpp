@@ -1,4 +1,4 @@
- #include "bullet.h"
+#include "bullet.h"
 #include "math.h"
 #include <vector>
 #include <assert.h>
@@ -6,7 +6,7 @@ Bullet::Bullet()
 {
 	positioned.x = 305;
 	positioned.y = 305;
-	bullet.setRadius(10);
+	bullet.setRadius(1);
 	bullet.setFillColor(sf::Color::White);
 	bullet.setPosition(bulletCenter);
 	velocity = sf::Vector2f(0.f, 0.f);
@@ -17,6 +17,7 @@ Bullet::Bullet()
 	rifleFireRate = 0;
 }
 
+// FIXME: MAGIC NUMBERS HERE BIG NO NO
 void Bullet::fire(int identifier, sf::RenderWindow& window)
 {
 	velocity = aimViewNormalized * maxSpeed;
