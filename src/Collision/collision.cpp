@@ -12,7 +12,7 @@ bool Collision::OutOfBounds(float positionx, float positiony){
 // }
 
 bool Collision::legalMovement(float positionx, float positiony){
-	if (OutOfBounds(positionx, positiony) == false)
+	if (!OutOfBounds(positionx, positiony))
 		return false;
 	return true;
 }

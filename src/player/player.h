@@ -21,22 +21,21 @@ public:
 	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
-	float& getPositionX();
-	float& getPositionY();
+	float& getPositionX() {return positionx;}
+	float& getPositionY() {return positiony;}
 private:
 	float positionx = 0;
 	float positiony = 0;
-	float spritePosX = 0;
-	float spritePosY = 0;
+	std::pair<sf::Sprite, sf::RectangleShape> player;
 	sf::Vector2u grid_pos;
-	sf::Sprite playerSprite;
+	//sf::Sprite playerSprite;
 	sf::Texture texture;
+	//sf::RectangleShape Hitbox;
 	float HP = 100;
 	sf::Vector2f characterCenter;
 	sf::Vector2f directionalView;
 	sf::Vector2f mousePosition;
 	sf::Vector2f directionalViewNormalized;
-	sf::CircleShape character;
 	sf::RenderTarget* target;
 	Collision collisionCheck;
 };
