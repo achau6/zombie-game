@@ -47,6 +47,7 @@ void Bullet::fire(sf::RenderWindow& window, float Xpos, float Ypos)
     mousePosition.y -= 360;
     mousePosition.x += Xpos;
     mousePosition.y += Ypos;
+	// std::cout<<"MousePos: "<<mousePosition.x<<", "<<mousePosition.y<<std::endl;
 
 	aimView = mousePosition - bulletCenter;
 	float num = sqrt(pow(aimView.x, 2) + pow(aimView.y, 2));

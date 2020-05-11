@@ -17,6 +17,7 @@ GameState::~GameState() {
 void GameState::Update() {
 	p1.movement();
 	camera.UpdateCam(p1.getPosition());
+	map.Update(p1);
 
 	// p1.getGridPosition(map.getGridSize()).x;
 
@@ -37,6 +38,7 @@ void GameState::Update() {
 	// clearing string stream
 	ss.str("");
 
+	// this will always be at the end
 	window->setView(camera.getCamView());
 }
 
