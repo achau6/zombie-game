@@ -30,7 +30,7 @@ void Bullet::fire(int identifier, sf::RenderWindow& window, float Xpos, float Yp
     mousePosition.y -= 360;
     mousePosition.x += Xpos;
     mousePosition.y += Ypos;
-	std::cout<<"MousePos: "<<mousePosition.x<<", "<<mousePosition.y<<std::endl;
+	// std::cout<<"MousePos: "<<mousePosition.x<<", "<<mousePosition.y<<std::endl;
 
 	aimView = mousePosition - bulletCenter;
 
