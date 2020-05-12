@@ -7,7 +7,7 @@
 
 class TileMap {
 public:
-	TileMap();
+	TileMap(std::map<std::string, std::shared_ptr<sf::Texture>>& game_textures);
 	void Update(Player& player);
 	void Render(sf::RenderWindow* window);
 

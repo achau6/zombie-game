@@ -10,7 +10,7 @@ public:
 	// TODO: add texture parameter
 	Wall() = default;
 	// Wall constructor
-	Wall(sf::Vector2f size, sf::Vector2f pos, sf::Color color) : Tile(size, pos, color) {}
+	Wall(sf::Vector2f size, sf::Vector2f pos, sf::Color color, std::shared_ptr<sf::Texture> texture) : Tile(size, pos, color, texture) {}
 	// Checks if collision is present and prevents entity from entering
 	bool isCollision(Player& p);
 

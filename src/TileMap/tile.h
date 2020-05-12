@@ -6,16 +6,16 @@
 class Tile {
 public:
 	Tile() = default;
-	Tile(sf::Vector2f size, sf::Vector2f pos, sf::Color color)
+	Tile(sf::Vector2f size, sf::Vector2f pos, sf::Color color, std::shared_ptr<sf::Texture> texture)
 		: tile_size{size} {
 		shape.setSize(tile_size);
 		shape.setFillColor(color);
 		shape.setPosition(pos);
-		texture = std::make_unique<sf::Texture>();
-		if (!texture->loadFromFile("../zombie-game/content/dirt.png")){
-			std::cout<<"failed to load tile texture\n";
-		}
-		shape.setTexture(&*texture);
+		// texture = std::make_unique<sf::Texture>();
+		// if (!texture->loadFromFile("../zombie-game/content/dirt.png")){
+		// 	std::cout<<"failed to load tile texture\n";
+		// }
+		shape.setTexture(texture.get());
 	}
 	void Render(sf::RenderWindow* window) {
 		window->draw(shape);
@@ -26,6 +26,6 @@ public:
 	virtual std::string isType() {return "tile";}
 private:
 	sf::RectangleShape shape;
-	std::unique_ptr<sf::Texture> texture;
+	// std::unique_ptr<sf::Texture> texture;
 	sf::Vector2f tile_size;
 };

@@ -1,7 +1,7 @@
 #include "game_state.h"
 
 GameState::GameState(sf::RenderWindow* wdw)
-	: State(wdw), p1(wdw), camera(wdw) {
+	: State(wdw), map(game_textures), p1(wdw), camera(wdw) {
 		initMousePositions();
 		font.loadFromFile("content/arial.ttf");
 		cord_pos.setFont(font);
