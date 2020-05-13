@@ -1,4 +1,3 @@
-
 class EntityPool {
 public:
 private:

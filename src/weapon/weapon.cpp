@@ -1,90 +1,37 @@
 #include "weapon.h"
 #include <iostream>
-#include <assert.h>
 weapons::weapons()
+{}
+
+void weapons::play(int identifier)
 {
-    smgs = nullptr;
-    shotguns = nullptr;
-    pistols = nullptr;
-    rifles = nullptr;
-    currentIndex = 0;
-    shotgunsHead = nullptr;
-    shotgunsTail = nullptr;
+    if(identifier == 0){
 
-
-}
-
-
-void weapons::printCheck(node<sf::CircleShape>* &head)
-{
-    node<sf::CircleShape>* temp = head;
-    while(temp != nullptr){
-        std::cout<<temp->key<<", ";
-        temp = temp->next;
-    }
-    std::cout<<std::endl;
-}
-void weapons::remove(node<sf::CircleShape>* &head)
-{
-    node<sf::CircleShape>* temp = head;
-    if(temp == nullptr){
-
-    } else{
-        temp = temp->next;
-        temp = nullptr;
-        head = temp;
-    }
-}
-
-bool weapons::is_item(node<sf::CircleShape>* &head){
-    int count = 0;
-    node<sf::CircleShape>* temp = head;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            if(temp == nullptr) {
-                return false;
-            } else {
-                return true;
-            }
+	} else if(identifier == 1){
+		if(!pistolSound.loadFromFile("../zombie-game/content/Audio/9_mm_gunshot-mike-koenig-123.wav")){
+            std::cout<<"Shit Don't Work"<<std::endl;
+        } else {
+            sound.setBuffer(pistolSound);
         }
-        count ++;
-        temp = temp->next;
-    }
-    return false;
-}
-void weapons::start() {
-    currentIndex = 0;
-}
-
-void weapons::advance(){
-    currentIndex ++;
-}
-void weapons::current(node<sf::CircleShape>* &head)
-{
-    int count = 0;
-    node<sf::CircleShape>* temp = head;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            temp->shape.move(temp->currentVelocity);
-            break;
+	} else if(identifier == 2){
+		if(!smgSound.loadFromFile("../zombie-game/content/Audio/MP5_SMG-GunGuru-703432894.wav")){
+            std::cout<<"Shit Don't Work"<<std::endl;
+        } else {
+            sound.setBuffer(smgSound);
         }
-        count += 1;
-        temp = temp->next;
-    }
-
-}
-
-void weapons::currentDraw(sf::RenderWindow& window,
-                         node<sf::CircleShape>* &head)
-{
-    node<sf::CircleShape>* temp = head;
-    int count = 0;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            window.draw(temp->shape);
-            break;
+	} else if(identifier == 3){
+		if(!rifleSound.loadFromFile("../zombie-game/content/Audio/M4A1_Single-Kibblesbob-8540445.wav")){
+            std::cout<<"Shit Don't Work"<<std::endl;
+        } else {
+            sound.setBuffer(rifleSound);
         }
-        count += 1;
-        temp = temp->next;
-    }
+	} else if(identifier == 4){
+		if(!shotgunSound.loadFromFile("../zombie-game/content/Audio/shotgun-mossberg590-RA_The_Sun_God-451502290.wav")){
+            std::cout<<"Shit Don't Work"<<std::endl;
+        } else {
+            sound.setBuffer(shotgunSound);
+        }
+	}
+    sound.setVolume(0.5f);
+    sound.play();
 }

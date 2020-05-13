@@ -1,38 +1,25 @@
 #ifndef RIFLE_H
 #define RIFLE_H
 #include <iostream>
-#include "weapon/weapon.h"
-
-
-// template<class T>
-// struct node{
-//     sf::CircleShape shape;
-//     node<T>* next;
-//     node<T>* prev;
-//     int key;
-//     sf::Vector2f currentVelocity;
-// };
+#include <vector>
+#include "gun_graphic/bullet.h"
+#include "weapon.h"
 
 class rifle
 {
 public:
 	rifle();
-	node<sf::CircleShape>* rifles;
-	void reload(sf::CircleShape bullet,
-                sf::Vector2f velocity, sf::Vector2f position);
-	void push(sf::CircleShape bullet,
-            	sf::Vector2f velocity, sf::Vector2f position);
-	void current();
-    void currentDraw(sf::RenderWindow& window);
-	bool is_item();
-	void start();
-	void advance();
-	void remove();
-	int size();
-	void erase(float X, float Y);
-	int currentIndex;
+	Bullet b;
+	weapons w;
+	std::vector<Bullet> rifles;
+	void push(Bullet b);
+	void movement();
+	void Draw(sf::RenderWindow& window);
 private:
-
+	int fireRate;
+	int maxAMMO;
+	int currentAMMO;
+	int shotFire;
 };
 
 #endif // RIFLE_H

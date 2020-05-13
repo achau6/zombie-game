@@ -1,38 +1,25 @@
 #ifndef SMG_H
 #define SMG_H
 #include <iostream>
-#include "weapon/weapon.h"
-#include "player/player.h"
-
-// template<class T>
-// struct node{
-//     sf::CircleShape shape;
-//     node<T>* next;
-//     node<T>* prev;
-//     int key;
-//     sf::Vector2f currentVelocity;
-// };
+#include <vector>
+#include "gun_graphic/bullet.h"
+#include "weapon.h"
 
 class smg
 {
 public:
 	smg();
-	node<sf::CircleShape>* smgs;
-	Player p1;
-	void reload(sf::CircleShape bullet,
-                sf::Vector2f velocity, sf::Vector2f position);
-	void push(sf::CircleShape bullet,
-            	sf::Vector2f velocity, sf::Vector2f position);
-	void erase(float X, float Y);
-	void current();
-    void currentDraw(sf::RenderWindow& window);
-	bool is_item();
-	void start();
-	void advance();
-	void remove();
-	int size();
-	int currentIndex;
+	Bullet b;
+	weapons w;
+	std::vector<Bullet> smgs;
+	void push(Bullet b);
+	void movement();
+	void Draw(sf::RenderWindow& window);
 private:
+	int fireRate;
+	int maxAMMO;
+	int currentAMMO;
+	int shotFire;
 
 };
 

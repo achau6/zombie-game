@@ -1,7 +1,7 @@
 #include "game_state.h"
 
 GameState::GameState(sf::RenderWindow* wdw)
-	: State(wdw), p1(wdw), camera(wdw) {
+	: State(wdw), map(game_textures), p1(wdw), camera(wdw) {
 		initMousePositions();
 		font.loadFromFile("content/arial.ttf");
 		cord_pos.setFont(font);
@@ -17,13 +17,20 @@ GameState::~GameState() {
 void GameState::Update() {
 	p1.movement();
 	camera.UpdateCam(p1.getPosition());
+	map.Update(p1);
 
 	// p1.getGridPosition(map.getGridSize()).x;
 
 	//g.movement();
 	p1.look(*window);
 
-	b.fire(*window, p1.getPositionX(), p1.getPositionY());
+	/*
+	This is complete overhaul of my code
+	I switch to using vectors as I had trouble to individually remove the bullets
+	when it goes off screen because it deleted entire bullet list.
+	Will continue working on getting the list to work and switch it back
+	*/
+	g.fire(*window, p1.getPositionX(), p1.getPositionY());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
@@ -37,6 +44,7 @@ void GameState::Update() {
 	// clearing string stream
 	ss.str("");
 
+	// this will always be at the end
 	window->setView(camera.getCamView());
 }
 
@@ -44,7 +52,13 @@ void GameState::Render() {
 	// GAME VIEW
 	map.Render(window);
 	p1.Draw(*window);
-	b.Draw(*window, b.GLOBALDRAW);
+	/*
+	This is complete overhaul of my code
+	I switch to using vectors as I had trouble to individually remove the bullets
+	when it goes off screen because it deleted entire bullet list.
+	Will continue working on getting the list to work and switch it back
+	*/
+	g.Draw(*window, g.GLOBALIDENTIFIER);
 
 	// UI VIEW (SO TEXT DOESNT MOVE WITH CAM)
 	window->setView(window->getDefaultView());

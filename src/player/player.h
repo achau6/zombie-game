@@ -17,13 +17,16 @@ public:
 	void movement();
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
+	void setPosition(sf::Vector2f pos) {player.first.setPosition(pos);}
 //accessors
 	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
+	float& getPositionX();
+	float& getPositionY();
 	sf::Sprite getPlayerSprite() {return player.first;}
-	float& getPositionX() {return positionx;}
-	float& getPositionY() {return positiony;}
+	float getPlayerSpd() {return UNITS;}
+
 private:
 	float positionx = 0;
 	float positiony = 0;

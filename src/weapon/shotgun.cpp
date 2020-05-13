@@ -2,151 +2,68 @@
 
 Shotgun::Shotgun()
 {
-	shotguns = nullptr;
-	currentIndex = 0;
+    fireRate = 10;
+    maxAMMO = 0;
+    currentAMMO = 10;
+    shotFire = 0;
 }
 
-void Shotgun::push(sf::CircleShape bullet,
-                    sf::Vector2f velocity, sf::Vector2f position)
+void Shotgun::push(Bullet b)
 {
-    Nodes<sf::CircleShape>* temp = new Nodes<sf::CircleShape>;
-    temp->key = 4;
-    temp->shape1 = bullet;
-    temp->shape2 = bullet;
-    temp->shape3 = bullet;
-
-    temp->prev = nullptr;
-    temp->next = nullptr;
-
-    temp->shape1.setPosition(position);
-    temp->shape2.setPosition(position);
-    temp->shape3.setPosition(position);
-
-    temp->currentVelocity1 = velocity;
-    temp->currentVelocity2 = sf::Vector2f(velocity.x - 1.00, velocity.y+1.00);
-    temp->currentVelocity3 = sf::Vector2f(velocity.x + 1.00, velocity.y-1.00);
-
-    if (shotguns == nullptr){
-        shotguns = temp;
-    } else {
-        temp->next = shotguns;
-        shotguns->prev = temp;
-        shotguns = temp;
+    /*
+    controls how fast the gun is shooting.
+    it takes every 10 counts for the next shot to fire
+    */
+    if(fireRate < 40){
+        fireRate ++;
     }
-}
+    /*
+        Decrease the amount of current bullet in the 'clip' (which is 10)
+    */
+    else if(fireRate >= 39){
+        if(currentAMMO != 0){
+                shotguns.push_back(Bullet(b));
+                w.play(4);
+                currentAMMO --;
+                fireRate = 0;
 
-void Shotgun::remove()
-{
-    Nodes<sf::CircleShape>* temp = shotguns;
-    if(temp == nullptr){
-
-    } else{
-        temp = temp->next;
-        temp = nullptr;
-        shotguns = temp;
-    }
-}
-
-bool Shotgun::is_item(){
-    int count = 0;
-    Nodes<sf::CircleShape>* temp = shotguns;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            if(temp == nullptr) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        count ++;
-        temp = temp->next;
-    }
-    return false;
-}
-
-void Shotgun::start() {
-    currentIndex = 0;
-}
-
-void Shotgun::advance(){
-    currentIndex ++;
-}
-
-void Shotgun::current()
-{
-    int count = 0;
-    Nodes<sf::CircleShape>* temp = shotguns;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            temp->shape1.move(temp->currentVelocity1);
-			temp->shape2.move(temp->currentVelocity2);
-			temp->shape3.move(temp->currentVelocity3);
-        }
-        count += 1;
-        temp = temp->next;
-    }
-
-}
-
-int Shotgun::size()
-{
-    int count = 0;
-    Nodes<sf::CircleShape>* temp = shotguns;
-    while(temp != nullptr){
-        count += 1;
-        temp = temp->next;
-    }
-    return count;
-}
-
-void Shotgun::currentDraw(sf::RenderWindow& window)
-{
-    Nodes<sf::CircleShape>* temp = shotguns;
-    int count = 0;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            window.draw(temp->shape1);
-			window.draw(temp->shape2);
-			window.draw(temp->shape3);
-        }
-        count += 1;
-        temp = temp->next;
-    }
-}
-
-void Shotgun::erase(float X, float Y)
-{
-    Nodes<sf::CircleShape>* temp = shotguns;
-    int count = 0;
-    while(temp != nullptr){
-        if(count == currentIndex){
-			//A REALLY LONG CHECK OF CONDITIONS
-            if(temp->shape1.getPosition().x < (X - 100) || temp->shape1.getPosition().x > (X + 100)
-            ||temp->shape1.getPosition().y < (Y - 100) || temp->shape1.getPosition().y > (X + 100)
-            ||temp->shape1.getPosition().x < 0 || temp->shape1.getPosition().y < 0
-            ||temp->shape1.getPosition().y > 2480 || temp->shape1.getPosition().x > 2480
-			||temp->shape2.getPosition().x < (X - 100) || temp->shape2.getPosition().x > (X + 100)
-            ||temp->shape2.getPosition().y < (Y - 100) || temp->shape2.getPosition().y > (X + 100)
-            ||temp->shape2.getPosition().x < 0 || temp->shape2.getPosition().y < 0
-            ||temp->shape2.getPosition().y > 2480 || temp->shape2.getPosition().x > 2480
-			||temp->shape3.getPosition().x < (X - 100) || temp->shape3.getPosition().x > (X + 100)
-            ||temp->shape3.getPosition().y < (Y - 100) || temp->shape3.getPosition().y > (X + 100)
-            ||temp->shape3.getPosition().x < 0 || temp->shape3.getPosition().y < 0
-            ||temp->shape3.getPosition().y > 2480 || temp->shape3.getPosition().x > 2480)
+        } else {
+            /*
+            Fire stops when no bullet is found either in current ammo or his
+            max ammo (stash)
+            */
+            if(maxAMMO == 0)
             {
-                std::cout<<"erase"<<std::endl;
-                remove();
+                std::cout<<"Rip You got no Ammo"<<std::endl;
+            }
+            /*
+            Adds ammo to his clip if he still has reserve up to the clip
+            capacity
+            */
+            while(maxAMMO > 0 && currentAMMO < 11)
+            {
+                currentAMMO ++;
+                maxAMMO --;
             }
         }
-        count += 1;
-        temp = temp->next;
     }
+
 }
 
-void Shotgun::reload(sf::CircleShape bullet, sf::Vector2f velocity, sf::Vector2f position)
+void Shotgun::movement()
 {
-	for(int i = 0; i < 15; i ++)
-	{
-		push(bullet, velocity, position);
+	for(unsigned int i = 0; i < shotguns.size(); i ++){
+		shotguns[i].bullet.move(shotguns[i].velocity);
+		if(shotguns[i].bullet.getPosition().x < 0 || shotguns[i].bullet.getPosition().y < 0
+		|| shotguns[i].bullet.getPosition().x > 2480 || shotguns[i].bullet.getPosition().y > 2480){
+				shotguns.erase(shotguns.begin() + i);
+			}
+	}
+}
+
+void Shotgun::Draw(sf::RenderWindow& window)
+{
+	for(unsigned int i = 0; i < shotguns.size(); i ++){
+		window.draw(shotguns[i].bullet);
 	}
 }
