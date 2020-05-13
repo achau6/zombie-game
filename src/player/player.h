@@ -17,6 +17,7 @@ public:
 	void movement();
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
+	void setPosition(sf::Vector2f pos) {playerSprite.setPosition(pos);}
 //accessors
 	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
@@ -24,6 +25,7 @@ public:
 	float& getPositionX();
 	float& getPositionY();
 	sf::Sprite getPlayerSprite() {return playerSprite;}
+	float getPlayerSpd() {return UNITS;}
 
 private:
 	float positionx = 0;

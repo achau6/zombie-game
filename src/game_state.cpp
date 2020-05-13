@@ -1,7 +1,7 @@
 #include "game_state.h"
 
 GameState::GameState(sf::RenderWindow* wdw)
-	: State(wdw), p1(wdw), camera(wdw) {
+	: State(wdw), map(game_textures), p1(wdw), camera(wdw) {
 		initMousePositions();
 		font.loadFromFile("content/arial.ttf");
 		cord_pos.setFont(font);
@@ -17,6 +17,7 @@ GameState::~GameState() {
 void GameState::Update() {
 	p1.movement();
 	camera.UpdateCam(p1.getPosition());
+	map.Update(p1);
 
 	// p1.getGridPosition(map.getGridSize()).x;
 
@@ -43,6 +44,7 @@ void GameState::Update() {
 	// clearing string stream
 	ss.str("");
 
+	// this will always be at the end
 	window->setView(camera.getCamView());
 }
 

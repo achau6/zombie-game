@@ -6,11 +6,12 @@
 #include <cctype>
 #include <ctime>
 #include <sstream>
+#include <map>
 #include "Platform/Platform.hpp"
 
 class State {
 public:
-	State(sf::RenderWindow* wdw) : window(wdw) {}
+	State(sf::RenderWindow* wdw);
 	virtual ~State();
 
 	// forces function to be defined in derived class
@@ -20,7 +21,8 @@ public:
 protected:
 	// using ptr to window so its easier draw objs without constantly passing window
 	sf::RenderWindow* window;
-	std::vector<sf::Texture> textures; // TODO: add textures here!
+	// TODO: add textures here!
+	std::map<std::string, std::shared_ptr<sf::Texture>> game_textures;
 	bool IsPaused;
 };
 
