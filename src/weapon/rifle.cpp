@@ -2,127 +2,67 @@
 
 rifle::rifle()
 {
-	rifles = nullptr;
-	currentIndex = 0;
+    fireRate = 21;
+    maxAMMO = 0;
+    currentAMMO = 15;
+    shotFire = 0;
 }
 
-void rifle::push(sf::CircleShape bullet,
-                    sf::Vector2f velocity, sf::Vector2f position)
+void rifle::push(Bullet b)
 {
-    node<sf::CircleShape>* temp = new node<sf::CircleShape>;
-    temp->key = 3;
-    temp->shape = bullet;
-    temp->prev = nullptr;
-    temp->next = nullptr;
-    temp->shape.setPosition(position);
-    temp->currentVelocity = velocity;
-    if (rifles == nullptr){
-        rifles = temp;
-    } else {
-        temp->next = rifles;
-        rifles->prev = temp;
-        rifles = temp;
+    /*
+    controls how fast the gun is shooting.
+    it takes every 10 counts for the next shot to fire
+    */
+    if(fireRate < 21){
+        fireRate ++;
     }
-}
-
-void rifle::remove()
-{
-    node<sf::CircleShape>* temp = rifles;
-    if(temp == nullptr){
-
-    } else{
-        temp = temp->next;
-        temp = nullptr;
-        rifles = temp;
-    }
-}
-
-bool rifle::is_item(){
-    int count = 0;
-    node<sf::CircleShape>* temp = rifles;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            if(temp == nullptr) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        count ++;
-        temp = temp->next;
-    }
-    return false;
-}
-
-void rifle::start() {
-    currentIndex = 0;
-}
-
-void rifle::advance(){
-    currentIndex ++;
-}
-
-void rifle::current()
-{
-    int count = 0;
-    node<sf::CircleShape>* temp = rifles;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            temp->shape.move(temp->currentVelocity);
-        }
-        count += 1;
-        temp = temp->next;
-    }
-
-}
-int rifle::size()
-{
-    int count = 0;
-    node<sf::CircleShape>* temp = rifles;
-    while(temp != nullptr){
-        count += 1;
-        temp = temp->next;
-    }
-    return count;
-}
-void rifle::currentDraw(sf::RenderWindow& window)
-{
-    node<sf::CircleShape>* temp = rifles;
-    int count = 0;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            window.draw(temp->shape);
-        }
-        count += 1;
-        temp = temp->next;
-    }
-}
-
-void rifle::erase(float X, float Y)
-{
-    node<sf::CircleShape>* temp = rifles;
-    int count = 0;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            if(temp->shape.getPosition().x < (X - 500) || temp->shape.getPosition().x > (X + 500)
-            ||temp->shape.getPosition().y < (Y - 500) || temp->shape.getPosition().y > (X + 500)
-            ||temp->shape.getPosition().x < 0 || temp->shape.getPosition().y < 0
-            ||temp->shape.getPosition().y > 2480 || temp->shape.getPosition().x > 2480)
+    /*
+        Decrease the amount of current bullet in the 'clip' (which is 10)
+    */
+    else if(fireRate >= 20){
+        if(currentAMMO != 0){
+            rifles.push_back(Bullet(b));
+			w.play(3);
+            currentAMMO --;
+            fireRate = 0;
+        } else {
+            /*
+            Fire stops when no bullet is found either in current ammo or his
+            max ammo (stash)
+            */
+            if(maxAMMO == 0)
             {
-                std::cout<<"erase"<<std::endl;
-                remove();
+                std::cout<<"Rip You got no Ammo"<<std::endl;
+            }
+            /*
+            Adds ammo to his clip if he still has reserve up to the clip
+            capacity
+            */
+            while(maxAMMO > 0 && currentAMMO < 11)
+            {
+                currentAMMO ++;
+                maxAMMO --;
             }
         }
-        count += 1;
-        temp = temp->next;
     }
+
 }
 
-
-void rifle::reload(sf::CircleShape bullet, sf::Vector2f velocity, sf::Vector2f position)
+void rifle::movement()
 {
-	for(int i = 0; i < 15; i ++)
-	{
-		push(bullet, velocity, position);
+	for(unsigned int i = 0; i < rifles.size(); i ++){
+		rifles[i].bullet.move(rifles[i].velocity);
+		if(rifles[i].bullet.getPosition().x < 0 || rifles[i].bullet.getPosition().y < 0
+		|| rifles[i].bullet.getPosition().x > 2480 || rifles[i].bullet.getPosition().y > 2480){
+				rifles.erase(rifles.begin() + i);
+			}
+	}
+}
+
+void rifle::Draw(sf::RenderWindow& window)
+{
+	for(unsigned int i = 0; i < rifles.size(); i ++){
+		window.draw(rifles[i].bullet);
 	}
 }

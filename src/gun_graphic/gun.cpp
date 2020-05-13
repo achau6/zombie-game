@@ -1,71 +1,109 @@
 #include "gun.h"
-
 Gun::Gun(){
-	positionx = 305;
-	positiony = 305;
-	gun.setScale(sf::Vector2f(.5, .5));
-	//gun.setColor(sf::Color::White);
-	gun.setPosition(positionx, positiony);
-	gunCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
+	GLOBALIDENTIFIER = 0;
 
 }
 
-void Gun::movement(){
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		gun.setPosition(positionx, positiony - UNITS);
-		positiony -= UNITS;
+void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
+{
+	/*
+	This helps us switch weapon
+	*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
+		//identifier = 0;
+		GLOBALIDENTIFIER = 0;
+		std::cout<<"Melee"<<std::endl;
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
+		//identifier = 1;
+		GLOBALIDENTIFIER = 1;
+		std::cout<<"Pistol"<<std::endl;
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+		//identifier = 2;
+		GLOBALIDENTIFIER = 2;
+		std::cout<<"SMG"<<std::endl;
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
+		//identifier = 3;
+		GLOBALIDENTIFIER = 3;
+		std::cout<<"Rifle"<<std::endl;
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
+		//identifier = 4;
+		GLOBALIDENTIFIER = 4;
+		std::cout<<"Shotgun"<<std::endl;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		gun.setPosition(positionx - UNITS, positiony);
-		positionx -= UNITS;
+	/*
+	Complicated calculation to find mouse position
+	Edit: will edit this later if i have time
+	*/
+	bulletCenter = sf::Vector2f(Xpos + RADIUS, Ypos + RADIUS);
+	mousePosition.x = sf::Mouse::getPosition(window).x;
+    mousePosition.y = sf::Mouse::getPosition(window).y;
+	mousePosition.x -= 640;
+    mousePosition.y -= 360;
+    mousePosition.x += Xpos;
+    mousePosition.y += Ypos;
+	aimView = mousePosition - bulletCenter;
+	float num = sqrt(pow(aimView.x, 2) + pow(aimView.y, 2));
+	aimViewNormalized = aimView / num;
+
+	//pass the speed to bullet object
+	b.velocity = aimViewNormalized * b.maxSpeed;
+	b.bullet.setPosition(bulletCenter);
+
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		/*
+		adds the bullet in and play the shooting sound
+		although may move it to individual class (ex. pistol.h)
+		*/
+		if(GLOBALIDENTIFIER == 0){
+
+		} else if(GLOBALIDENTIFIER == 1){
+			p.push(Bullet(b));
+		} else if(GLOBALIDENTIFIER == 2){
+			s.push(Bullet(b));
+		} else if(GLOBALIDENTIFIER == 3){
+			r.push(Bullet(b));
+		} else if(GLOBALIDENTIFIER == 4){
+			sh.push(Bullet(b));
+		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		gun.setPosition(positionx, positiony + UNITS);
-		positiony += UNITS;
-		// std::cout << "S works" << std::endl;
+	movement(GLOBALIDENTIFIER);
+}
+
+/*
+Gives the movement of the gun path
+*/
+void Gun::movement(int identifier)
+{
+	if(identifier == 0){
+
+	} else if(identifier == 1){
+		p.movement();
+		std::cout<<"GLOBAL"<<std::endl;
+	} else if(identifier == 2){
+		s.movement();
+	} else if(identifier == 3){
+		r.movement();
+	} else if(identifier == 4){
+		sh.movement();
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		gun.setPosition(positionx + UNITS, positiony);
-		positionx += UNITS;
+}
+
+/*
+Draws the bullet and bullet movement path
+*/
+void Gun::Draw(sf::RenderWindow& window, int identifier)
+{
+	if(identifier == 0){
+
+	} else if(identifier == 1){
+		p.Draw(window);
+		std::cout<<"Draw"<<std::endl;
+	} else if(identifier == 2){
+		s.Draw(window);
+	} else if(identifier == 3){
+		r.Draw(window);
+	} else if(identifier == 4){
+		sh.Draw(window);
 	}
-
 }
 
-void Gun::look(sf::RenderWindow& window){
-	gunCenter = sf::Vector2f(positionx + RADIUS, positiony + RADIUS);
-	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
-	directionalView = mousePosition - gunCenter;
-	directionalViewNormalized.x = directionalView.x / sqrt(pow(directionalView.x, 2));
-	directionalViewNormalized.y = directionalView.y / sqrt(pow(directionalView.y, 2));
-
-}
-
-void Gun::Draw(sf::RenderWindow& window){
-	sf::Texture shotgunTexture;
-
-	shotgunTexture.loadFromFile("C:/Users/SICK/Documents/CS/test4/zombie-game/content/zombieGameGunShotgun.PNG");
-	if (!shotgunTexture.loadFromFile("C:/Users/SICK/Documents/CS/test4/zombie-game/content/zombieGameGunShotgun.PNG"))
-	{
-		std::cout<<"Error Loading shotgun sprite"<<std::endl;
-	}
-
-	gun.setTexture(shotgunTexture);
-	//gun.setScale(sf::Vector2f(5, 5));
-	window.draw(gun);
-}
-
-float Gun::gunPositionx(){
-	return positionx;
-}
-
-float Gun::gunPositiony(){
-	return positiony;
-}
-
-float Gun::gunCenterx(){
-	return gunCenter.x;
-}
-
-float Gun::gunCentery(){
-	return gunCenter.y;
-}

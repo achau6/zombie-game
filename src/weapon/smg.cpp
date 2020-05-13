@@ -1,131 +1,71 @@
 #include "smg.h"
 
+#include "pistol.h"
+
 smg::smg()
 {
-	smgs = nullptr;
-	currentIndex = 0;
+    fireRate = 10;
+    maxAMMO = 0;
+    currentAMMO = 10;
+    shotFire = 0;
 }
 
-void smg::push(sf::CircleShape bullet,
-                    sf::Vector2f velocity, sf::Vector2f position)
+void smg::push(Bullet b)
 {
-    node<sf::CircleShape>* temp = new node<sf::CircleShape>;
-    temp->key = 2;
-    temp->shape = bullet;
-    temp->prev = nullptr;
-    temp->next = nullptr;
-    temp->shape.setPosition(position);
-    temp->currentVelocity = velocity;
-    if (smgs == nullptr){
-        smgs = temp;
-    } else {
-        temp->next = smgs;
-        smgs->prev = temp;
-        smgs = temp;
+    /*
+    controls how fast the gun is shooting.
+    it takes every 10 counts for the next shot to fire
+    */
+    if(fireRate < 14){
+        fireRate ++;
     }
-}
+    /*
+        Decrease the amount of current bullet in the 'clip' (which is 10)
+    */
+    else if(fireRate >= 14){
+        if(currentAMMO != 0){
+            smgs.push_back(Bullet(b));
+            w.play(2);
+            currentAMMO --;
+            fireRate = 0;
 
-void smg::remove()
-{
-    node<sf::CircleShape>* temp = smgs;
-    if(temp == nullptr){
-
-    } else{
-        temp = temp->next;
-        temp = nullptr;
-        smgs = temp;
-    }
-}
-
-bool smg::is_item(){
-    int count = 0;
-    node<sf::CircleShape>* temp = smgs;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            if(temp == nullptr) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        count ++;
-        temp = temp->next;
-    }
-    return false;
-}
-
-void smg::start() {
-    currentIndex = 0;
-}
-
-void smg::advance(){
-    currentIndex ++;
-}
-
-void smg::current()
-{
-    int count = 0;
-    node<sf::CircleShape>* temp = smgs;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            temp->shape.move(temp->currentVelocity);
-            break;
-        }
-        count += 1;
-        temp = temp->next;
-    }
-
-}
-
-int smg::size()
-{
-    int count = 0;
-    node<sf::CircleShape>* temp = smgs;
-    while(temp != nullptr){
-        count += 1;
-        temp = temp->next;
-    }
-    return count;
-}
-void smg::currentDraw(sf::RenderWindow& window)
-{
-    node<sf::CircleShape>* temp = smgs;
-    int count = 0;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            window.draw(temp->shape);
-        }
-        count += 1;
-        temp = temp->next;
-    }
-}
-
-void smg::erase(float X, float Y)
-{
-    node<sf::CircleShape>* temp = smgs;
-    int count = 0;
-    while(temp != nullptr){
-        if(count == currentIndex){
-            if(temp->shape.getPosition().x < (X / 2) || temp->shape.getPosition().x > ((X * 3)/2)
-            ||temp->shape.getPosition().y < (Y / 2) || temp->shape.getPosition().y > ((Y * 3)/2)
-            ||temp->shape.getPosition().x < 0 || temp->shape.getPosition().y < 0
-            ||temp->shape.getPosition().y > 2480 || temp->shape.getPosition().x > 2480)
+        } else {
+            /*
+            Fire stops when no bullet is found either in current ammo or his
+            max ammo (stash)
+            */
+            if(maxAMMO == 0)
             {
-                //std::cout<<"X: "<<(X / 2)<<" Y: "<<(Y / 2)<<std::endl;
-                //std::cout<<"X: "<<((X * 3)/2)<<" Y: "<<((Y * 3)/2)<<std::endl;
-                std::cout<<"erase"<<std::endl;
-                remove();
+                std::cout<<"Rip You got no Ammo"<<std::endl;
+            }
+            /*
+            Adds ammo to his clip if he still has reserve up to the clip
+            capacity
+            */
+            while(maxAMMO > 0 && currentAMMO < 11)
+            {
+                currentAMMO ++;
+                maxAMMO --;
             }
         }
-        count += 1;
-        temp = temp->next;
     }
+
 }
 
-void smg::reload(sf::CircleShape bullet, sf::Vector2f velocity, sf::Vector2f position)
+void smg::movement()
 {
-	for(int i = 0; i < 15; i ++)
-	{
-		push(bullet, velocity, position);
+	for(unsigned int i = 0; i < smgs.size(); i ++){
+		smgs[i].bullet.move(smgs[i].velocity);
+		if(smgs[i].bullet.getPosition().x < 0 || smgs[i].bullet.getPosition().y < 0
+		|| smgs[i].bullet.getPosition().x > 2480 || smgs[i].bullet.getPosition().y > 2480){
+				smgs.erase(smgs.begin() + i);
+			}
+	}
+}
+
+void smg::Draw(sf::RenderWindow& window)
+{
+	for(unsigned int i = 0; i < smgs.size(); i ++){
+		window.draw(smgs[i].bullet);
 	}
 }

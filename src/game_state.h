@@ -1,8 +1,8 @@
 #include "state.h"
 #include "TileMap/tilemap.h"
 #include "player/player.h"
-#include "gun_graphic/bullet.h"
 #include "camera.h"
+#include "gun_graphic/gun.h"
 
 class GameState : public State {
 public:
@@ -15,7 +15,7 @@ private:
 
 	TileMap map;
 	Player p1;
-	Bullet b;
+	Gun g;
 	Camera camera;
 
 	sf::Vector2i mouse_pos_screen;

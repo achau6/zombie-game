@@ -23,7 +23,13 @@ void GameState::Update() {
 	//g.movement();
 	p1.look(*window);
 
-	b.fire(*window, p1.getPositionX(), p1.getPositionY());
+	/*
+	This is complete overhaul of my code
+	I switch to using vectors as I had trouble to individually remove the bullets
+	when it goes off screen because it deleted entire bullet list.
+	Will continue working on getting the list to work and switch it back
+	*/
+	g.fire(*window, p1.getPositionX(), p1.getPositionY());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
@@ -44,7 +50,13 @@ void GameState::Render() {
 	// GAME VIEW
 	map.Render(window);
 	p1.Draw(*window);
-	b.Draw(*window, b.GLOBALDRAW);
+	/*
+	This is complete overhaul of my code
+	I switch to using vectors as I had trouble to individually remove the bullets
+	when it goes off screen because it deleted entire bullet list.
+	Will continue working on getting the list to work and switch it back
+	*/
+	g.Draw(*window, g.GLOBALIDENTIFIER);
 
 	// UI VIEW (SO TEXT DOESNT MOVE WITH CAM)
 	window->setView(window->getDefaultView());
