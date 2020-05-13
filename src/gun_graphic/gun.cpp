@@ -6,6 +6,8 @@ Gun::Gun(){
 
 void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
 {
+	float slope, degree, x, y;
+	int quadrant;
 	/*
 	This helps us switch weapon
 	*/
@@ -34,13 +36,32 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
 	Complicated calculation to find mouse position
 	Edit: will edit this later if i have time
 	*/
-	bulletCenter = sf::Vector2f(Xpos + RADIUS, Ypos + RADIUS);
 	mousePosition.x = sf::Mouse::getPosition(window).x;
     mousePosition.y = sf::Mouse::getPosition(window).y;
+	//Finds the quadrant
+	if (mousePosition.x <= 640)
+		quadrant = 1;
 	mousePosition.x -= 640;
     mousePosition.y -= 360;
     mousePosition.x += Xpos;
     mousePosition.y += Ypos;
+	//determines the slope from where the mouse is pointing at to the player position
+	slope = ((mousePosition.y - Ypos) / (mousePosition.x - Xpos));
+	//Determine what quadrant the player is pointing at, then figures out the degree depending on that
+	switch (quadrant){
+		case 1:
+			degree = (atan(slope) * (180 / PI)) - 180;
+			break;
+		default:
+			degree = atan(slope) * (180 / PI);
+			break;
+	}
+	//Small increase in degrees to move from the center of the sprite to where the gun is pointing at
+	degree += 20;
+	//Determines the x and y axis to find the position where the comes out from
+	x = Xpos + 75*cos(degree * (PI/180));
+	y = Ypos + 80*sin(degree * (PI/180));
+	bulletCenter = sf::Vector2f(x, y);
 	aimView = mousePosition - bulletCenter;
 	float num = sqrt(pow(aimView.x, 2) + pow(aimView.y, 2));
 	aimViewNormalized = aimView / num;
