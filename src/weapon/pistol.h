@@ -29,7 +29,7 @@ public:
 	void advance();
 	void remove();
 	int size();
-	void erase(sf::RenderWindow& window);
+	void erase(float X, float Y);
 	int currentIndex;
 private:
 

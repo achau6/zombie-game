@@ -69,6 +69,7 @@ void smg::current()
     while(temp != nullptr){
         if(count == currentIndex){
             temp->shape.move(temp->currentVelocity);
+            break;
         }
         count += 1;
         temp = temp->next;
@@ -99,15 +100,19 @@ void smg::currentDraw(sf::RenderWindow& window)
     }
 }
 
-void smg::erase()
+void smg::erase(float X, float Y)
 {
     node<sf::CircleShape>* temp = smgs;
     int count = 0;
     while(temp != nullptr){
         if(count == currentIndex){
-            if(temp->shape.getPosition().x < 0 || temp->shape.getPosition().x > 2480
-            ||temp->shape.getPosition().y < 0 || temp->shape.getPosition().y > 2480)
+            if(temp->shape.getPosition().x < (X / 2) || temp->shape.getPosition().x > ((X * 3)/2)
+            ||temp->shape.getPosition().y < (Y / 2) || temp->shape.getPosition().y > ((Y * 3)/2)
+            ||temp->shape.getPosition().x < 0 || temp->shape.getPosition().y < 0
+            ||temp->shape.getPosition().y > 2480 || temp->shape.getPosition().x > 2480)
             {
+                //std::cout<<"X: "<<(X / 2)<<" Y: "<<(Y / 2)<<std::endl;
+                //std::cout<<"X: "<<((X * 3)/2)<<" Y: "<<((Y * 3)/2)<<std::endl;
                 std::cout<<"erase"<<std::endl;
                 remove();
             }

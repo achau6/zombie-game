@@ -8,6 +8,8 @@
 #include "weapon/pistol.h"
 #include "weapon/rifle.h"
 #include "player/player.h"
+#include "weapon/melee.h"
+#include "weapon/shotgun.h"
 
 class Bullet
 {
@@ -16,37 +18,53 @@ public:
 	smg s;
 	rifle r;
 	pistol p;
+	Shotgun sh;
 	Player p1;
-    //typedef Sequence_Iterator<sf::CircleShape> iter;
-	void fire(int identifier, sf::RenderWindow& window, float Xpos, float Ypos);
+	Melee m;
+
+	//global variable for draw
+	int GLOBALDRAW;
+	//mutators
+	void fire(sf::RenderWindow& window, float Xpos, float Ypos);
 	void Draw(sf::RenderWindow& window, int identifier);
-	void update(int identifier, sf::RenderWindow& window);
+	void update(int identifier, float X, float Y);
 	void pick_up_ammo(int identifier);
+	void resetFireRate();
 
 
 	//temp counter for reload/give ammo
 	//for now just intiliaze ammo
 	int countSMG = 15;
 	//for now give it extra ammo
-	int maxSMG = 900;
+	int maxSMG = 0;
 	int shotsSMG = 0;
 
 	int countRifle = 15;
 	int maxRifle = 15;
 	int shotsRifle = 0;
 
-	int countPistol = 15;
-	int maxPistol = 15;
+	int countPistol = 10;
+	int maxPistol = 0;
 	int shotsPistol = 0;
 
+	int countMelee;
+	int maxMelee = 0 ;
+	int shotsMelee = 0;
 
+	int countShotgun = 5;
+	int maxShotgun = 0 ;
+	int shotsShotgun = 0;
+
+	int count1 = 0;
+	int count0 = 0;
+	int count3 = 0;
+	int count4 = 0;
 private:
 	float positionx = 0;
 	float positiony = 0;
-	sf::Vector2f positioned;
 	float maxSpeed;
-	float dupePosx;
-	float dupePosy;
+
+	int identifier;
 	sf::Vector2f velocity;
 	sf::Vector2f aimView;
 	sf::Vector2f mousePosition;
@@ -59,6 +77,7 @@ private:
 	int rifleFireRate;
 	int shotgunFireRate;
 	int pistolFireRate;
+	int meleeFireRate;
 
 
 };

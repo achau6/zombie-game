@@ -21,12 +21,14 @@ public:
 	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
+	sf::Sprite getPlayerSprite() {return player.first;}
 	float& getPositionX() {return positionx;}
 	float& getPositionY() {return positiony;}
 private:
 	float positionx = 0;
 	float positiony = 0;
 	std::pair<sf::Sprite, sf::RectangleShape> player;
+	sf::CircleShape area;
 	sf::Vector2u grid_pos;
 	//sf::Sprite playerSprite;
 	sf::Texture texture;
