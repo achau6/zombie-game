@@ -17,6 +17,14 @@ bool Wall::isCollision(Player& p) {
 				// std::cout << "Test" << std::endl;
 				p.setPosition(sf::Vector2f(wall_bounds.left - player_bounds.width, player_bounds.top));
 			}
+		//Left collision
+		else if (player_bounds.left > wall_bounds.left
+			&& player_bounds.left + player_bounds.width > wall_bounds.left + wall_bounds.width
+			&& player_bounds.top < wall_bounds.top + wall_bounds.height
+			&& player_bounds.top + player_bounds.height > player_bounds.top
+			) {
+			p.setPosition({wall_bounds.left + wall_bounds.width, player_bounds.top});
+		}
 		return true;
 	}
 
