@@ -3,11 +3,11 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include "constant.h"
 #include "Collision\collision.h"
+#include "../Entities/entity.h"
 #include <stdio.h>
 
-class Player
+class Player : public Entity
 {
 public:
 //constructor
@@ -19,25 +19,22 @@ public:
 	void look(sf::RenderWindow& window);
 	void setPosition(sf::Vector2f pos) {player.first.setPosition(pos);}
 //accessors
-	sf::Vector2f getPosition() {return sf::Vector2f(positionx, positiony);}
+	const sf::Vector2f getPosition() const {return position;}
+	sf::Vector2f& getPosition() {return position;}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
-	float& getPositionX() {return positionx;}
-	float& getPositionY() {return positiony;}
-	sf::Sprite getPlayerSprite() {return player.first;}
-	float getPlayerSpd() {return UNITS;}
+	const sf::Sprite getPlayerSprite() const {return player.first;}
+	float getPlayerSpd() {return movement_speed;}
 
 private:
-	float positionx = 0;
-	float positiony = 0;
+	const float movement_speed = 3.f;
+	int count = 1;
+
 	std::pair<sf::Sprite, sf::RectangleShape> player;
 	sf::CircleShape area;
-	sf::Vector2u grid_pos;
 	//sf::Sprite playerSprite;
 	sf::Texture texture;
 	//sf::RectangleShape Hitbox;
-	float HP = 100;
-	int count = 1;
 	// sf::Vector2f characterCenter;
 	// sf::Vector2f directionalView;
 	sf::Vector2f mousePosition;
