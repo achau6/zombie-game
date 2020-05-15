@@ -16,13 +16,10 @@ GameState::~GameState() {
 
 void GameState::Update() {
 	p1.movement();
-	camera.UpdateCam(p1.getPosition());
 	map.Update(p1);
-
-	// p1.getGridPosition(map.getGridSize()).x;
-
-	//g.movement();
 	p1.look(*window);
+	p1.Update();
+	camera.UpdateCam(p1.getPosition());
 
 	/*
 	This is complete overhaul of my code

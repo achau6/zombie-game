@@ -1,30 +1,58 @@
 #include "wall.h"
 
+// TODO: MAKE IT BASED OFF A HITBOX INSTEAD OF THE ACTUALY SPRITE SIZE
+
 bool Wall::isCollision(Entity& entity) {
-	sf::FloatRect entity_bounds = entity.getSprite().getGlobalBounds();
+	sf::FloatRect entity_bounds = entity.getHitbox().getGlobalBounds();
 	sf::FloatRect wall_bounds = getTileBounds();
 	obj_next_pos = entity_bounds;
-	obj_next_pos.top += entity.getVelocity().x;
-	obj_next_pos.left += entity.getVelocity().y;
+	obj_next_pos.left += entity.getVelocity().x;
+	obj_next_pos.top += entity.getVelocity().y;
 
 	if(wall_bounds.intersects(obj_next_pos)) {
-		//Right collision
-		if (entity_bounds.left < wall_bounds.left
-			&& entity_bounds.left + entity_bounds.width < wall_bounds.left + wall_bounds.width
-			&& entity_bounds.top < wall_bounds.top + wall_bounds.height
-			&& entity_bounds.top + entity_bounds.height > wall_bounds.top
-			) {
-				std::cout << "Test" << std::endl;
-				// entity.getSprite().setPosition(sf::Vector2f(wall_bounds.left - entity_bounds.width, entity_bounds.top));
-			}
-		//Left collision
-		else if (entity_bounds.left > wall_bounds.left
-			&& entity_bounds.left + entity_bounds.width > wall_bounds.left + wall_bounds.width
-			&& entity_bounds.top < wall_bounds.top + wall_bounds.height
-			&& entity_bounds.top + entity_bounds.height > entity_bounds.top
-			) {
-			// entity.getSprite().setPosition({wall_bounds.left + wall_bounds.width, entity_bounds.top});
-		}
+				// top collision
+				if (entity_bounds.top < wall_bounds.top
+					&& entity_bounds.top + entity_bounds.height < wall_bounds.top + wall_bounds.height
+					&& entity_bounds.left < wall_bounds.left + wall_bounds.width
+					&& entity_bounds.left + entity_bounds.width > wall_bounds.left
+					)
+				{
+					std::cout << "top collision" << std::endl;
+					entity.getVelocity().y = 0.f;
+				}
+
+				// bottom collision
+				else if (entity_bounds.top > wall_bounds.top
+					&& entity_bounds.top + entity_bounds.height > wall_bounds.top + wall_bounds.height
+					&& entity_bounds.left < wall_bounds.left + wall_bounds.width
+					&& entity_bounds.left + entity_bounds.width > wall_bounds.left
+					)
+				{
+					std::cout << "bottom collision" << std::endl;
+					entity.getVelocity().y = 0.f;
+				}
+
+				// left collision
+				else if (entity_bounds.left < wall_bounds.left
+					&& entity_bounds.left + entity_bounds.width < wall_bounds.left + wall_bounds.width
+					&& entity_bounds.top < wall_bounds.top + wall_bounds.height
+					&& entity_bounds.top + entity_bounds.height > wall_bounds.top
+					)
+				{
+					std::cout << "left collision" << std::endl;
+					entity.getVelocity().x = 0.f;
+				}
+
+				// right collision
+				else if (entity_bounds.left > wall_bounds.left
+					&& entity_bounds.left + entity_bounds.width > wall_bounds.left + wall_bounds.width
+					&& entity_bounds.top < wall_bounds.top + wall_bounds.height
+					&& entity_bounds.top + entity_bounds.height > wall_bounds.top
+					)
+				{
+					std::cout << "right collision" << std::endl;
+					entity.getVelocity().x = 0.f;
+				}
 		return true;
 	}
 
