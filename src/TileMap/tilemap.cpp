@@ -1,7 +1,5 @@
 #include "tilemap.h"
 
-// TODO: turn into 3d array with Z being the number of layers
-
 TileMap::TileMap(std::map<std::string, std::shared_ptr<sf::Texture>>& game_textures) {
 	const int GROUND_LAYER = 0;
 	const int OBJECT_LAYER = 1;

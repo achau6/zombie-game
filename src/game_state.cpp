@@ -30,14 +30,14 @@ void GameState::Update() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.fire(*window, p1.getPositionX(), p1.getPositionY());
+	g.fire(*window, p1.getPosition().x, p1.getPosition().y);
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
 
 	ss << "Screen: " << mouse_pos_screen.x << " " << mouse_pos_screen.y << "\n";
 	ss << "Window: " << mouse_pos_window.x << " " << mouse_pos_window.y << "\n";
-	ss << "Character: " << p1.getPositionX() <<" " << p1.getPositionY() << std::endl;
+	ss << "Character: " << p1.getPosition().x <<" " << p1.getPosition().y << std::endl;
 	ss << "View: " << mouse_pos_view.x << " " << mouse_pos_view.y << "\n";
 	ss << "Grid: " << p1.getGridPosition(map.getGridSize()).x << " " << p1.getGridPosition(map.getGridSize()).y << "\n";
 	cord_pos.setString(ss.str());

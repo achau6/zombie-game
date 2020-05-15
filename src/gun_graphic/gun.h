@@ -4,7 +4,7 @@
 #include "math.h"
 #include <vector>
 #include "bullet.h"
-#include "player/constant.h"
+#include "constants.h"
 #include "weapon/pistol.h"
 #include "weapon/smg.h"
 #include "weapon/shotgun.h"
