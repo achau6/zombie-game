@@ -17,6 +17,7 @@ GameState::~GameState() {
 void GameState::Update() {
 	p1.movement();
 	map.Update(p1);
+	p1.changeGun(g.getGlobalIdentifier());
 	p1.look(*window);
 	p1.Update();
 	camera.UpdateCam(p1.getPosition());

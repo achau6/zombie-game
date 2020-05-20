@@ -19,6 +19,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
 	void setPosition(sf::Vector2f pos) {entity_sprite.setPosition(pos);}
+	void changeGun(int GLOBALIDENTIFIER);
 //accessors
 	const sf::Vector2f getPosition() const {return position;}
 	sf::Vector2f& getPosition() {return position;}

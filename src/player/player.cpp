@@ -109,6 +109,18 @@ void Player::look(sf::RenderWindow& window){
 	// directionalViewNormalized = directionalView / num;
 }
 
+void Player::changeGun(int GLOBALIDENTIFIER){
+	//0 = knife, 1 = pistol, 2 = smg, 3 = rifle, 4 = shotgun
+	if (GLOBALIDENTIFIER == 0)
+		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/knife/idle/survivor-idle_knife_0.png");
+	else if (GLOBALIDENTIFIER == 1 || GLOBALIDENTIFIER == 2)
+		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png");
+	else if (GLOBALIDENTIFIER == 3)
+		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png");
+	else if (GLOBALIDENTIFIER == 4)
+		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_0.png");
+	entity_sprite.setTexture(texture);
+}
 void Player::Draw(sf::RenderWindow& window){
 	// window.draw(area);
 	window.draw(entity_sprite);
