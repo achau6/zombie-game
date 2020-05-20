@@ -88,13 +88,10 @@ void Player::look(sf::RenderWindow& window){
     mousePosition.y += position.y;
 	slope = ((mousePosition.y - position.y) / (mousePosition.x - position.x));
 	//finds the degree where the character is supposed to be looking at
-	switch(quadrant){
-		case 1:
-			degree = (atan(slope) * (180 / PI)) - 180;
-			break;
-		default:
-			degree = atan(slope) * (180 / PI);
-	}
+	if (quadrant == 1)
+		degree = (atan(slope) * (180 / PI)) - 180;
+	else
+		degree = atan(slope) * (180 / PI);
 	//changes where the player is looking at according to where the mouse is pointing
 	player.first.setRotation(degree);
 	player.second.setRotation(degree);
