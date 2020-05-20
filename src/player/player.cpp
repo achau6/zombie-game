@@ -7,17 +7,18 @@ Player::Player(sf::RenderTarget* target) {
 	if (!texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png"))
 		std::cout<<"Shit dont work\n";
 	//initalization of sprite values
-	player.first.setTexture(texture);
-	player.first.setOrigin(100.0, 100.0);
-	player.first.setScale(0.5, 0.5);
-	player.first.setPosition(position.x, position.y);
+	entity_sprite.setTexture(texture);
+	entity_sprite.setScale(0.5, 0.5);
+	entity_sprite.setOrigin(texture.getSize().x/2, texture.getSize().y/2);
+	entity_sprite.setPosition(position.x, position.y);
 	//initalization of hitbox values
-	player.second.setFillColor(sf::Color(0,0,0,0));
-	player.second.setOutlineColor(sf::Color::White);
-	player.second.setOutlineThickness(1);
-	player.second.setOrigin(30.0, 28.0);
-	player.second.setSize(sf::Vector2f(85, 75));
-	player.second.setPosition(position.x, position.y);
+	hitbox.setSize({entity_sprite.getGlobalBounds().width, entity_sprite.getGlobalBounds().height});
+	hitbox.setFillColor(sf::Color(0,0,0,0));
+	hitbox.setOutlineColor(sf::Color::White);
+	hitbox.setOutlineThickness(2);
+	hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
+	hitbox.setPosition(position.x, position.y);
+	hitbox.setScale(0.5,0.5);
 	//characterCenter = sf::Vector2f(position.x + 125, position.y + 150);
 	area.setRadius(75);
     area.setFillColor(sf::Color::Green);
@@ -27,38 +28,43 @@ Player::Player(sf::RenderTarget* target) {
 	velocity = sf::Vector2f(0.f,0.f);
 }
 
+void Player::Update() {
+	entity_sprite.move(velocity);
+	hitbox.move(velocity);
+	position = entity_sprite.getPosition();
+	// resetting velocity
+	velocity = {0.f,0.f};
+}
+
 void Player::movement(){
 	//Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		if (collisionCheck.legalMovement(position.x, position.y - movement_speed)){
-			velocity.y += -movement_speed;
-		}
+		// if (collisionCheck.legalMovement(position.x, position.y - movement_speed)){
+		// 	velocity.y += -movement_speed;
+		// }
+		velocity.y += -movement_speed;
 	}
 	//Move Left
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		if (collisionCheck.legalMovement(position.x - movement_speed, position.y)){
-			velocity.x += -movement_speed;
-		}
+		// if (collisionCheck.legalMovement(position.x - movement_speed, position.y)){
+		// 	velocity.x += -movement_speed;
+		// }
+		velocity.x += -movement_speed;
 	}
 	//Move Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		if (collisionCheck.legalMovement(position.x, position.y + movement_speed)){
-			velocity.y += movement_speed;
-		}
+		// if (collisionCheck.legalMovement(position.x, position.y + movement_speed)){
+		// 	velocity.y += movement_speed;
+		// }
+		velocity.y += movement_speed;
 	}
 	//Move Right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		if (collisionCheck.legalMovement(position.x + movement_speed, position.y)){
-			velocity.x += movement_speed;
-		}
+		// if (collisionCheck.legalMovement(position.x + movement_speed, position.y)){
+		// 	velocity.x += movement_speed;
+		// }
+		velocity.x += movement_speed;
 	}
-
-	player.first.move(velocity);
-	player.second.move(velocity);
-	position = player.first.getPosition();
-
-	// resetting velocity
-	velocity = {0.f,0.f};
 }
 
 sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
@@ -93,8 +99,8 @@ void Player::look(sf::RenderWindow& window){
 	else
 		degree = atan(slope) * (180 / PI);
 	//changes where the player is looking at according to where the mouse is pointing
-	player.first.setRotation(degree);
-	player.second.setRotation(degree);
+	entity_sprite.setRotation(degree);
+	// hitbox.setRotation(degree);
 	//Look portion to determine where the gun is shooting
 	// characterCenter = sf::Vector2f(position.x + RADIUS,position.y + RADIUS);
 	// mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
@@ -104,7 +110,7 @@ void Player::look(sf::RenderWindow& window){
 }
 
 void Player::Draw(sf::RenderWindow& window){
-	window.draw(player.second);
 	// window.draw(area);
-	window.draw(player.first);
+	window.draw(entity_sprite);
+	window.draw(hitbox);
 }

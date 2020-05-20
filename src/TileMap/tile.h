@@ -11,10 +11,6 @@ public:
 		shape.setSize(tile_size);
 		shape.setFillColor(color);
 		shape.setPosition(pos);
-		// texture = std::make_unique<sf::Texture>();
-		// if (!texture->loadFromFile("../zombie-game/content/dirt.png")){
-		// 	std::cout<<"failed to load tile texture\n";
-		// }
 		shape.setTexture(texture.get());
 	}
 	void Render(sf::RenderWindow* window) {
