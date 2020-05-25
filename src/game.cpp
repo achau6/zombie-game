@@ -10,6 +10,7 @@ void Game::initWindow() {
 	float screenScalingFactor = platform.getScreenScalingFactor(window.getSystemHandle());
 	// Use the screenScalingFactor
 	window.create(sf::VideoMode(settings.window_width * screenScalingFactor, settings.window_height * screenScalingFactor), "Untitled Zombie Game");
+	//set this to 60 frames?
 	window.setFramerateLimit(144);
 	platform.setIcon(window.getSystemHandle());
 }

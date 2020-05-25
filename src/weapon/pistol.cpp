@@ -7,7 +7,7 @@ pistol::pistol()
     //max ammo guy has
     maxAMMO = 0;
     //how much ammo he has
-    currentAMMO = 10;
+    currentAMMO = 900;
     shotFire = 0;
 }
 

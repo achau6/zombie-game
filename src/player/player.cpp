@@ -20,7 +20,7 @@ Player::Player(sf::RenderTarget* target) {
 	hitbox.setPosition(position.x, position.y);
 	hitbox.setScale(0.5,0.5);
 	//characterCenter = sf::Vector2f(position.x + 125, position.y + 150);
-	area.setRadius(75);
+	area.setRadius(70);
     area.setFillColor(sf::Color::Green);
     area.setOrigin(75.0, 75.0);
     area.setPosition(position.x, position.y);
@@ -122,7 +122,7 @@ void Player::changeGun(int GLOBALIDENTIFIER){
 	entity_sprite.setTexture(texture);
 }
 void Player::Draw(sf::RenderWindow& window){
-	// window.draw(area);
+	//window.draw(area);
 	window.draw(entity_sprite);
 	window.draw(hitbox);
 }
