@@ -16,7 +16,7 @@ public:
 private:
 	size_t layers = 2;
 	sf::Vector2u grid_size = {50,50};
-	sf::Vector2f tile_size = {50,50};
+	sf::Vector2f tile_size = {70,70};
 
 	std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> game_map;
 };

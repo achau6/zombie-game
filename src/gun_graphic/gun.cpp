@@ -39,10 +39,10 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
 	mousePosition.x = sf::Mouse::getPosition(window).x;
     mousePosition.y = sf::Mouse::getPosition(window).y;
 	//Finds the quadrant
-	if (mousePosition.x <= 640)
+	if (mousePosition.x <= window.getSize().x/2)
 		quadrant = 1;
-	mousePosition.x -= 640;
-    mousePosition.y -= 360;
+	mousePosition.x -= window.getSize().x/2;
+    mousePosition.y -= window.getSize().y/2;
     mousePosition.x += Xpos;
     mousePosition.y += Ypos;
 	//determines the slope from where the mouse is pointing at to the player position

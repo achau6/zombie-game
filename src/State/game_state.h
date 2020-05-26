@@ -1,19 +1,23 @@
 #include "state.h"
 #include "TileMap/tilemap.h"
 #include "player/player.h"
-#include "camera.h"
+#include "Camera/camera.h"
 #include "gun_graphic/gun.h"
+#include "Entities/entity_pool.h"
 
 class GameState : public State {
 public:
 	GameState(sf::RenderWindow* wdw);
-	virtual ~GameState();
-	virtual void Update();
-	virtual void Render();
+	~GameState();
+	void Update();
+	void Render();
+
 private:
 	void initMousePositions();
+	void SpawnZombies();
 
 	TileMap map;
+	EntityPool zombie_pool;
 	Player p1;
 	Gun g;
 	Camera camera;
