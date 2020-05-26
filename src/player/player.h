@@ -19,6 +19,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void look(sf::RenderWindow& window);
 	void setPosition(sf::Vector2f pos) {entity_sprite.setPosition(pos);}
+	void changeGun(int GLOBALIDENTIFIER);
 //accessors
 	const sf::Vector2f getPosition() const {return position;}
 	sf::Vector2f& getPosition() {return position;}
@@ -26,6 +27,7 @@ public:
 	sf::Vector2f getdirectionalViewNormalized();
 	const sf::Sprite getPlayerSprite() const {return entity_sprite;}
 	float getPlayerSpd() {return movement_speed;}
+	sf::Vector2f returnVelocity(){return velocity;}
 
 private:
 	const float movement_speed = 3.f;

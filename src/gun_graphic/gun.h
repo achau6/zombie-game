@@ -10,6 +10,7 @@
 #include "weapon/shotgun.h"
 #include "weapon/rifle.h"
 #include "weapon/weapon.h"
+#include "player/player.h"
 class Gun
 {
 public:
@@ -20,9 +21,11 @@ public:
 	Shotgun sh;
 	smg s;
 	weapons w;
+	Player p1;
 	int GLOBALIDENTIFIER;
 	void Draw(sf::RenderWindow& window, int identifier);
 	void fire(sf::RenderWindow& window, float Xpos, float Ypos);
+	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}
 	void movement(int identifier);
 	void erase();
 private:
