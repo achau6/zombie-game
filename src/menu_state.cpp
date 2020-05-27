@@ -4,30 +4,18 @@ menu_state::menu_state(sf::RenderWindow* wdw) : State(wdw){
 }
 
 void menu_state::Render(){
-	wdw.draw(PlayButton.first);
-	wdw.draw(PlayButton.second);
-	wdw.draw(QuitButton.first);
-	wdw.draw(QuitButton.second);
+	wdw.draw(PlayButton);
+	wdw.draw(QuitButton);
 }
 
 void menu_state::initalizeButtons(){
 	PlayImage.loadFromFile("../zombie-game/content/Top_Down_Survivor/MainMenu/play.png");
-	PlayButton.first.setSize(sf::Vector2f(100, 30));
-	PlayButton.first.setPosition(50, 30);
-	PlayButton.first.setFillColor(sf::Color(0,0,0,0));
-	PlayButton.first.setOutlineColor(sf::Color::White);
-	PlayButton.first.setOutlineThickness(2);
-	PlayButton.second.setTexture(PlayImage);
-	PlayButton.second.setPosition(50, 30);
+	PlayButton.setTexture(PlayImage);
+	PlayButton.setPosition(50, 30);
 
 	QuitImage.loadFromFile("../zombie-game/content/Top_Down_Survivor/MainMenu/quit.png");
-	QuitButton.first.setSize(sf::Vector2f(100, 30));
-	QuitButton.first.setPosition(50, 130);
-	QuitButton.first.setFillColor(sf::Color(0,0,0,0));
-	QuitButton.first.setOutlineColor(sf::Color::White);
-	QuitButton.first.setOutlineThickness(2);
-	QuitButton.second.setTexture(QuitImage);
-	QuitButton.second.setPosition(50, 130);
+	QuitButton.setTexture(QuitImage);
+	QuitButton.setPosition(50, 130);
 }
 
 bool menu_state::CheckPressed(){

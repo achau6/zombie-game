@@ -8,8 +8,8 @@ public:
 	virtual void Render();
 	bool CheckPressed();
 private:
-	std::pair<sf::RectangleShape, sf::Sprite> PlayButton;
-	std::pair<sf::RectangleShape, sf::Sprite> QuitButton;
+	sf::Sprite PlayButton;
+	sf::Sprite QuitButton;
 	sf::Texture PlayImage;
 	sf::Texture QuitImage;
 };
