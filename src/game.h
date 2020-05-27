@@ -1,7 +1,9 @@
+#include "menu_state.h"
 #include "game_state.h"
 #include "weapon/smg.h"
 #include "gun_graphic/bullet.h"
 #include "GameSettings.h"
+#include <typeinfo>
 
 // TODO: add delta time so high fps will not mess up the game
 

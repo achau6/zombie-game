@@ -41,7 +41,12 @@ void Game::UpdateEvents() {
 				window.close();
 				break;
 			case sf::Event::MouseButtonPressed:
-				// std::cout << "Mouse Button Pressed" << std::endl;
+				if (typeid(states.top()) == typeid(menu_state) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+					if (states.top()->Update()){
+						delete states.top();
+						states.pop();
+					}
+				}
 				break;
 			case sf::Event::KeyPressed:
 				break;
