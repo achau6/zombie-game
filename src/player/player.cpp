@@ -20,7 +20,7 @@ Player::Player(sf::RenderTarget* target) {
 	hitbox.setPosition(position.x, position.y);
 	hitbox.setScale(0.5,0.5);
 	//characterCenter = sf::Vector2f(position.x + 125, position.y + 150);
-	area.setRadius(75);
+	area.setRadius(70);
     area.setFillColor(sf::Color::Green);
     area.setOrigin(75.0, 75.0);
     area.setPosition(position.x, position.y);
@@ -39,30 +39,18 @@ void Player::Update() {
 void Player::movement(){
 	//Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		// if (collisionCheck.legalMovement(position.x, position.y - movement_speed)){
-		// 	velocity.y += -movement_speed;
-		// }
 		velocity.y += -movement_speed;
 	}
 	//Move Left
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		// if (collisionCheck.legalMovement(position.x - movement_speed, position.y)){
-		// 	velocity.x += -movement_speed;
-		// }
 		velocity.x += -movement_speed;
 	}
 	//Move Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		// if (collisionCheck.legalMovement(position.x, position.y + movement_speed)){
-		// 	velocity.y += movement_speed;
-		// }
 		velocity.y += movement_speed;
 	}
 	//Move Right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		// if (collisionCheck.legalMovement(position.x + movement_speed, position.y)){
-		// 	velocity.x += movement_speed;
-		// }
 		velocity.x += movement_speed;
 	}
 }
@@ -85,11 +73,11 @@ void Player::look(sf::RenderWindow& window){
 	mousePosition.x = sf::Mouse::getPosition(window).x;
     mousePosition.y = sf::Mouse::getPosition(window).y;
 	//determines the quadrant your mouse is looking at
-	if (mousePosition.x < 640)
+	if (mousePosition.x < window.getSize().x/2)
 		quadrant = 1;
 	//figures out the actual mouse position relative to the application, not the window
-	mousePosition.x -= 640;
-    mousePosition.y -= 360;
+	mousePosition.x -= window.getSize().x/2;
+    mousePosition.y -= window.getSize().y/2;
     mousePosition.x += position.x;
     mousePosition.y += position.y;
 	slope = ((mousePosition.y - position.y) / (mousePosition.x - position.x));
@@ -122,7 +110,7 @@ void Player::changeGun(int GLOBALIDENTIFIER){
 	entity_sprite.setTexture(texture);
 }
 void Player::Draw(sf::RenderWindow& window){
-	// window.draw(area);
+	//window.draw(area);
 	window.draw(entity_sprite);
 	window.draw(hitbox);
 }

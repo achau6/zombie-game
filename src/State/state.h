@@ -17,6 +17,7 @@ public:
 	// forces function to be defined in derived class
 	virtual void Update() = 0;
 	virtual void Render() = 0;
+	// virtual void ChangeView() = 0;
 
 protected:
 	// using ptr to window so its easier draw objs without constantly passing window

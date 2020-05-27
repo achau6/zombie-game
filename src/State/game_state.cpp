@@ -7,11 +7,18 @@ GameState::GameState(sf::RenderWindow* wdw)
 		cord_pos.setFont(font);
 		cord_pos.setFillColor(sf::Color::White);
 		// TODO: REMOVE MAGIC NUMS 15
-		cord_pos.setCharacterSize(15);
+		size_t char_size = 15;
+		cord_pos.setCharacterSize(char_size);
+		SpawnZombies();
 }
 
 GameState::~GameState() {
 
+}
+
+void GameState::SpawnZombies() {
+	// Gridsize * grid position = pixelcoords
+	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 2, map.getGridSize().y * 2), game_textures);
 }
 
 void GameState::Update() {
@@ -58,9 +65,11 @@ void GameState::Render() {
 	*/
 	g.Draw(*window, g.GLOBALIDENTIFIER);
 
-	// UI VIEW (SO TEXT DOESNT MOVE WITH CAM)
-	window->setView(window->getDefaultView());
+	zombie_pool.Render(*window);
+
 	window->draw(cord_pos);
+	// UI VIEW (SO TEXT DOESNT MOVE WITH CAM)
+	// window->setView(window->getDefaultView());
 }
 
 void GameState::initMousePositions() {

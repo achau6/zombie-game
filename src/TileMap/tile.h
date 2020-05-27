@@ -12,6 +12,8 @@ public:
 		shape.setFillColor(color);
 		shape.setPosition(pos);
 		shape.setTexture(texture.get());
+		shape.setOutlineColor(sf::Color::Green);
+		shape.setOutlineThickness(1);
 	}
 	void Render(sf::RenderWindow* window) {
 		window->draw(shape);

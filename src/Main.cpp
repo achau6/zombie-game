@@ -1,56 +1,45 @@
-// #include "Platform/Platform.hpp"
-#include "game.h"
+#include "ZombieGame/ZombieGame.h"
+#include <iostream>
+#include <SFML/Graphics.hpp>
 
-int main()
-{
-// 	util::Platform platform;
-// 	std::vector<int> vector2;
+int main() {
+    bool GAME_STARTED = true;
+    sf::RenderWindow window(sf::VideoMode(1920,1080,32),"DaveStation");
+    window.setFramerateLimit(144);
+    ZombieGame game(&window);
 
-// #if defined(_DEBUG)
-// 	std::cout << "Hello World!" << std::endl;
-// #endif
+    game.start(window);
 
-// 	sf::RenderWindow window;
-// 	// in Windows at least, this must be called before creating the window
-// 	float screenScalingFactor = platform.getScreenScalingFactor(window.getSystemHandle());
-// 	// Use the screenScalingFactor
-// 	window.create(sf::VideoMode(1000.0 * screenScalingFactor, 500.0 * screenScalingFactor), "SFML");
-// 	platform.setIcon(window.getSystemHandle());
+    while(window.isOpen()){
 
-// 	sf::RectangleShape rectangle(sf::Vector2f(200, 200));
-// 	//shape.setFillColor(sf::Color::White);
+        sf::Event event;
 
-// 	sf::Texture shapeTexture;
-// 	shapeTexture.loadFromFile("C:/Users/SICK/Documents/CS/test/content/http___pluspng.com_img-png_gun-png-handgun-png-image-png-image-1024.png");
-// 	rectangle.setTexture(&shapeTexture);
+        while(window.pollEvent(event)) {
 
-// 	sf::Event event;
+            if (event.type == sf::Event::Closed) {
 
-// 	while (window.isOpen())
-// 	{
-// 		while (window.pollEvent(event))
-// 		{
-// 			switch( event.type )
-// 			{
-// 				case sf::Event::Closed:
-// 					window.close();
-// 					break;
-// 				case sf::Event::MouseButtonPressed:
-// 					std::cout<<"Mouse Button Pressed"<<std::endl;
-// 					break;
-// 				default:
-// 					break;
-// 			}
-// 		}
+                window.close();
 
-// 		window.clear();
-// 		window.draw(rectangle);
-// 		window.display();
-// 	}
+            }
+            game.addEvents(window, event);
+        }
 
-	Game game;
+        game.Update();
 
-	game.Run();
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            GAME_STARTED = false;
+            game.exit();
+        }
 
-	return 0;
+        window.clear(sf::Color::Black);
+        if(GAME_STARTED) {
+            game.addEvents(window);
+            window.draw(game);
+            // window.draw(game.getThumbnail());
+            // window.draw(game.getInfo(window));
+        }
+        window.display();
+    }
+    return 0;
 }
