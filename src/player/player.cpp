@@ -88,13 +88,6 @@ void Player::look(sf::RenderWindow& window){
 		degree = atan(slope) * (180 / PI);
 	//changes where the player is looking at according to where the mouse is pointing
 	entity_sprite.setRotation(degree);
-	// hitbox.setRotation(degree);
-	//Look portion to determine where the gun is shooting
-	// characterCenter = sf::Vector2f(position.x + RADIUS,position.y + RADIUS);
-	// mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
-	// directionalView = mousePosition - characterCenter;
-	// float num = sqrt(pow(directionalView.x, 2) + pow(directionalView.y, 2));
-	// directionalViewNormalized = directionalView / num;
 }
 
 void Player::changeGun(int GLOBALIDENTIFIER){

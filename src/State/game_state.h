@@ -1,4 +1,4 @@
-#include "state.h"
+#include "menu_state.h"
 #include "TileMap/tilemap.h"
 #include "player/player.h"
 #include "Camera/camera.h"
@@ -21,7 +21,6 @@ private:
 	Player p1;
 	Gun g;
 	Camera camera;
-
 	sf::Vector2i mouse_pos_screen;
 	sf::Vector2i mouse_pos_window;
 	sf::Vector2f mouse_pos_view;

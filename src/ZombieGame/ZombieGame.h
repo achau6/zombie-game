@@ -24,7 +24,7 @@ public:
 private:
 	// void initWindow();
 	void initStates();
-
+	bool MenuActive = true;
 	util::Platform platform;
 	sf::RenderWindow* window;
 	// sf::Event* event;

@@ -19,6 +19,8 @@ ZombieGame::ZombieGame(sf::RenderWindow* window) {
 
 void ZombieGame::initStates() {
 	states.push(new GameState(window));
+	states.push(new MenuState(window));
+	//states.push(new menu_state(window));
 	// states.push(new MenuState());
 }
 
@@ -43,9 +45,27 @@ void ZombieGame::UpdateEvents(sf::Event& event) {
 			case sf::Event::Closed:
 				window->close();
 				break;
-			case sf::Event::MouseButtonPressed:
-				// std::cout << "Mouse Button Pressed" << std::endl;
-				break;
+		case sf::Event::MouseButtonPressed:
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && MenuActive == true){
+					sf::Vector2i MousePosition = sf::Mouse::getPosition(*window);
+					if ((MousePosition.x > 600 && MousePosition.x < 1250) && (MousePosition.y > 450 && MousePosition.y < 700)){
+						delete states.top();
+						states.pop();
+						MenuActive = false;
+					}
+					else if ((MousePosition.x > 600 && MousePosition.x < 1250) && (MousePosition.y > 760 && MousePosition.y < 960))
+						window->close();
+				}
+                // std::cout << "Mouse Button Pressed" << std::endl;
+                // if (typeid(states.top()) == typeid(MenuState()) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+				// 	std::cout<<"now\n";
+                //     //if u run into any problems try !states.empty() or != nullptr
+                //     if (static_cast<MenuState()>(states.top())->Update()){
+                //         delete states.top();
+                //         states.pop();
+                //     }
+                // }
+                break;
 			case sf::Event::KeyPressed:
 				break;
 			default:
