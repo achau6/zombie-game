@@ -19,10 +19,5 @@ void MenuState::initalizeButtons(){
 }
 
 void MenuState::Update(){
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		sf::Vector2i MousePosition = sf::Mouse::getPosition(*window);
-		std::cout<<"x: "<<MousePosition.x<<std::endl;
-		std::cout<<"y: "<<MousePosition.y<<std::endl;
-		// if (MousePosition.x >=)
-	}
+
 }
