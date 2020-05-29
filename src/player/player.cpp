@@ -15,7 +15,7 @@ Player::Player(sf::RenderTarget* target) {
 	hitbox.setSize({entity_sprite.getGlobalBounds().width, entity_sprite.getGlobalBounds().height});
 	hitbox.setFillColor(sf::Color(0,0,0,0));
 	hitbox.setOutlineColor(sf::Color::White);
-	hitbox.setOutlineThickness(2);
+	hitbox.setOutlineThickness(5);
 	hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
 	hitbox.setPosition(position.x, position.y);
 	hitbox.setScale(0.5,0.5);

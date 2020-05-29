@@ -11,6 +11,8 @@
 #include "weapon/rifle.h"
 #include "weapon/weapon.h"
 #include "player/player.h"
+#include "Entities/entity_pool.h"
+
 class Gun
 {
 public:
@@ -22,11 +24,12 @@ public:
 	smg s;
 	weapons w;
 	Player p1;
+	EntityPool zombie_pool;
 	int GLOBALIDENTIFIER;
 	void Draw(sf::RenderWindow& window, int identifier);
-	void fire(sf::RenderWindow& window, float Xpos, float Ypos);
+	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
 	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}
-	void movement(int identifier);
+	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool);
 	void erase();
 private:
 	sf::Vector2f aimView;

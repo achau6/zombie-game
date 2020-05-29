@@ -4,7 +4,7 @@ Gun::Gun(){
 
 }
 
-void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
+void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
 {
 	float slope, degree, x, y;
 	int quadrant;
@@ -68,7 +68,6 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
 	y = Ypos + 64*sin(degree * (PI/180));
 
 	bulletCenter = sf::Vector2f(x, y);
-	//degree  = atan2(x, y);
 	//determines the direction of the bullet
 
 
@@ -80,21 +79,7 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
 	y = sin(degree);
 	b.velocity.x = x * b.maxSpeed;
 	b.velocity.y = y * b.maxSpeed;
-	// float newX, newY;
-	// newX = mousePosition.x - x;
-	// newY = mousePosition.y - y;
-	// float magnitude = sqrt((newX*newX) + (newY*newY));
-	// b.velocity.x = newX/magnitude * b.maxSpeed;
-	// b.velocity.y = newY/magnitude * b.maxSpeed;
-	//float calc = -1.00;
 
-	//aimView = mousePosition - bulletCenter;
-	//float num = sqrt(pow(aimView.x, 2) + pow(aimView.y, 2));
-	//aimViewNormalized = aimView / num;
-
-	//aimViewNormalized = sf::Vector2f(-1.0, -1.0);
-	//pass the speed to bullet object
-	//b.velocity = aimViewNormalized * b.maxSpeed;
 	b.bullet.setPosition(bulletCenter);
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
@@ -102,10 +87,7 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
 		adds the bullet in and play the shooting sound
 		although may move it to individual class (ex. pistol.h)
 		*/
-	std::cout<<"X: "<<bulletCenter.x<<", Y: "<<bulletCenter.y<<std::endl;
-	std::cout<<"x: "<<mousePosition.x<<", y: "<<mousePosition.y<<std::endl;
-	//std::cout<<"EX: "<<aimView.x<<", EY: "<<aimView.y<<std::endl;
-	//std::cout<<"aim: "<<aimViewNormalized.x<<", "<<aimViewNormalized.y<<std::endl;
+
 		if(GLOBALIDENTIFIER == 0){
 
 		} else if(GLOBALIDENTIFIER == 1){
@@ -118,18 +100,18 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos)
 			sh.push(Bullet(b));
 		}
 	}
-	movement(GLOBALIDENTIFIER);
+	movement(GLOBALIDENTIFIER, pool);
 }
 
 /*
 Gives the movement of the gun path
 */
-void Gun::movement(int identifier)
+void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool)
 {
 	if(identifier == 0){
 
 	} else if(identifier == 1){
-		p.movement();
+		p.movement(pool);
 		//std::cout<<"GLOBAL"<<std::endl;
 	} else if(identifier == 2){
 		s.movement();

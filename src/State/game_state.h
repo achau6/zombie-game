@@ -1,3 +1,6 @@
+#ifndef GAME_STATE_H
+#define GAME_STATE_H
+
 #include "state.h"
 #include "TileMap/tilemap.h"
 #include "player/player.h"
@@ -5,19 +8,22 @@
 #include "gun_graphic/gun.h"
 #include "Entities/entity_pool.h"
 
+
 class GameState : public State {
 public:
 	GameState(sf::RenderWindow* wdw);
 	~GameState();
 	void Update();
 	void Render();
+	EntityPool zombie_pool;
+
 
 private:
 	void initMousePositions();
 	void SpawnZombies();
 
 	TileMap map;
-	EntityPool zombie_pool;
+	//EntityPool zombie_pool;
 	Player p1;
 	Gun g;
 	Camera camera;
@@ -30,3 +36,4 @@ private:
 	sf::Text cord_pos;
 	std::stringstream ss;
 };
+#endif // GAME_STATE_H

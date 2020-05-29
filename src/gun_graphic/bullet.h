@@ -8,7 +8,7 @@ class Bullet
 public:
 	Bullet();
 	sf::Vector2f velocity;
-	sf::CircleShape bullet;
+	sf::RectangleShape bullet;
 	float maxSpeed;
 
 };

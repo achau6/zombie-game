@@ -3,8 +3,8 @@
 
 class Zombie : public Entity {
 public:
+	Zombie();
 	Zombie(sf::Vector2f spawn_pos, sf::Texture* texture);
-
 	// void attack();
 	// sf::Vector2u FindPlayer(const Player& player);
 private:

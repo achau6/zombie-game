@@ -1,3 +1,6 @@
+#ifndef STATE_H
+#define STATE_H
+
 #include <iostream>
 #include <vector>
 #include <stack>
@@ -26,5 +29,9 @@ protected:
 	std::map<std::string, std::shared_ptr<sf::Texture>> game_textures;
 	bool IsPaused;
 };
+
+
+#endif // STATE_H
+
 
 

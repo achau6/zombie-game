@@ -16,3 +16,4 @@ bool Collision::legalMovement(float positionx, float positiony){
 		return false;
 	return true;
 }
+

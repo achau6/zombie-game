@@ -1,6 +1,5 @@
 #include "smg.h"
 
-#include "pistol.h"
 
 smg::smg()
 {

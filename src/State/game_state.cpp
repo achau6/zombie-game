@@ -35,7 +35,7 @@ void GameState::Update() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.fire(*window, p1.getPosition().x, p1.getPosition().y);
+	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.pool);
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
