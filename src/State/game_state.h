@@ -27,7 +27,6 @@ private:
 	Player p1;
 	Gun g;
 	Camera camera;
-
 	sf::Vector2i mouse_pos_screen;
 	sf::Vector2i mouse_pos_window;
 	sf::Vector2f mouse_pos_view;

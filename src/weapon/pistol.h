@@ -5,6 +5,7 @@
 #include "gun_graphic/bullet.h"
 #include "weapon.h"
 #include "math.h"
+#include "Entities/entity_pool.h"
 
 class pistol
 {
