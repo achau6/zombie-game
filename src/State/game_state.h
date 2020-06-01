@@ -6,7 +6,6 @@
 #include "player/player.h"
 #include "Camera/camera.h"
 #include "gun_graphic/gun.h"
-#include "Entities/entity_pool.h"
 
 
 class GameState : public State {

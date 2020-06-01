@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include <iostream>
 #include <memory>
@@ -12,8 +14,8 @@ public:
 		shape.setFillColor(color);
 		shape.setPosition(pos);
 		shape.setTexture(texture.get());
-		shape.setOutlineColor(sf::Color::Green);
-		shape.setOutlineThickness(1);
+		// shape.setOutlineColor(sf::Color::Green);
+		// shape.setOutlineThickness(1);
 	}
 	void Render(sf::RenderWindow* window) {
 		window->draw(shape);
@@ -21,6 +23,8 @@ public:
 
 	sf::FloatRect getTileBounds() {return shape.getGlobalBounds();}
 	sf::Vector2f getTileSize() {return tile_size;}
+
+	virtual bool isWall() {return false;}
 	virtual std::string isType() {return "tile";}
 private:
 	sf::RectangleShape shape;

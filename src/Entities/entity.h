@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Platform/Platform.hpp"
 
 class Entity {
@@ -24,4 +26,5 @@ protected:
 	sf::Vector2f position;
 	sf::Vector2u grid_pos;
 private:
+
 };

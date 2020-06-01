@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../State/game_state.h"
 #include "weapon/smg.h"
 #include "gun_graphic/bullet.h"

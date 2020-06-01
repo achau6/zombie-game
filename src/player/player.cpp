@@ -2,8 +2,12 @@
 
 Player::Player(sf::RenderTarget* target) {
 	this->target = target;
-	position.x = target->getSize().x/2.f;
-	position.y = target->getSize().y/2.f;
+	// TODO: REMOVE THIS
+	// PLAYER SPAWN LOCATION
+	const int grid_size = 50;
+	const int grid_pos = 3;
+	const int grid_pos_to_screen_pos = grid_size * grid_pos;
+	position = sf::Vector2f(grid_pos_to_screen_pos, grid_pos_to_screen_pos);
 	if (!texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png"))
 		std::cout<<"Shit dont work\n";
 	//initalization of sprite values

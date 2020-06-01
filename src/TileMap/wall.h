@@ -1,5 +1,7 @@
+#pragma once
+
 #include "tile.h"
-#include "../player/player.h"
+#include "Entities/entity_pool.h"
 // add this
 
 // create an vector of wall pointers then pass them into the tile map
@@ -14,6 +16,7 @@ public:
 	// Checks if collision is present and prevents entity from entering
 	bool isCollision(Entity& entity);
 
+	bool isWall() {return true;}
 	std::string isType() {return "wall";}
 private:
 	sf::FloatRect obj_next_pos;

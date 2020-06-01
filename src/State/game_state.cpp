@@ -22,11 +22,20 @@ void GameState::SpawnZombies() {
 }
 
 void GameState::Update() {
+	// Moves the player
 	p1.movement();
-	map.Update(p1);
+	zombie_pool.Movement();
+
+	// map update checks for collision and sets velocity to 0 if collision occurs
+	map.Update(p1, zombie_pool);
+
 	p1.changeGun(g.getGlobalIdentifier());
 	p1.look(*window);
+
+	// Updates player position (can do other stuff if needed)
 	p1.Update();
+	zombie_pool.Update(p1);
+
 	camera.UpdateCam(p1.getPosition());
 
 	/*
@@ -35,7 +44,7 @@ void GameState::Update() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.pool);
+	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
@@ -67,9 +76,10 @@ void GameState::Render() {
 
 	zombie_pool.Render(*window);
 
+	// UI/WINDOW VIEW (SO TEXT DOESNT MOVE WITH CAM)
+	window->setView(window->getDefaultView());
+	// Draws stats onto window view
 	window->draw(cord_pos);
-	// UI VIEW (SO TEXT DOESNT MOVE WITH CAM)
-	// window->setView(window->getDefaultView());
 }
 
 void GameState::initMousePositions() {

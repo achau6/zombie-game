@@ -87,12 +87,9 @@ void ZombieGame::Update() {
 }
 
 void ZombieGame::Render() const {
-	// window.clear();
 	if (!states.empty()) {
 		states.top()->Render();
-		// states.top()->ChangeView();
 	}
-	// window.display();
 }
 
 void ZombieGame::start(sf::RenderWindow& window) {

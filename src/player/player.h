@@ -1,11 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include "Collision\collision.h"
+#include "Collision/collision.h"
 #include "../Entities/entity.h"
-#include <stdio.h>
 
 class Player : public Entity
 {
