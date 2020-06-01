@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../State/game_state.h"
+#include "../State/menu_state.h"
 #include "weapon/smg.h"
 #include "gun_graphic/bullet.h"
 #include "../DaveStation/Game/Game.h"

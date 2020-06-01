@@ -19,7 +19,7 @@ ZombieGame::ZombieGame(sf::RenderWindow* window) {
 
 void ZombieGame::initStates() {
 	states.push(new GameState(window));
-	//states.push(new MenuState(window));
+	states.push(new MenuState(window));
 	//states.push(new menu_state(window));
 	// states.push(new MenuState());
 }
