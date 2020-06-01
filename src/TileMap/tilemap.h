@@ -1,6 +1,8 @@
+#pragma once
+
 #include <memory>
-#include "../player/player.h"
 #include "wall.h"
+#include "Entities/entity_pool.h"
 
 // TODO: first test if tilemap works then try to add another layer
 // Tilemap only does first layer right now
@@ -8,10 +10,13 @@
 class TileMap {
 public:
 	TileMap(std::map<std::string, std::shared_ptr<sf::Texture>>& game_textures);
-	void Update(Player& player);
+	void Update(Player& player, EntityPool& pool);
 	void Render(sf::RenderWindow* window);
 
+	std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> GetTileMapVector() {return game_map;}
 	sf::Vector2u getGridSize() {return grid_size;}
+	size_t getObjectLayerNum() {return 1;}
+	size_t getBaseLayerNum() {return 0;}
 
 private:
 	size_t layers = 2;

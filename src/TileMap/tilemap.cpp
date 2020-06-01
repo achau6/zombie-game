@@ -38,13 +38,19 @@ TileMap::TileMap(std::map<std::string, std::shared_ptr<sf::Texture>>& game_textu
 	}
 }
 
-void TileMap::Update(Player& player) {
+void TileMap::Update(Player& player, EntityPool& pool) {
 	for(size_t x = 0; x < grid_size.x; x++) {
 		for(size_t y = 0; y < grid_size.y; y++) {
 			for(size_t z = 0; z < layers; z++) {
 				if(game_map[x][y][z] != nullptr) {
-					if(game_map[x][y][z]->isType() == "wall")
+					if(game_map[x][y][z]->isType() == "wall") {
 						std::static_pointer_cast<Wall>(game_map[x][y][z])->isCollision(player);
+						// checking the zombie pool for collision
+						for(auto zombies : pool.GetPool()) {
+							std::static_pointer_cast<Wall>(game_map[x][y][z])->isCollision(*zombies);
+							// std::cout << "zombie col";
+						}
+					}
 				}
 			}
 		}

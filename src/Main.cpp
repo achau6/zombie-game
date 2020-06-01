@@ -4,8 +4,12 @@
 
 int main() {
     bool GAME_STARTED = true;
+
     sf::RenderWindow window(sf::VideoMode(1920,1080,32),"DaveStation");
     window.setFramerateLimit(144);
+    // sf::Image icon;
+    // icon.loadFromFile("../zombie-game/content/game_thumbnail.png"); // File/Image/Pixel
+    // window.SetIcon(icon.GetWidth(), icon.GetHeight(), icon.GetPixelsPtr());
     ZombieGame game(&window);
 
     game.start(window);

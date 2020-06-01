@@ -38,20 +38,18 @@ void ZombieGame::Run() {
 }
 
 void ZombieGame::UpdateEvents(sf::Event& event) {
-	// while(window.pollEvent(event)) {
-		switch(event.type) {
-			case sf::Event::Closed:
-				window->close();
-				break;
-			case sf::Event::MouseButtonPressed:
-				// std::cout << "Mouse Button Pressed" << std::endl;
-				break;
-			case sf::Event::KeyPressed:
-				break;
-			default:
-				break;
-		}
-	// }
+	switch(event.type) {
+		case sf::Event::Closed:
+			window->close();
+			break;
+		case sf::Event::MouseButtonPressed:
+			// std::cout << "Mouse Button Pressed" << std::endl;
+			break;
+		case sf::Event::KeyPressed:
+			break;
+		default:
+			break;
+	}
 }
 
 void ZombieGame::Update() {
@@ -60,12 +58,9 @@ void ZombieGame::Update() {
 }
 
 void ZombieGame::Render() const {
-	// window.clear();
 	if (!states.empty()) {
 		states.top()->Render();
-		// states.top()->ChangeView();
 	}
-	// window.display();
 }
 
 void ZombieGame::start(sf::RenderWindow& window) {
