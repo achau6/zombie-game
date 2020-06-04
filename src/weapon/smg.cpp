@@ -51,17 +51,42 @@ void smg::push(Bullet b)
 
 }
 
-void smg::movement()
+void smg::movement(std::vector<std::shared_ptr<Zombie>> pool)
 {
 	for(unsigned int i = 0; i < smgs.size(); i ++){
 		smgs[i].bullet.move(smgs[i].velocity);
 		if(smgs[i].bullet.getPosition().x < 0 || smgs[i].bullet.getPosition().y < 0
 		|| smgs[i].bullet.getPosition().x > 2480 || smgs[i].bullet.getPosition().y > 2480){
-				smgs.erase(smgs.begin() + i);
-			}
+            smgs.erase(smgs.begin() + i);
+		} else {
+
+            for(unsigned int j = 0; j < pool.size(); j ++)
+            {
+                if(collisionCheck(smgs[i].bullet, pool, j) == true){
+                    smgs.erase(smgs.begin() + i);
+                    std::cout<<"WORK DAMMIT!!!!!!"<<std::endl;
+                }
+
+            }
+        }
 	}
 }
 
+bool smg::collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count)
+{
+    sf::FloatRect zombie_entity = pool[count]->getHitbox().getGlobalBounds();
+    sf::FloatRect bullet = rect.getGlobalBounds();
+
+
+    if(rect.getPosition().x < pool[count]->getHitbox().getPosition().x + zombie_entity.width &&
+			rect.getPosition().x + bullet.width > pool[count]->getHitbox().getPosition().x &&
+			rect.getPosition().y < pool[count]->getHitbox().getPosition().y + zombie_entity.height &&
+			bullet.height + rect.getPosition().y > pool[count]->getHitbox().getPosition().y){
+                return true;
+            }
+
+    return false;
+}
 void smg::Draw(sf::RenderWindow& window)
 {
 	for(unsigned int i = 0; i < smgs.size(); i ++){

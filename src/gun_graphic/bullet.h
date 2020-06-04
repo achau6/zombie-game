@@ -13,4 +13,13 @@ public:
 
 };
 
+class KnifeBullet
+{
+public:
+	KnifeBullet();
+	sf::Vector2f velocity;
+	sf::RectangleShape bullet;
+	float maxSpeed;
+};
+
 #endif // Bullet_H

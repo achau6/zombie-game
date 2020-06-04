@@ -6,8 +6,9 @@ Gun::Gun(){
 
 void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
 {
-	float slope, degree, x, y;
+	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
+
 	/*
 	This helps us switch weapon
 	*/
@@ -68,8 +69,12 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	y = Ypos + 64*sin(degree * (PI/180));
 
 	bulletCenter = sf::Vector2f(x, y);
-	//determines the direction of the bullet
 
+	degree -= 50;
+	copyX = Xpos + 1*cos(degree * (PI/180));
+	copyY = Ypos + 4*sin(degree * (PI/180));
+	knifeCenter = sf::Vector2f(copyX, copyY);
+	degree += 50;
 
 	//back to radian
 	degree -= 22;
@@ -79,8 +84,12 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	y = sin(degree);
 	b.velocity.x = x * b.maxSpeed;
 	b.velocity.y = y * b.maxSpeed;
-
 	b.bullet.setPosition(bulletCenter);
+
+
+	k.velocity.x = x * k.maxSpeed;
+	k.velocity.y = y * k.maxSpeed;
+	k.bullet.setPosition(knifeCenter);
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		/*
@@ -89,7 +98,8 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 		*/
 
 		if(GLOBALIDENTIFIER == 0){
-
+			m.push(KnifeBullet(k));
+			std::cout<<"melee"<<std::endl;
 		} else if(GLOBALIDENTIFIER == 1){
 			p.push(Bullet(b));
 		} else if(GLOBALIDENTIFIER == 2){
@@ -100,26 +110,20 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 			sh.push(Bullet(b));
 		}
 	}
-	movement(GLOBALIDENTIFIER, pool);
+	movement(GLOBALIDENTIFIER, pool, Xpos, Ypos);
 }
 
 /*
 Gives the movement of the gun path
 */
-void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool)
+void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y)
 {
-	if(identifier == 0){
-
-	} else if(identifier == 1){
+		m.movement(pool, x, y);
 		p.movement(pool);
-		//std::cout<<"GLOBAL"<<std::endl;
-	} else if(identifier == 2){
-		s.movement();
-	} else if(identifier == 3){
-		r.movement();
-	} else if(identifier == 4){
-		sh.movement();
-	}
+		s.movement(pool);
+		r.movement(pool);
+		sh.movement(pool);
+
 }
 
 /*
@@ -127,17 +131,11 @@ Draws the bullet and bullet movement path
 */
 void Gun::Draw(sf::RenderWindow& window, int identifier)
 {
-	if(identifier == 0){
+	m.Draw(window);
+	p.Draw(window);
+	s.Draw(window);
+	r.Draw(window);
+	sh.Draw(window);
 
-	} else if(identifier == 1){
-		p.Draw(window);
-		//std::cout<<"Draw"<<std::endl;
-	} else if(identifier == 2){
-		s.Draw(window);
-	} else if(identifier == 3){
-		r.Draw(window);
-	} else if(identifier == 4){
-		sh.Draw(window);
-	}
 }
 

@@ -55,7 +55,6 @@ void pistol::push(Bullet b)
 
 void pistol::movement(std::vector<std::shared_ptr<Zombie>> pool)
 {
-
 	for(unsigned int i = 0; i < pistols.size(); i ++){
 		pistols[i].bullet.move(pistols[i].velocity);
 		if(pistols[i].bullet.getPosition().x < 0 || pistols[i].bullet.getPosition().y < 0
@@ -65,12 +64,6 @@ void pistol::movement(std::vector<std::shared_ptr<Zombie>> pool)
 
             for(unsigned int j = 0; j < pool.size(); j ++)
             {
-                if(pistols[i].bullet.getGlobalBounds().intersects(pool[j]->getHitbox().getGlobalBounds())){
-                    pistols.erase(pistols.begin() + i);
-                    std::cout<<"WORK DAMMI!!!!!!!!@@@T"<<std::endl;
-                }
-                //std::cout<<"count: "<<pool.size()<<std::endl;
-
                 if(collisionCheck(pistols[i].bullet, pool, j) == true){
                     pistols.erase(pistols.begin() + i);
                     std::cout<<"WORK DAMMIT!!!!!!"<<std::endl;

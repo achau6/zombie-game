@@ -8,3 +8,11 @@ Bullet::Bullet()
 	velocity = sf::Vector2f(0.f, 0.f);
 	maxSpeed = 10.f;
 }
+
+KnifeBullet::KnifeBullet()
+{
+	bullet.setSize(sf::Vector2f(10, 10));
+	bullet.setFillColor(sf::Color::White);
+	velocity = sf::Vector2f(0.f, 0.f);
+	maxSpeed = 10.f;
+}
