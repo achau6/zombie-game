@@ -1,6 +1,6 @@
 #include "health_pack.h"
 
-Health::pack()
+Health::Health()
 {
 
 }

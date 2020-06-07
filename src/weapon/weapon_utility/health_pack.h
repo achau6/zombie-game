@@ -30,7 +30,7 @@ Made a pair that hold both a sprite and a shape.
 Map was not needed as we don't need a key
 */
 	std::vector<std::pair<sf::Sprite, sf::RectangleShape>> health_pack;
-
+	sf::Texture texture;
 
 };
 #endif // HEALTH_PACK_H

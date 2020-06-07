@@ -16,12 +16,13 @@ public:
 	void spawn_pack(sf::Vector2f position);
 	void movement(sf::RectangleShape player);
 	void delete_health_pack();
-	int GetSize(){return health_pack.size();}
+	int GetSize(){return ammo_pack.size();}
 	bool collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool);
 
 
 private:
-	std::vector<std::pair<sf::Sprite, sf::RectangleShape>> health_pack;
+	std::vector<std::pair<sf::Sprite, sf::RectangleShape>> ammo_pack;
+	sf::Texture texture;
 
 };
 #endif // AMMO_H_H

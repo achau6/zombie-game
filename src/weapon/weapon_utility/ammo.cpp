@@ -1,22 +1,22 @@
 #include "ammo.h"
 
-Ammo::pack()
+Ammo::Ammo()
 {
 
 }
 
 void Ammo::Draw(sf::RenderWindow& window){
-	for(unsigned int i = 0; i < health_pack.size(); i ++){
-		window.draw(health_pack[i].first);
+	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
+		window.draw(ammo_pack[i].first);
 	}
 
 }
 
 void Ammo::movement(sf::RectangleShape player)
 {
-	for(unsigned int i = 0; i < health_pack.size(); i ++){
-		if(collisionCheck(player, health_pack[i].second) == true){
-			health_pack.erase(health_pack.begin() + i);
+	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
+		if(collisionCheck(player, ammo_pack[i].second) == true){
+			ammo_pack.erase(ammo_pack.begin() + i);
 		}
 	}
 }
@@ -43,7 +43,7 @@ void Ammo::spawn_pack(sf::Vector2f position){
 	hitbox.setScale(.25, .25);
 
 
-	health_pack.push_back(std::make_pair(entity_sprite, hitbox));
+	ammo_pack.push_back(std::make_pair(entity_sprite, hitbox));
 }
 
 bool Ammo::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
