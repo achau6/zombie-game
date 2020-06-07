@@ -15,7 +15,7 @@ public:
 	bool MapEntityCheck(float positionx, float positiony);
 //accessors
 	bool legalMovement(float positionx, float positiony);
-	bool circleToRectangle(sf::Vector2f circle, sf::Vector2f rectangle);
+	bool rectangleToRectangle(sf::Vector2f circle, sf::Vector2f rectangle);
 private:
 	const float MAP_BORDER_X_LOW = 0;
 	const float MAP_BORDER_X_HIGH = 2480;

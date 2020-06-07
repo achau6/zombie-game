@@ -17,7 +17,9 @@
 class Gun
 {
 public:
+//contructors
 	Gun();
+//typedef
 	Bullet b;
 	KnifeBullet k;
 	pistol p;
@@ -29,11 +31,15 @@ public:
 	Melee m;
 	EntityPool zombie_pool;
 	int GLOBALIDENTIFIER;
+//mutators
 	void Draw(sf::RenderWindow& window, int identifier);
 	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
-	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}
 	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void erase();
+
+//accessors
+	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}
+
 
 private:
 	sf::Vector2f aimView;

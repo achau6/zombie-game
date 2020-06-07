@@ -10,6 +10,7 @@ GameState::GameState(sf::RenderWindow* wdw)
 		size_t char_size = 15;
 		cord_pos.setCharacterSize(char_size);
 		SpawnZombies();
+		SpawnHealth_Pack();
 }
 
 GameState::~GameState() {
@@ -21,10 +22,15 @@ void GameState::SpawnZombies() {
 	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 2, map.getGridSize().y * 2), game_textures);
 }
 
+void GameState::SpawnHealth_Pack() {
+	health.spawn_pack(sf::Vector2f(300, 300));
+}
+
 void GameState::Update() {
 	// Moves the player
 	p1.movement();
 	zombie_pool.Movement();
+	health.movement(p1.getHitbox());
 
 	// map update checks for collision and sets velocity to 0 if collision occurs
 	map.Update(p1, zombie_pool);
@@ -73,6 +79,7 @@ void GameState::Render() {
 	Will continue working on getting the list to work and switch it back
 	*/
 	g.Draw(*window, g.GLOBALIDENTIFIER);
+	health.Draw(*window);
 
 	zombie_pool.Render(*window);
 

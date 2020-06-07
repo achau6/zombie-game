@@ -1,7 +1,6 @@
 #include "gun.h"
 Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
-
 }
 
 void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
@@ -70,6 +69,9 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 
 	bulletCenter = sf::Vector2f(x, y);
 
+	/*
+	Values for Dupe Bullet Class in case of changes needed for melee class
+	*/
 	degree -= 50;
 	copyX = Xpos + 1*cos(degree * (PI/180));
 	copyY = Ypos + 4*sin(degree * (PI/180));
@@ -80,12 +82,14 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	degree -= 22;
 	degree = degree * (PI/180);
 
+	//get x and y values for linear displacement
 	x = cos(degree);
 	y = sin(degree);
+
+	//adding speed to displacement
 	b.velocity.x = x * b.maxSpeed;
 	b.velocity.y = y * b.maxSpeed;
 	b.bullet.setPosition(bulletCenter);
-
 
 	k.velocity.x = x * k.maxSpeed;
 	k.velocity.y = y * k.maxSpeed;
@@ -99,7 +103,6 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 
 		if(GLOBALIDENTIFIER == 0){
 			m.push(KnifeBullet(k));
-			std::cout<<"melee"<<std::endl;
 		} else if(GLOBALIDENTIFIER == 1){
 			p.push(Bullet(b));
 		} else if(GLOBALIDENTIFIER == 2){

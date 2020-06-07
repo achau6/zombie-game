@@ -29,7 +29,10 @@ void Melee::push(KnifeBullet b)
 
 void Melee::movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y)
 {
-
+/*
+checks if bullet exceed map grid
+if so remove
+*/
 	for(unsigned int i = 0; i < melees.size(); i ++){
 		melees[i].bullet.move(melees[i].velocity);
 		if(melees[i].bullet.getPosition().x < x - 70 || melees[i].bullet.getPosition().y < y - 70
@@ -39,6 +42,9 @@ void Melee::movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y
 
             for(unsigned int j = 0; j < pool.size(); j ++)
             {
+                /*
+                   checks if bullet touches another entity
+                */
                 if(collisionCheck(melees[i].bullet, pool, j) == true){
                     melees.erase(melees.begin() + i);
                 }
@@ -51,10 +57,17 @@ void Melee::movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y
 
 bool Melee::collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count)
 {
+/*
+Get the bounds of the rectangle shape
+*/
+
     sf::FloatRect zombie_entity = pool[count]->getHitbox().getGlobalBounds();
     sf::FloatRect bullet = rect.getGlobalBounds();
 
-
+/*
+Checks the all corners of the rectangle (init x pos, init y pos, width, and length)
+it checks a rectangle touches another rectange 'area' then return true
+*/
     if(rect.getPosition().x < pool[count]->getHitbox().getPosition().x + zombie_entity.width &&
 			rect.getPosition().x + bullet.width > pool[count]->getHitbox().getPosition().x &&
 			rect.getPosition().y < pool[count]->getHitbox().getPosition().y + zombie_entity.height &&

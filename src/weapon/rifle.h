@@ -10,10 +10,12 @@
 class rifle
 {
 public:
+//constructors
 	rifle();
+//typedef
 	Bullet b;
 	weapons w;
-	std::vector<Bullet> rifles;
+	//mutators
 	void push(Bullet b);
 	void movement(std::vector<std::shared_ptr<Zombie>> pool);
 	void Draw(sf::RenderWindow& window);
@@ -23,6 +25,8 @@ private:
 	int maxAMMO;
 	int currentAMMO;
 	int shotFire;
+	std::vector<Bullet> rifles;
+
 };
 
 #endif // RIFLE_H

@@ -55,33 +55,43 @@ void pistol::push(Bullet b)
 
 void pistol::movement(std::vector<std::shared_ptr<Zombie>> pool)
 {
+/*
+checks if bullet exceed map grid
+if so remove
+*/
 	for(unsigned int i = 0; i < pistols.size(); i ++){
 		pistols[i].bullet.move(pistols[i].velocity);
 		if(pistols[i].bullet.getPosition().x < 0 || pistols[i].bullet.getPosition().y < 0
-		|| pistols[i].bullet.getPosition().x > 2480 || pistols[i].bullet.getPosition().y > 2480){
+		|| pistols[i].bullet.getPosition().x > 3500 || pistols[i].bullet.getPosition().y > 3500){
             pistols.erase(pistols.begin() + i);
 		} else {
 
             for(unsigned int j = 0; j < pool.size(); j ++)
             {
+                /*
+                   checks if bullet touches another entity
+                */
                 if(collisionCheck(pistols[i].bullet, pool, j) == true){
                     pistols.erase(pistols.begin() + i);
-                    std::cout<<"WORK DAMMIT!!!!!!"<<std::endl;
                 }
 
             }
         }
 	}
-    //enemy collision
-
 }
 
 bool pistol::collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count)
 {
+/*
+Get the bounds of the rectangle shape
+*/
     sf::FloatRect zombie_entity = pool[count]->getHitbox().getGlobalBounds();
     sf::FloatRect bullet = rect.getGlobalBounds();
 
-
+/*
+Checks the all corners of the rectangle (init x pos, init y pos, width, and length)
+it checks a rectangle touches another rectange 'area' then return true
+*/
     if(rect.getPosition().x < pool[count]->getHitbox().getPosition().x + zombie_entity.width &&
 			rect.getPosition().x + bullet.width > pool[count]->getHitbox().getPosition().x &&
 			rect.getPosition().y < pool[count]->getHitbox().getPosition().y + zombie_entity.height &&
