@@ -10,10 +10,12 @@
 class Melee
 {
 public:
+//constructor
 	Melee();
+//typedef
 	KnifeBullet b;
 	weapons w;
-	std::vector<KnifeBullet> melees;
+	//mutators
 	void push(KnifeBullet b);
 	void movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void Draw(sf::RenderWindow& window);
@@ -25,5 +27,7 @@ private:
 	int maxAMMO = 10000;
 	int currentAMMO = 10000;
 	int shotFire;
+	std::vector<KnifeBullet> melees;
+
 };
 #endif // MELEE_H

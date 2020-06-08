@@ -4,6 +4,7 @@
 class weapons
 {
 public:
+//constructors
     weapons();
     sf::Sound sound;
     sf::SoundBuffer smgSound;
@@ -11,6 +12,7 @@ public:
     sf::SoundBuffer shotgunSound;
     sf::SoundBuffer pistolSound;
     sf::SoundBuffer meleeSound;
+    //mutators
     void play(int identifier);
 
 private:

@@ -8,6 +8,7 @@
 #include "gun_graphic/gun.h"
 #include <iomanip>
 
+#include "weapon/weapon_utility/health_pack.h"
 
 class GameState : public State {
 public:
@@ -23,12 +24,14 @@ private:
 	void SpawnZombies();
 	void initUISprites();
 	void changeWeaponIcons();
+	void SpawnHealth_Pack();
 
 	TileMap map;
 	//EntityPool zombie_pool;
 	Player p1;
 	Gun g;
 	Camera camera;
+	Health health;
 	sf::Vector2i mouse_pos_screen;
 	sf::Vector2i mouse_pos_window;
 	sf::Vector2f mouse_pos_view;

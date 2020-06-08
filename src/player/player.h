@@ -28,7 +28,7 @@ public:
 	sf::Vector2f& getPosition() {return position;}
 	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
-	const sf::Sprite getPlayerSprite() const {return entity_sprite;}
+	sf::Sprite getPlayerSprite() {return entity_sprite;}
 	float getPlayerSpd() {return movement_speed;}
 	sf::Vector2f returnVelocity(){return velocity;}
 

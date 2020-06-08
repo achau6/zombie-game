@@ -1,120 +1,150 @@
-// #include "astar.h"
+#include "astar.h"
 
-// //Converts the object layer to a node based grid
-// std::vector<std::vector<Node>> TileToNodeGrid(std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> grid, size_t layer) {
-//     std::vector<std::vector<Node>> node_grid;
-//     node_grid.reserve(grid.size());
-//     for(size_t i = 0; i < grid.size(); i++) {
-//         node_grid.reserve(grid[i].size());
-//         node_grid.push_back(std::vector<Node>());
-//         for(size_t j = 0; j < grid[i].size(); j++) {
-//             if(grid[i][j][layer] != nullptr) {
-//                 if(grid[i][j][layer]->isWall()) {
-//                     node_grid[i][j].isWall = true;
-//                 }
-//             }
-//             else {
-//                 node_grid[i][j].isWall = false;
-//             }
-//         }
-//     }
-//     return node_grid;
-// }
+// Converts the object layer to a node based grid
+std::vector<std::vector<std::shared_ptr<Node>>> Astar::TileToNodeGrid(const std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>>& grid, size_t layer) {
+   std::vector<std::vector<std::shared_ptr<Node>>> node_grid;
+   node_grid.reserve(grid.size());
+   for(size_t i = 0; i < grid.size(); i++) {
+       node_grid.reserve(grid[i].size());
+       node_grid.push_back(std::vector<std::shared_ptr<Node>>());
+       for(size_t j = 0; j < grid[i].size(); j++) {
+           if(grid[i][j][layer] != nullptr) {
+               if(grid[i][j][layer]->isWall()) {
+                   // here
+                   node_grid[i].push_back(std::make_shared<Node>());
+                   node_grid[i][j]->isWall = true;
+               }
+           }
+           else {
+               node_grid[i].push_back(std::make_shared<Node>());
+               node_grid[i][j]->isWall = false;
+           }
+       }
+   }
+   return node_grid;
+}
 
-// // A Utility Function to calculate the 'h' heuristics.
-// double calculateHValue(Node current, Node dest)
-// {
-//     // Return using the distance formula
-//     return ((double)sqrt((current.pos.x-dest.pos.x)*(current.pos.x-dest.pos.x)+(current.pos.y-dest.pos.y)*(current.pos.y-dest.pos.y)));
-// }
+// A Utility Function to calculate the 'h' heuristics.
+double Astar::calculateHValue(Node current, Node dest)
+{
+    // Return using the distance formula
+    return ((double)sqrt((current.pos.x-dest.pos.x)*(current.pos.x-dest.pos.x)+(current.pos.y-dest.pos.y)*(current.pos.y-dest.pos.y)));
+}
 
-// std::vector<Node> GetNeighbors(Node& n, sf::Vector2u grid_size) {
-//     std::vector<Node> neighbors;
-//     for(int i = -1; i <= 1; i++) {
-//         for(int j = -1; j <= 1; j++) {
-//             /* if at center
-//             [-1][-1] [-1][0] [-1][1]
-//             [0][-1] [0][0] [0][1]
-//             [1][-1] [1][0] [1][1]
-//             */
-//             if(i == 0 && j == 0)
-//                 continue;
+std::vector<std::shared_ptr<Node>> Astar::GetNeighbors(std::shared_ptr<Node> n, sf::Vector2u grid_size) {
+    std::vector<std::shared_ptr<Node>> neighbors;
+    for(int i = -1; i <= 1; i++) {
+        for(int j = -1; j <= 1; j++) {
+            /* if at center
+            [-1][-1] [-1][0] [-1][1]
+            [0][-1] [0][0] [0][1]
+            [1][-1] [1][0] [1][1]
+            */
+            if(i == 0 && j == 0)
+                continue;
 
-//             int checkX = n.pos.x + i;
-//             int checkY = n.pos.y + j;
+            int checkX = n->pos.x + i;
+            int checkY = n->pos.y + j;
 
-//             Node temp_node;
-//             temp_node.pos.x = checkX;
-//             temp_node.pos.y = checkY;
+            std::shared_ptr<Node> temp_node = std::make_shared<Node>();
+            temp_node->pos.x = checkX;
+            temp_node->pos.y = checkY;
 
-//             if(checkX >= 0 && checkX < grid_size.x && checkY >= 0 && checkY < grid_size.y)
-//                 neighbors.push_back(temp_node);
-//         }
-//     }
-// 	return neighbors;
-// }
+            if(checkX >= 0 && checkX < grid_size.x && checkY >= 0 && checkY < grid_size.y) {
+                neighbors.push_back(temp_node);
+                // std::cout << "NEIGHBORS " << temp_node->pos.x << " " << temp_node->pos.y << std::endl;
+            }
+        }
+    }
+	return neighbors;
+}
 
-// std::vector<Node> TracePath(Node start, Node end) {
-//     std::vector<Node> path;
-//     Node current = end;
-//     while(current != start) {
-//         path.push_back(current);
-//         current = *(current.parent);
-//     }
-//     std::reverse(path.begin(), path.end());
-//     return path;
-// }
+std::vector<std::shared_ptr<Node>> Astar::TracePath(std::shared_ptr<Node> start, std::shared_ptr<Node> end) {
+    std::vector<std::shared_ptr<Node>> path;
+    path.push_back(end);
+    Node* current = end.get();
+    while(current != nullptr) {
+        path.push_back(current->parent);
+        current = current->parent.get();
+        if(current != nullptr) {
+            if(*current != *start.get()) {
+                // std::cout << current.use_count() << " big weiner\n";
+                // std::cout << current->pos.x << " " << current->pos.y << std::endl;
+            }
+        }
+    }
+    // removing last node that's null
+    path.pop_back();
+    std::reverse(path.begin(), path.end());
+    return path;
+}
 
-// // FIXME: bug where parent has the exact same pos as current
-// // Node holds the current in current loop rather than the current node from previous loop
-// std::vector<Node> AStar(Node start, Node end, std::vector<std::vector<Node>> grid) {
-//     MyQueue<Node> open_set;
-//     std::vector<Node> closed_set;
+// FIXME: bug where parent has the exact same pos as current
+// Node holds the current in current loop rather than the current node from previous loop
+std::vector<std::shared_ptr<Node>> Astar::AStarSearch(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::vector<std::vector<std::shared_ptr<Node>>> grid) {
+    MyQueue<std::shared_ptr<Node>, std::vector<std::shared_ptr<Node>>, MyCompare> open_set;
+    std::vector<std::shared_ptr<Node>> closed_set;
 
-//     open_set.push(start);
+    open_set.push(start);
 
-//     while(!open_set.empty()) {
-//         // redefining current does not change the pointer so the data the pointer points to is changed
-//         Node current = open_set.top();
-//         // IT HAPPENS HERE
-//         open_set.pop();
-//         closed_set.push_back(current);
-//         if(current == end) {
-//             return TracePath(start, current);
-//         }
+    while(!open_set.empty()) {
+//        std::cout << open_set.size() << std::endl;
+        // redefining current does not change the pointer so the data the pointer points to is changed
+        std::shared_ptr<Node> current = open_set.top();
+        // std::cout << "current node:" << current->pos.x << " " << current->pos.y << std::endl;
+        open_set.pop();
+//        std::cout << "POPPED\n";
+        closed_set.push_back(current);
 
-//         // first is x grid size and grid[0] is y grid size
-//         unsigned int grid_size_x = grid.size();
-//         unsigned int grid_size_y = grid[0].size();
-//         std::vector<Node> neighbors_list = GetNeighbors(current, sf::Vector2u(grid_size_x, grid_size_y));
-//         for(auto& neighbor : neighbors_list) {
-//             // if neighbor is not traversable or neighbor is in the closed set
-//             if(neighbor.isWall || (std::find(closed_set.begin(), closed_set.end(), neighbor)!= closed_set.end())) {
-//                 // skip to the next neighboring node
-//                 continue;
-//             }
+//        std::cout << "CURRENT: " << current->pos.x << " " << current->pos.y << std::endl;
+//        std::cout << "END: " << end->pos.x << " " << end->pos.y << std::endl;
 
-//             int new_g_cost = current.g_cost + calculateHValue(current, neighbor);
-//             // if new path to neighbor is short or neighbor is not in the open set
-//             if(new_g_cost < neighbor.g_cost || !open_set.contains(neighbor)) {
-//                 // set f_cost of neighbor by g + h
-//                 // set parent of neighbor to current node
-//                 neighbor.g_cost = new_g_cost;
-//                 neighbor.h_cost = calculateHValue(neighbor, end);
-//                 neighbor.f_cost = neighbor.g_cost + neighbor.h_cost;
+        if(*current == *end) {
+//            std::cout << "PATH FOUND\n";
+            std::vector<std::shared_ptr<Node>> path = TracePath(start, current);
+            return path;
+        }
 
-//                 // FIXME: SOMETHING WRONG HERE
-//                 neighbor.parent = &current;
+        // first is x grid size and grid[0] is y grid size
+        unsigned int grid_size_x = grid.size();
+        unsigned int grid_size_y = grid[0].size();
+        std::vector<std::shared_ptr<Node>> neighbors_list = GetNeighbors(current, sf::Vector2u(grid_size_x, grid_size_y));
+        for(auto& neighbor : neighbors_list) {
+            // if neighbor is not traversable or neighbor is in the closed set
+            if(neighbor->isWall || (std::find(closed_set.begin(), closed_set.end(), neighbor) != closed_set.end())) {
+                // closed_set.push_back(neighbor);
+//                std::cout << "WALL:" << current->pos.x << " " << current->pos.y << std::endl;
+                // skip to the next neighboring node
+                continue;
+            }
 
-//                 // if neighbor is not in the open list
-//                     // push back neighbor
-//                 if(!open_set.contains(neighbor)) {
-//                     open_set.push(neighbor);
-//                 }
-//             }
-//         }
-//     }
+            // std::cout << "h cost: " << calculateHValue(*current, *neighbor) << std::endl;
 
-// 	// returning empty list
-// 	return std::vector<Node>();
-// }
+            double new_g_cost = current->g_cost + calculateHValue(*current, *neighbor);
+            // if new path to neighbor is short or neighbor is not in the open set
+            if(new_g_cost < neighbor->g_cost || !open_set.contains(neighbor)) {
+                // std::cout << "New g cost: " << new_g_cost << std::endl;
+                // set f_cost of neighbor by g + h
+                // set parent of neighbor to current node
+                neighbor->g_cost = new_g_cost;
+                neighbor->h_cost = calculateHValue(*neighbor, *end);
+                neighbor->f_cost = neighbor->g_cost + neighbor->h_cost;
+
+                neighbor->parent = current;
+
+                // if neighbor is not in the open list
+                    // push back neighbor
+
+                // pushes too many neighbors??
+                if(!open_set.contains(neighbor)) {
+//                    std::cout << "FCOST: " << neighbor->f_cost << std::endl;
+                    open_set.push(neighbor);
+//                    std::cout << current->pos.x << " " << current->pos.y << std::endl;
+                }
+            }
+        }
+    }
+
+	// returning empty list
+	return std::vector<std::shared_ptr<Node>>();
+}

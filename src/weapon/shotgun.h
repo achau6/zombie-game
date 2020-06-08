@@ -9,10 +9,12 @@
 class Shotgun
 {
 public:
+//constructors
 	Shotgun();
+//typdef
 	Bullet b;
 	weapons w;
-	std::vector<Bullet> shotguns;
+//mutators
 	void push(Bullet b);
 	void movement(std::vector<std::shared_ptr<Zombie>> pool);
 	void Draw(sf::RenderWindow& window);
@@ -24,6 +26,7 @@ private:
 	int maxAMMO;
 	int currentAMMO;
 	int shotFire;
+	std::vector<Bullet> shotguns;
 };
 
 #endif // SHOTGUN_H
