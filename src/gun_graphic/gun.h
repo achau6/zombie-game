@@ -1,5 +1,6 @@
 #ifndef GUN_H
 #define GUN_H
+
 #include <iostream>
 #include "math.h"
 #include <vector>
@@ -11,7 +12,7 @@
 #include "weapon/rifle.h"
 #include "weapon/weapon.h"
 #include "player/player.h"
-#include "Entities/entity_pool.h"
+// #include "Entities/entity_pool.h"
 
 class Gun
 {
@@ -24,7 +25,7 @@ public:
 	smg s;
 	weapons w;
 	Player p1;
-	EntityPool zombie_pool;
+	// EntityPool zombie_pool;
 	int GLOBALIDENTIFIER;
 	void Draw(sf::RenderWindow& window, int identifier);
 	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);

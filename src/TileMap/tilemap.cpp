@@ -55,6 +55,7 @@ void TileMap::Update(Player& player, EntityPool& pool) {
 			}
 		}
 	}
+	// EntityCollision::Update(player, pool, *this);
 }
 
 void TileMap::Render(sf::RenderWindow* window) {

@@ -1,9 +1,21 @@
 #include "zombie.h"
+#include "TileMap/tilemap.h"
 
-Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture) {
+Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tilemap) {
 	position = spawn_pos;
 	initSprite(texture);
 	initHitbox();
+	node_grid = Astar::TileToNodeGrid(tilemap.GetGameMap(), tilemap.getObjectLayerNum());
+	// for(auto x : node_grid) {
+	// 	for(auto y : x) {
+	// 		if(y->isWall)
+	// 			std::cout << "W";
+	// 		else {
+	// 			std::cout << " ";
+	// 		}
+	// 	}
+	// 	std::cout << std::endl;
+	// }
 }
 
 void Zombie::initSprite(sf::Texture* texture) {
@@ -36,15 +48,18 @@ void Zombie::Update() {
 	velocity = sf::Vector2f(0,0);
 }
 
-void Zombie::FindPlayer(Player& player) {
-	// Node start_node;
-	// start_node.pos = grid_pos;
-	// Node end_node;
-	// end_node.pos = player.getGridPosition(tile_map.getGridSize());
-	// std::vector<Node> path = AStar(start_node, end_node, TileToNodeGrid(tile_map.GetTileMapVector(), tile_map.getObjectLayerNum()));
-	// // for(auto i : path) {
-	// // 	std::cout << "X:" << i.pos.x << " " << "Y:" << i.pos.y << std::endl;
-	// // }
+void Zombie::FindPlayer(Player& player, TileMap& tilemap) {
+	std::shared_ptr<Node> start_node = std::make_shared<Node>();
+	sf::Vector2u zombie_grid_pos = grid_pos;
+	start_node->pos = zombie_grid_pos;
+	std::shared_ptr<Node> end_node = std::make_shared<Node>();
+	end_node->pos = player.getGridPosition(tilemap.getGridSize());
+	std::vector<std::shared_ptr<Node>> path = Astar::AStarSearch(start_node, end_node, node_grid);
+	if(!path.empty()) {
+		for(auto i : path) {
+			std::cout << "X:" << i->pos.x << " " << "Y:" << i->pos.y << std::endl;
+		}
+	}
 }
 
 void Zombie::Render(sf::RenderTarget& target) {
