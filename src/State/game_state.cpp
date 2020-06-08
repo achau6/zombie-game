@@ -11,6 +11,7 @@ GameState::GameState(sf::RenderWindow* wdw)
 		cord_pos.setCharacterSize(char_size);
 		SpawnZombies();
 		SpawnHealth_Pack();
+		zombie_pool.FindPlayer(p1, map);
 }
 
 GameState::~GameState() {
@@ -18,8 +19,9 @@ GameState::~GameState() {
 }
 
 void GameState::SpawnZombies() {
+	//TODO: WAVE SYSTEM
 	// Gridsize * grid position = pixelcoords
-	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 2, map.getGridSize().y * 2), game_textures);
+	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 2, map.getGridSize().y * 2), game_textures, map);
 }
 
 void GameState::SpawnHealth_Pack() {
@@ -34,6 +36,7 @@ void GameState::Update() {
 
 	// map update checks for collision and sets velocity to 0 if collision occurs
 	map.Update(p1, zombie_pool);
+	// EntityCollision::Update(p1, zombie_pool, map);
 
 	p1.changeGun(g.getGlobalIdentifier());
 	p1.look(*window);
@@ -41,6 +44,7 @@ void GameState::Update() {
 	// Updates player position (can do other stuff if needed)
 	p1.Update();
 	zombie_pool.Update(p1);
+	// zombie_pool.Update(p1, map);
 
 	camera.UpdateCam(p1.getPosition());
 

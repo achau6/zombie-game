@@ -1,5 +1,6 @@
 #ifndef GUN_H
 #define GUN_H
+
 #include <iostream>
 #include "math.h"
 #include <vector>

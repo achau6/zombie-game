@@ -1,4 +1,5 @@
 #include "gun.h"
+
 Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
 }
