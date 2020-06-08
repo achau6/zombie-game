@@ -6,30 +6,13 @@ Player::Player(sf::RenderTarget* target) {
 	// PLAYER SPAWN LOCATION
 	const int grid_size = 50;
 	const int grid_pos = 3;
+	HP = 100;
 	const int grid_pos_to_screen_pos = grid_size * grid_pos;
 	position = sf::Vector2f(grid_pos_to_screen_pos, grid_pos_to_screen_pos);
-	if (!texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png"))
-		std::cout<<"Shit dont work\n";
-	//initalization of sprite values
-	entity_sprite.setTexture(texture);
-	entity_sprite.setScale(0.5, 0.5);
-	entity_sprite.setOrigin(texture.getSize().x/2, texture.getSize().y/2);
-	entity_sprite.setPosition(position.x, position.y);
-	//initalization of hitbox values
-	hitbox.setSize({entity_sprite.getGlobalBounds().width, entity_sprite.getGlobalBounds().height});
-	hitbox.setFillColor(sf::Color(0,0,0,0));
-	hitbox.setOutlineColor(sf::Color::White);
-	hitbox.setOutlineThickness(5);
-	hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
-	hitbox.setPosition(position.x, position.y);
-	hitbox.setScale(0.5,0.5);
-	//characterCenter = sf::Vector2f(position.x + 125, position.y + 150);
-	area.setRadius(70);
-    area.setFillColor(sf::Color::Green);
-    area.setOrigin(75.0, 75.0);
-    area.setPosition(position.x, position.y);
-
+	initSpriteTextures();
+	initHitBox();
 	velocity = sf::Vector2f(0.f,0.f);
+	walk.loadFromFile("content/Audio/gravel.wav");
 }
 
 void Player::Update() {
@@ -44,19 +27,33 @@ void Player::movement(){
 	//Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		velocity.y += -movement_speed;
+		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
+			WalkingSound();
 	}
 	//Move Left
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		velocity.x += -movement_speed;
+		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
+			WalkingSound();
 	}
 	//Move Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		velocity.y += movement_speed;
+		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
+			WalkingSound();
 	}
 	//Move Right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		velocity.x += movement_speed;
+		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
+			WalkingSound();
 	}
+}
+
+void Player::WalkingSound(){
+	Footsteps.setBuffer(walk);
+	Footsteps.setVolume(5);
+	Footsteps.play();
 }
 
 sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
@@ -96,18 +93,44 @@ void Player::look(sf::RenderWindow& window){
 
 void Player::changeGun(int GLOBALIDENTIFIER){
 	//0 = knife, 1 = pistol, 2 = smg, 3 = rifle, 4 = shotgun
-	if (GLOBALIDENTIFIER == 0)
-		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/knife/idle/survivor-idle_knife_0.png");
-	else if (GLOBALIDENTIFIER == 1 || GLOBALIDENTIFIER == 2)
-		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png");
-	else if (GLOBALIDENTIFIER == 3)
-		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png");
-	else if (GLOBALIDENTIFIER == 4)
-		texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_0.png");
-	entity_sprite.setTexture(texture);
+	entity_sprite.setTexture(sprites[GLOBALIDENTIFIER]);
 }
 void Player::Draw(sf::RenderWindow& window){
 	//window.draw(area);
 	window.draw(entity_sprite);
 	window.draw(hitbox);
+}
+
+void Player::initSpriteTextures(){
+	sf::Texture rifle, pistol, knife, shotgun;
+	knife.loadFromFile("content/Top_Down_Survivor/knife/idle/survivor-idle_knife_0.png");
+	pistol.loadFromFile("content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png");
+	rifle.loadFromFile("content/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png");
+	shotgun.loadFromFile("content/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_0.png");
+	sprites[0] = knife;
+	sprites[1] = pistol;
+	sprites[2] = pistol;
+	sprites[3] = rifle;
+	sprites[4] = shotgun;
+	entity_sprite.setTexture(sprites[1]);
+	entity_sprite.setScale(0.5, 0.5);
+	entity_sprite.setOrigin(sprites[1].getSize().x/2, sprites[1].getSize().y/2);
+	entity_sprite.setPosition(position.x, position.y);
+}
+
+void Player::initHitBox(){
+	//initalization of hitbox values
+	hitbox.setSize({entity_sprite.getGlobalBounds().width, entity_sprite.getGlobalBounds().height});
+	hitbox.setFillColor(sf::Color(0,0,0,0));
+	hitbox.setOutlineColor(sf::Color::White);
+	hitbox.setOutlineThickness(5);
+	hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
+	hitbox.setPosition(position.x, position.y);
+	hitbox.setScale(0.5,0.5);
+
+	//characterCenter = sf::Vector2f(position.x + 125, position.y + 150);
+	area.setRadius(70);
+    area.setFillColor(sf::Color::Green);
+    area.setOrigin(75.0, 75.0);
+    area.setPosition(position.x, position.y);
 }

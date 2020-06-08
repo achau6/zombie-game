@@ -54,7 +54,7 @@ void rifle::movement(std::vector<std::shared_ptr<Zombie>> pool)
 	for(unsigned int i = 0; i < rifles.size(); i ++){
 		rifles[i].bullet.move(rifles[i].velocity);
 		if(rifles[i].bullet.getPosition().x < 0 || rifles[i].bullet.getPosition().y < 0
-		|| rifles[i].bullet.getPosition().x > 2480 || rifles[i].bullet.getPosition().y > 2480){
+		|| rifles[i].bullet.getPosition().x > 3500 || rifles[i].bullet.getPosition().y > 3500){
             rifles.erase(rifles.begin() + i);
 		} else {
 

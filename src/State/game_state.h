@@ -6,6 +6,7 @@
 #include "player/player.h"
 #include "Camera/camera.h"
 #include "gun_graphic/gun.h"
+#include <iomanip>
 
 
 class GameState : public State {
@@ -20,6 +21,8 @@ public:
 private:
 	void initMousePositions();
 	void SpawnZombies();
+	void initUISprites();
+	void changeWeaponIcons();
 
 	TileMap map;
 	//EntityPool zombie_pool;
@@ -31,7 +34,18 @@ private:
 	sf::Vector2f mouse_pos_view;
 	sf::Vector2u mouse_pos_grid;
 	sf::Font font;
+	sf::Font csfont;
+	sf::Text UI[2];
+	//0 = Heatlh/Ammo, 1 = Zombies/Waves #
 	sf::Text cord_pos;
 	std::stringstream ss;
+	sf::Sprite crosshair;
+	sf::Sprite healthIcon;
+	sf::Sprite BulletIcon;
+	sf::Sprite GunIcon;
+	sf::Texture CrosshairTexture;
+	sf::Texture HealthTexture;
+	sf::Texture BulletTexture;
+	sf::Texture GunIconTexture;
 };
 #endif // GAME_STATE_H

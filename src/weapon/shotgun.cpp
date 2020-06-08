@@ -55,7 +55,7 @@ void Shotgun::movement(std::vector<std::shared_ptr<Zombie>> pool)
 	for(unsigned int i = 0; i < shotguns.size(); i ++){
 		shotguns[i].bullet.move(shotguns[i].velocity);
 		if(shotguns[i].bullet.getPosition().x < 0 || shotguns[i].bullet.getPosition().y < 0
-		|| shotguns[i].bullet.getPosition().x > 2480 || shotguns[i].bullet.getPosition().y > 2480){
+		|| shotguns[i].bullet.getPosition().x > 3500 || shotguns[i].bullet.getPosition().y > 3500){
             shotguns.erase(shotguns.begin() + i);
 		} else {
 

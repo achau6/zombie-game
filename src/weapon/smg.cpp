@@ -56,7 +56,7 @@ void smg::movement(std::vector<std::shared_ptr<Zombie>> pool)
 	for(unsigned int i = 0; i < smgs.size(); i ++){
 		smgs[i].bullet.move(smgs[i].velocity);
 		if(smgs[i].bullet.getPosition().x < 0 || smgs[i].bullet.getPosition().y < 0
-		|| smgs[i].bullet.getPosition().x > 2480 || smgs[i].bullet.getPosition().y > 2480){
+		|| smgs[i].bullet.getPosition().x > 3500 || smgs[i].bullet.getPosition().y > 3500){
             smgs.erase(smgs.begin() + i);
 		} else {
 

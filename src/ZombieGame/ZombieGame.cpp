@@ -47,31 +47,14 @@ void ZombieGame::UpdateEvents(sf::Event& event) {
 				break;
 		case sf::Event::MouseButtonPressed:
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && MenuActive == true){
-					sf::Vector2i MousePosition = sf::Mouse::getPosition(*window);
-					float xLower, xUpper, yPlayLower, yPlayUpper, yQuitLower, yQuitUpper;
-					xLower = window->getSize().x * .3125;
-					xUpper = window->getSize().x * .651;
-					yPlayLower = window->getSize().y * .4166;
-					yPlayUpper = window->getSize().y * .64815;
-					yQuitLower = window->getSize().y * .7037;
-					yQuitUpper = window->getSize().y * .88888;
-					if ((MousePosition.x > xLower && MousePosition.x < xUpper) && (MousePosition.y > yPlayLower && MousePosition.y < yPlayUpper)){
+					if (static_cast<MenuState*>(states.top())->checkPress() == 1){
 						delete states.top();
 						states.pop();
 						MenuActive = false;
 					}
-					else if ((MousePosition.x > xLower && MousePosition.x < xUpper) && (MousePosition.y > yQuitLower && MousePosition.y < yQuitUpper))
+					else if (static_cast<MenuState*>(states.top())->checkPress() == 2)
 						window->close();
 				}
-                // std::cout << "Mouse Button Pressed" << std::endl;
-                // if (typeid(states.top()) == typeid(MenuState()) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-				// 	std::cout<<"now\n";
-                //     //if u run into any problems try !states.empty() or != nullptr
-                //     if (static_cast<MenuState()>(states.top())->Update()){
-                //         delete states.top();
-                //         states.pop();
-                //     }
-                // }
                 break;
 			case sf::Event::KeyPressed:
 				break;

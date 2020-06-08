@@ -17,6 +17,8 @@ public:
 	void movement(std::vector<std::shared_ptr<Zombie>> pool);
 	void Draw(sf::RenderWindow& window);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
+	int getCurrentAmmo() {return currentAMMO;}
+	int getMaxAmmo() {return maxAMMO;}
 private:
 	int fireRate;
 	int maxAMMO;

@@ -34,6 +34,7 @@ public:
 	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}
 	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void erase();
+	std::pair<int, int> getAmmo();
 
 private:
 	sf::Vector2f aimView;
