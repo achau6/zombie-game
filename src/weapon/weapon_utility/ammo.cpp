@@ -1,30 +1,32 @@
 #include "ammo.h"
 
-Ammo::Ammo()
+Ammo_Box::Ammo_Box()
 {
 
 }
 
-void Ammo::Draw(sf::RenderWindow& window){
+void Ammo_Box::Draw(sf::RenderWindow& window){
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
 		window.draw(ammo_pack[i].first);
 	}
 
 }
 
-void Ammo::movement(sf::RectangleShape player)
+bool Ammo_Box::movement(sf::RectangleShape player)
 {
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
 		if(collisionCheck(player, ammo_pack[i].second) == true){
 			ammo_pack.erase(ammo_pack.begin() + i);
+			return true;
 		}
 	}
+	return false;
 }
 
 
 
 
-void Ammo::spawn_pack(sf::Vector2f position){
+void Ammo_Box::spawn_pack(sf::Vector2f position){
 	if (!texture.loadFromFile("../zombie-game/content/ammo_crate.PNG")){
 		std::cout<<"Shit dont work\n";
 	}
@@ -46,7 +48,7 @@ void Ammo::spawn_pack(sf::Vector2f position){
 	ammo_pack.push_back(std::make_pair(entity_sprite, hitbox));
 }
 
-bool Ammo::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
+bool Ammo_Box::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
 {
     sf::FloatRect zombie_entity = pool.getGlobalBounds();
     sf::FloatRect bullet = rect.getGlobalBounds();

@@ -7,6 +7,7 @@
 #include "Camera/camera.h"
 #include "gun_graphic/gun.h"
 #include "weapon/weapon_utility/health_pack.h"
+#include "weapon/weapon_utility/ammo.h"
 
 class GameState : public State {
 public:
@@ -21,6 +22,8 @@ private:
 	void initMousePositions();
 	void SpawnZombies();
 	void SpawnHealth_Pack();
+	void SpawnAmmo_Pack();
+
 
 	TileMap map;
 	//EntityPool zombie_pool;
@@ -28,6 +31,7 @@ private:
 	Gun g;
 	Camera camera;
 	Health health;
+	Ammo_Box ammo;
 	sf::Vector2i mouse_pos_screen;
 	sf::Vector2i mouse_pos_window;
 	sf::Vector2f mouse_pos_view;

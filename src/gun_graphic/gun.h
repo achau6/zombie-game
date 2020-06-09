@@ -32,10 +32,11 @@ public:
 	EntityPool zombie_pool;
 	int GLOBALIDENTIFIER;
 //mutators
-	void Draw(sf::RenderWindow& window, int identifier);
+	void Draw(sf::RenderWindow& window);
 	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
 	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void erase();
+
 
 //accessors
 	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}

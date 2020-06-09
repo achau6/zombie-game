@@ -6,7 +6,9 @@
 #include "weapon.h"
 #include "math.h"
 #include "Entities/entity_pool.h"
-class Shotgun
+#include "gun_entity.h"
+
+class Shotgun : public Gun_Entity
 {
 public:
 //constructors
@@ -19,6 +21,7 @@ public:
 	void movement(std::vector<std::shared_ptr<Zombie>> pool);
 	void Draw(sf::RenderWindow& window);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
+	void add_ammo();
 private:
 	int fireRate;
 	int maxAMMO;

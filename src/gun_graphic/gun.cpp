@@ -14,27 +14,22 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
 		//identifier = 0;
 		GLOBALIDENTIFIER = 0;
-		p1.changeGun(0);
 		std::cout<<"Melee"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
 		//identifier = 1;
 		GLOBALIDENTIFIER = 1;
-		p1.changeGun(1);
 		std::cout<<"Pistol"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
 		//identifier = 2;
 		GLOBALIDENTIFIER = 2;
-		p1.changeGun(2);
 		std::cout<<"SMG"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
 		//identifier = 3;
 		GLOBALIDENTIFIER = 3;
-		p1.changeGun(3);
 		std::cout<<"Rifle"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
 		//identifier = 4;
 		GLOBALIDENTIFIER = 4;
-		p1.changeGun(4);
 		std::cout<<"Shotgun"<<std::endl;
 	}
 	/*
@@ -116,6 +111,10 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	movement(GLOBALIDENTIFIER, pool, Xpos, Ypos);
 }
 
+// void Gun::SpawnHealth_Pack() {
+// 	health_pack.spawn_pack(sf::Vector2f(300, 300));
+// }
+
 /*
 Gives the movement of the gun path
 */
@@ -126,19 +125,28 @@ void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, fl
 		s.movement(pool);
 		r.movement(pool);
 		sh.movement(pool);
-
+		//std::cout<<"nig: "<<p1.getHitbox().x<<", "<<p1.getHitbox().y<<std::endl;
+		//health_pack.movement(player.getHitbox());
+		// if(identifier == 1 && a.movement(player.getHitbox()) == true){
+		// 	p.add_ammo();
+		// } else if(identifier == 2 && a.movement(player.getHitbox()) == true){
+		// 	s.add_ammo();
+		// } else if(identifier == 3 && a.movement(player.getHitbox()) == true){
+		// 	r.add_ammo();
+		// } else if(identifier == 4 && a.movement(player.getHitbox()) == true){
+		// 	sh.add_ammo();
+		// }
 }
 
 /*
 Draws the bullet and bullet movement path
 */
-void Gun::Draw(sf::RenderWindow& window, int identifier)
+void Gun::Draw(sf::RenderWindow& window)
 {
 	m.Draw(window);
 	p.Draw(window);
 	s.Draw(window);
 	r.Draw(window);
 	sh.Draw(window);
-
 }
 
