@@ -41,9 +41,9 @@ void Zombie::Look(Player& player){
 	sf::Vector2f playerPos = player.getPlayerSprite().getPosition();
 	sf::Vector2f zombiePos = entity_sprite.getPosition();
 
-	float angle = atan2(playerPos.y - zombiePos.y, playerPos.x - zombiePos.x) * 180 / 3.141;
+	float angle = atan2(playerPos.y - zombiePos.y, playerPos.x - zombiePos.x) * 180.f / 3.141f;
 
-	entity_sprite.setRotation(angle);
+	entity_sprite.setRotation(angle+90.f);
 }
 
 void Zombie::Movement() {
