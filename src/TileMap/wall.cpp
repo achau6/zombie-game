@@ -17,7 +17,7 @@ bool Wall::isCollision(Entity& entity) {
 					&& entity_bounds.left + entity_bounds.width > wall_bounds.left
 					)
 				{
-					std::cout << "top collision" << std::endl;
+					// std::cout << "top collision" << std::endl;
 					entity.getVelocity().y = 0.f;
 				}
 
@@ -28,7 +28,7 @@ bool Wall::isCollision(Entity& entity) {
 					&& entity_bounds.left + entity_bounds.width > wall_bounds.left
 					)
 				{
-					std::cout << "bottom collision" << std::endl;
+					// std::cout << "bottom collision" << std::endl;
 					entity.getVelocity().y = 0.f;
 				}
 
@@ -39,7 +39,7 @@ bool Wall::isCollision(Entity& entity) {
 					&& entity_bounds.top + entity_bounds.height > wall_bounds.top
 					)
 				{
-					std::cout << "left collision" << std::endl;
+					// std::cout << "left collision" << std::endl;
 					entity.getVelocity().x = 0.f;
 				}
 

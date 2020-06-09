@@ -24,6 +24,8 @@ public:
 	void add_ammo();
 //accessors
 	int get_Current_Ammo() { return currentAMMO;}
+	int getCurrentAmmo() {return currentAMMO;}
+	int getMaxAmmo() {return maxAMMO;}
 private:
 	int fireRate;
 	int maxAMMO;

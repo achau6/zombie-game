@@ -20,10 +20,12 @@ public:
 	void movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void Draw(sf::RenderWindow& window);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
+	int getCurrentAmmo() {return currentAMMO;}
+	int getMaxAmmo() {return maxAMMO;}
 private:
 	int fireRate;
-	int maxAMMO;
-	int currentAMMO;
+	int maxAMMO = 10000;
+	int currentAMMO = 10000;
 	int shotFire;
 	std::vector<KnifeBullet> melees;
 

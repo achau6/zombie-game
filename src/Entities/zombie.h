@@ -1,13 +1,14 @@
 #pragma once
 
-// #include "Algorithms/astar.h"
+#include "Algorithms/astar.h"
 #include "player/player.h"
-// #include "TileMap/tilemap.h"
+
+class TileMap;
 
 class Zombie : public Entity {
 public:
 	Zombie() = default;
-	Zombie(sf::Vector2f spawn_pos, sf::Texture* texture);
+	Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tilemap);
 
 	void Update();
 	void Render(sf::RenderTarget& target);
@@ -15,7 +16,7 @@ public:
 	void Movement();
 	void Attack();
 	bool IsDead() {return is_dead;}
-	void FindPlayer(Player& player);
+	void FindPlayer(Player& player, TileMap& tilemap);
 
 private:
 	void initSprite(sf::Texture* texture);
@@ -24,4 +25,5 @@ private:
 	const float movement_speed = 3.5;
 	bool is_dead = false;
 
+	std::vector<std::vector<std::shared_ptr<Node>>> node_grid;
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Platform/Platform.hpp"
+#include "SFML/Audio.hpp"
 
 class Entity {
 public:
@@ -17,6 +18,8 @@ public:
 
 	const sf::Vector2f getVelocity() const {return velocity;}
 	sf::Vector2f& getVelocity() {return velocity;}
+
+	float getHP() {return HP;}
 
 protected:
 	float HP;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "tile.h"
-#include "Entities/entity_pool.h"
+#include "Entities/entity.h"
 // add this
 
 // create an vector of wall pointers then pass them into the tile map

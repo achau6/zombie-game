@@ -1,5 +1,6 @@
 #ifndef GUN_H
 #define GUN_H
+
 #include <iostream>
 #include "math.h"
 #include <vector>
@@ -36,6 +37,7 @@ public:
 	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
 	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void erase();
+	std::pair<int, int> getAmmo();
 
 
 //accessors

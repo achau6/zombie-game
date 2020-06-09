@@ -1,4 +1,5 @@
 #include "gun.h"
+
 Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
 }
@@ -149,4 +150,32 @@ void Gun::Draw(sf::RenderWindow& window)
 	r.Draw(window);
 	sh.Draw(window);
 }
+//returns ammo for current gun, 1st is current, 2nd is reserve
+std::pair<int, int> Gun::getAmmo(){
+	std::pair<int, int> ammo;
+	switch (getGlobalIdentifier()){
+		case 0:
+			ammo.first = m.getCurrentAmmo();
+			ammo.second = m.getMaxAmmo();
+			break;
+		case 1:
+			ammo.first = p.getCurrentAmmo();
+			ammo.second = p.getMaxAmmo();
+			break;
+		case 2:
+			ammo.first = s.getCurrentAmmo();
+			ammo.second = s.getMaxAmmo();
+			break;
+		case 3:
+			ammo.first = r.getCurrentAmmo();
+			ammo.second = r.getMaxAmmo();
+			break;
+		case 4:
+			ammo.first = sh.getCurrentAmmo();
+			ammo.second = sh.getMaxAmmo();
+			break;
+	}
+	return ammo;
+}
+
 
