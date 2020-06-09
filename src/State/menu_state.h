@@ -1,7 +1,6 @@
 #pragma once
 
 #include "state.h"
-#include "../src/Utility/button.h"
 class MenuState : public State{
 public:
 	MenuState() = default;

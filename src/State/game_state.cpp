@@ -2,6 +2,7 @@
 
 GameState::GameState(sf::RenderWindow* wdw)
 	: State(wdw), map(game_textures), p1(wdw), camera(wdw) {
+		dead = false;
 		initMousePositions();
 		font.loadFromFile("content/arial.ttf");
 		cord_pos.setFont(font);
@@ -12,6 +13,7 @@ GameState::GameState(sf::RenderWindow* wdw)
 		initUISprites();
 		SpawnHealth_Pack();
 		SpawnAmmo_Pack();
+		initDeathScreen();
 		zombie_pool.FindPlayer(p1, map);
 		ambientNoise.openFromFile("content/Audio/ambientNoise.wav");
 		ambientNoise.setVolume(3);
@@ -37,33 +39,40 @@ void GameState::SpawnAmmo_Pack() {
 }
 
 void GameState::Update() {
-	// Moves the player
-	p1.movement();
-	zombie_pool.Movement();
-	health.movement(p1.getHitbox());
-	ammo.movement(p1.getHitbox());
+	if (p1.getHP() > 0){
+		// Moves the player
+		p1.movement();
+		zombie_pool.Movement();
+		health.movement(p1.getHitbox());
+		ammo.movement(p1.getHitbox());
 
-	// map update checks for collision and sets velocity to 0 if collision occurs
-	map.Update(p1, zombie_pool);
-	// EntityCollision::Update(p1, zombie_pool, map);
-	p1.changeGun(g.getGlobalIdentifier());
-	p1.look(*window);
+		// map update checks for collision and sets velocity to 0 if collision occurs
+		map.Update(p1, zombie_pool);
+		// EntityCollision::Update(p1, zombie_pool, map);
+		p1.changeGun(g.getGlobalIdentifier());
+		p1.look(*window);
 
-	// Updates player position (can do other stuff if needed)
-	p1.Update();
-	zombie_pool.Update(p1);
-	// zombie_pool.Update(p1, map);
+		// Updates player position (can do other stuff if needed)
+		p1.Update();
+		zombie_pool.Update(p1);
+		// zombie_pool.Update(p1, map);
 
-	camera.UpdateCam(p1.getPosition());
+		camera.UpdateCam(p1.getPosition());
 
-	/*
-	This is complete overhaul of my code
-	I switch to using vectors as I had trouble to individually remove the bullets
-	when it goes off screen because it deleted entire bullet list.
-	Will continue working on getting the list to work and switch it back
-	*/
-	if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool()) == true)
-		p1.shootGun(g.getGlobalIdentifier());
+		/*
+		This is complete overhaul of my code
+		I switch to using vectors as I had trouble to individually remove the bullets
+		when it goes off screen because it deleted entire bullet list.
+		Will continue working on getting the list to work and switch it back
+		*/
+		if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool()) == true)
+			p1.shootGun(g.getGlobalIdentifier());
+	}
+	else{
+		dead = true;
+		Retry.is_over(*window);
+		Leave.is_over(*window);
+	}
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
@@ -97,7 +106,11 @@ void GameState::Render() {
 	map.Render(window);
 	health.Draw(*window);
 	ammo.Draw(*window);
-	p1.Draw(*window);
+	if (dead == false)
+		p1.Draw(*window);
+	else
+		drawDeathScreen();
+
 	/*
 	This is complete overhaul of my code
 	I switch to using vectors as I had trouble to individually remove the bullets
@@ -197,4 +210,44 @@ void GameState::changeWeaponIcons(){
 			GunIcon.setScale(.8, .8);
 			break;
 	}
+}
+
+void GameState::initDeathScreen(){
+	csfont.loadFromFile("content/cs_regular.ttf");
+	deadText.setFont(csfont);
+	deadText.setCharacterSize(100);
+	deadText.setPosition(sf::Vector2f(window->getSize().x * .17, window->getSize().y * .19));
+	deadText.setString("You are dead");
+	deadText.setFillColor(sf::Color::Red);
+
+	Retry.set_font(csfont);
+	Retry.set_size(sf::Vector2f(window->getSize().x * .15, window->getSize().y * .08));
+	Retry.set_text_color(sf::Color::Blue);
+	Retry.set_font_size(100);
+	Retry.set_pos(sf::Vector2f(window->getSize().x * .07, window->getSize().y * .45));
+	Retry.set_str("Retry?");
+
+	Leave.set_font(csfont);
+	Leave.set_size(sf::Vector2f(window->getSize().x * .15, window->getSize().y * .08));
+	Leave.set_text_color(sf::Color::Blue);
+	Leave.set_font_size(100);
+	Leave.set_pos(sf::Vector2f(window->getSize().x * .07, window->getSize().y * .65));
+	Leave.set_str("Quit");
+}
+
+void GameState::drawDeathScreen(){
+	Retry.draw(*window);
+	Leave.draw(*window);
+	window->draw(deadText);
+}
+bool GameState::retry() {
+	if (Retry.is_over(*window))
+		return true;
+	return false;
+}
+
+bool GameState::quit() {
+	if (Leave.is_over(*window))
+		return true;
+	return false;
 }

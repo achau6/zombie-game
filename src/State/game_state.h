@@ -7,7 +7,6 @@
 #include "Camera/camera.h"
 #include "gun_graphic/gun.h"
 #include <iomanip>
-
 #include "weapon/weapon_utility/health_pack.h"
 #include "weapon/weapon_utility/ammo.h"
 
@@ -18,6 +17,9 @@ public:
 	void Update();
 	void Render();
 	void playMusic() {ambientNoise.play();}
+	bool isDead() {return dead;}
+	bool retry();
+	bool quit();
 	EntityPool zombie_pool;
 
 
@@ -28,9 +30,11 @@ private:
 	void changeWeaponIcons();
 	void SpawnHealth_Pack();
 	void SpawnAmmo_Pack();
-
+	void initDeathScreen();
+	void drawDeathScreen();
 
 	TileMap map;
+	bool dead;
 	//EntityPool zombie_pool;
 	Player p1;
 	Gun g;
@@ -42,8 +46,9 @@ private:
 	sf::Vector2f mouse_pos_view;
 	sf::Vector2u mouse_pos_grid;
 	sf::Font font, csfont;
+	Button Retry, Leave;
 	//0 = Heatlh/Ammo, 1 = Zombies/Waves #
-	sf::Text UI[2], cord_pos;
+	sf::Text UI[2], cord_pos, deadText;
 	std::stringstream ss;
 	sf::Music ambientNoise;
 	sf::Sprite crosshair, healthIcon, BulletIcon, GunIcon;
