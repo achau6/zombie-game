@@ -23,7 +23,7 @@ public:
 	sf::FloatRect getTileBounds() {return shape.getGlobalBounds();}
 	sf::Vector2f getTileSize() {return tile_size;}
 
-	virtual bool isWall() {return false;}
+	virtual bool isWall() const {return false;}
 	virtual std::string isType() {return "tile";}
 private:
 	sf::RectangleShape shape;

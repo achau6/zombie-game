@@ -53,14 +53,14 @@ void Player::WalkingSound(){
 	}
 }
 
-sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
-	if(position.x > 0)
-		grid_pos.x = position.x / grid_size.x;
-	if(position.y > 0)
-		grid_pos.y = position.y / grid_size.y;
+// sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
+// 	if(position.x > 0)
+// 		grid_pos.x = position.x/ grid_size.x;
+// 	if(position.y > 0)
+// 		grid_pos.y = position.y / grid_size.y;
 
-	return grid_pos;
-}
+// 	return grid_pos;
+// }
 
 void Player::look(sf::RenderWindow& window){
 	//float x, y;
@@ -131,7 +131,7 @@ void Player::knifeSwings(){
 void Player::Draw(sf::RenderWindow& window){
 	//window.draw(area);
 	window.draw(entity_sprite);
-	window.draw(hitbox);
+	// window.draw(hitbox);
 }
 
 void Player::initSpriteTextures(){

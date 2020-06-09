@@ -16,7 +16,7 @@ public:
 	// Checks if collision is present and prevents entity from entering
 	bool isCollision(Entity& entity);
 
-	bool isWall() {return true;}
+	bool isWall() const {return true;}
 	std::string isType() {return "wall";}
 private:
 	sf::FloatRect obj_next_pos;

@@ -48,5 +48,7 @@ private:
 	sf::Music ambientNoise;
 	sf::Sprite crosshair, healthIcon, BulletIcon, GunIcon;
 	sf::Texture CrosshairTexture, HealthTexture, BulletTexture, GunIconTexture;
+
+	sf::Clock timer;
 };
 #endif // GAME_STATE_H

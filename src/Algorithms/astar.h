@@ -70,11 +70,11 @@ struct Node {
 
 class Astar {
 public:
-	static std::vector<std::vector<std::shared_ptr<Node>>> TileToNodeGrid(const std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>>& grid, size_t layer);
+	static std::vector<std::vector<std::shared_ptr<Node>>> TileToNodeGrid(const std::vector<std::vector<int>>& grid);
 
 	static double calculateHValue(Node current, Node dest);
 
-	static std::vector<std::shared_ptr<Node>> GetNeighbors(std::shared_ptr<Node> n, sf::Vector2u grid_size);
+	static std::vector<std::shared_ptr<Node>> GetNeighbors(std::shared_ptr<Node> n,  const std::vector<std::vector<std::shared_ptr<Node>>>& grid);
 
 	static std::vector<std::shared_ptr<Node>> TracePath(std::shared_ptr<Node> start, std::shared_ptr<Node> target);
 
