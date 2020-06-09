@@ -1,9 +1,5 @@
 #include "ammo.h"
 
-Ammo_Box::Ammo_Box()
-{
-
-}
 
 void Ammo_Box::Draw(sf::RenderWindow& window){
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
@@ -12,21 +8,22 @@ void Ammo_Box::Draw(sf::RenderWindow& window){
 
 }
 
-void Ammo_Box::movement(sf::RectangleShape player, int identifier)
+void Ammo_Box::delete_box(sf::RectangleShape player, int identifier, pistol& p,
+rifle& r, Shotgun& sh)
 {
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
 		if(collisionCheck(player, ammo_pack[i].second) == true){
 			ammo_pack.erase(ammo_pack.begin() + i);
 			if(identifier == 1){
 				//p.add_ammo();
-				p.flag_check();
-				std::cout<<"help"<<std::endl;
+				p.add_ammo();
+				//p.push(, false);
 			} else if(identifier == 2){
 				//s.push(Bullet(b));
 			} else if(identifier == 3){
-				//r.push(Bullet(b));
+				r.add_ammo();
 			} else if(identifier == 4){
-				//sh.push(Bullet(b));
+				sh.add_ammo();
 			}
 
 		}

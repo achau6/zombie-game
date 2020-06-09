@@ -24,11 +24,14 @@ public:
 	void add_ammo();
 	int getCurrentAmmo() {return currentAMMO;}
 	int getMaxAmmo() {return maxAMMO;}
+	bool flag_check(){return flag;}
+
+
 private:
+	bool flag;
 	int fireRate;
 	int maxAMMO;
 	int currentAMMO;
-	int shotFire;
 	std::vector<Bullet> shotguns;
 };
 

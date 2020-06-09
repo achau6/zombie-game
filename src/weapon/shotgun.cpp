@@ -5,11 +5,15 @@ Shotgun::Shotgun()
     fireRate = 10;
     maxAMMO = 0;
     currentAMMO = 10;
-    shotFire = 0;
+    flag = false;
 }
 
 void Shotgun::push(Bullet b)
 {
+    if(flag_check() == true){
+        maxAMMO += 15;
+        flag = false;
+    }
     fire(b, shotguns, fireRate, 39, currentAMMO, maxAMMO);
 
     // /*
@@ -99,5 +103,5 @@ void Shotgun::Draw(sf::RenderWindow& window)
 
 void Shotgun::add_ammo()
 {
-    maxAMMO += 5;
+    flag = true;
 }

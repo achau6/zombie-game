@@ -4,7 +4,8 @@ Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
 }
 
-void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool, Player& player)
+void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
+sf::RectangleShape player)
 {
 	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
@@ -109,34 +110,30 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 			sh.push(Bullet(b));
 		}
 	}
-	movement(GLOBALIDENTIFIER, pool, Xpos, Ypos);
+	movement(GLOBALIDENTIFIER, pool, Xpos, Ypos, player);
 }
 
 // void Gun::SpawnHealth_Pack() {
 // 	health_pack.spawn_pack(sf::Vector2f(300, 300));
 // }
 
+void Gun::spawnAmmo_Box(sf::Vector2f position){
+	ammo.spawn_pack(position);
+}
 /*
 Gives the movement of the gun path
 */
-void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y)
+void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y, sf::RectangleShape player)
 {
 		m.movement(pool, x, y);
 		p.movement(pool);
 		s.movement(pool);
 		r.movement(pool);
 		sh.movement(pool);
-		//std::cout<<"nig: "<<p1.getHitbox().x<<", "<<p1.getHitbox().y<<std::endl;
-		//health_pack.movement(player.getHitbox());
-		// if(identifier == 1 && a.movement(player.getHitbox()) == true){
-		// 	p.add_ammo();
-		// } else if(identifier == 2 && a.movement(player.getHitbox()) == true){
-		// 	s.add_ammo();
-		// } else if(identifier == 3 && a.movement(player.getHitbox()) == true){
-		// 	r.add_ammo();
-		// } else if(identifier == 4 && a.movement(player.getHitbox()) == true){
-		// 	sh.add_ammo();
-		// }
+		//health.movement(player);
+		ammo.delete_box(player, getGlobalIdentifier(), p, r, sh);
+
+
 }
 
 /*
@@ -149,6 +146,8 @@ void Gun::Draw(sf::RenderWindow& window)
 	s.Draw(window);
 	r.Draw(window);
 	sh.Draw(window);
+	//health.Draw(window);
+	ammo.Draw(window);
 }
 //returns ammo for current gun, 1st is current, 2nd is reserve
 std::pair<int, int> Gun::getAmmo(){

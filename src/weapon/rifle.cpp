@@ -5,11 +5,15 @@ rifle::rifle()
     fireRate = 21;
     maxAMMO = 0;
     currentAMMO = 15;
-    shotFire = 0;
+    flag = false;
 }
 
 void rifle::push(Bullet b)
 {
+    if(flag_check() == true){
+        maxAMMO += 5;
+        flag = false;
+    }
     fire(b, rifles, fireRate, 21, currentAMMO, maxAMMO);
 
     // /*
@@ -97,5 +101,6 @@ void rifle::Draw(sf::RenderWindow& window)
 
 void rifle::add_ammo()
 {
-    maxAMMO += 15;
+    flag = true;
 }
+

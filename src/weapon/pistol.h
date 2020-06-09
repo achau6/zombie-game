@@ -22,20 +22,19 @@ public:
 	void Draw(sf::RenderWindow& window);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
 	void add_ammo();
-	bool ammo_add();
-	void flag_check();
 
 //accessors
 	int get_Current_Ammo() { return currentAMMO;}
 	int getCurrentAmmo() {return currentAMMO;}
 	int getMaxAmmo() {return maxAMMO;}
-	bool flag;
+	bool flag_check(){return flag;}
+
 
 private:
-	int fireRate;
+	bool flag;
 	int maxAMMO;
+	int fireRate;
 	int currentAMMO;
-	int shotFire;
 	std::vector<Bullet> pistols;
 };
 

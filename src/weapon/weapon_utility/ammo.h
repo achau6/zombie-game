@@ -2,6 +2,8 @@
 #define AMMO_H
 #include "Entities/entity.h"
 #include "weapon/pistol.h"
+#include "weapon/shotgun.h"
+#include "weapon/rifle.h"
 #include <iostream>
 
 /*
@@ -11,13 +13,14 @@ class Ammo_Box : public Entity
 {
 public:
 	//constructors
-	Ammo_Box();
+	Ammo_Box() = default;
 	//typedef
-	pistol p;
+	//pistol p;
 	//Mutators
 	void Draw(sf::RenderWindow& window);
 	void spawn_pack(sf::Vector2f position);
-	void movement(sf::RectangleShape player, int identifier);
+	void delete_box(sf::RectangleShape player, int identifier, pistol& p, rifle& r,
+	Shotgun& sh);
 	void delete_health_pack();
 	int GetSize(){return ammo_pack.size();}
 	bool collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool);

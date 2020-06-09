@@ -10,7 +10,7 @@ GameState::GameState(sf::RenderWindow* wdw)
 		cord_pos.setCharacterSize(char_size);
 		SpawnZombies();
 		initUISprites();
-		SpawnHealth_Pack();
+		// SpawnHealth_Pack();
 		SpawnAmmo_Pack();
 		zombie_pool.FindPlayer(p1, map);
 }
@@ -25,20 +25,20 @@ void GameState::SpawnZombies() {
 	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 10, map.getGridSize().y * 10), game_textures, map);
 }
 
-void GameState::SpawnHealth_Pack() {
-	health.spawn_pack(sf::Vector2f(300, 300));
-}
+// void GameState::SpawnHealth_Pack() {
+// 	health.spawn_pack(sf::Vector2f(300, 300));
+// }
 
 void GameState::SpawnAmmo_Pack() {
-	ammo.spawn_pack(sf::Vector2f(500, 500));
+	g.spawnAmmo_Box(sf::Vector2f(500, 500));
 }
 
 void GameState::Update() {
 	// Moves the player
 	p1.movement();
 	zombie_pool.Movement();
-	health.movement(p1.getHitbox());
-	ammo.movement(p1.getHitbox(), g.getGlobalIdentifier());
+	// health.movement(p1.getHitbox());
+	// ammo.movement(p1.getHitbox(), g.getGlobalIdentifier());
 
 	// map update checks for collision and sets velocity to 0 if collision occurs
 	map.Update(p1, zombie_pool);
@@ -60,7 +60,7 @@ void GameState::Update() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1);
+	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1.getHitbox());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
@@ -92,8 +92,7 @@ void GameState::Update() {
 void GameState::Render() {
 	// GAME VIEW
 	map.Render(window);
-	health.Draw(*window);
-	ammo.Draw(*window);
+
 	p1.Draw(*window);
 	/*
 	This is complete overhaul of my code
