@@ -4,39 +4,34 @@ Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
 }
 
-void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
+bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
 {
 	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
-
+	bool fired = false;
 	/*
 	This helps us switch weapon
 	*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
 		//identifier = 0;
 		GLOBALIDENTIFIER = 0;
-		p1.changeGun(0);
-		std::cout<<"Melee"<<std::endl;
+		w.playDraw(GLOBALIDENTIFIER);
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
 		//identifier = 1;
 		GLOBALIDENTIFIER = 1;
-		p1.changeGun(1);
-		std::cout<<"Pistol"<<std::endl;
+		w.playDraw(GLOBALIDENTIFIER);
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
 		//identifier = 2;
 		GLOBALIDENTIFIER = 2;
-		p1.changeGun(2);
-		std::cout<<"SMG"<<std::endl;
+		w.playDraw(GLOBALIDENTIFIER);
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
 		//identifier = 3;
 		GLOBALIDENTIFIER = 3;
-		p1.changeGun(3);
-		std::cout<<"Rifle"<<std::endl;
+		w.playDraw(GLOBALIDENTIFIER);
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
 		//identifier = 4;
 		GLOBALIDENTIFIER = 4;
-		p1.changeGun(4);
-		std::cout<<"Shotgun"<<std::endl;
+		w.playDraw(GLOBALIDENTIFIER);
 	}
 	/*
 	Complicated calculation to find mouse position
@@ -113,8 +108,10 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 		} else if(GLOBALIDENTIFIER == 4){
 			sh.push(Bullet(b));
 		}
+		fired = true;
 	}
 	movement(GLOBALIDENTIFIER, pool, Xpos, Ypos);
+	return fired;
 }
 
 /*

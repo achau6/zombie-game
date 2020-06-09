@@ -1,20 +1,17 @@
 #ifndef WEAPON_H
 #define WEAPON_H
-
+#include "map"
 class weapons
 {
 public:
 //constructors
     weapons();
-    sf::Sound sound;
-    sf::SoundBuffer smgSound;
-    sf::SoundBuffer rifleSound;
-    sf::SoundBuffer shotgunSound;
-    sf::SoundBuffer pistolSound;
-    sf::SoundBuffer meleeSound;
+    sf::Sound sound, drawSound;
+    sf::SoundBuffer Buffer[5], drawBuffer[5];
+
     //mutators
     void play(int identifier);
-
+    void playDraw(int identifier);
 private:
 
 

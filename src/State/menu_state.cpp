@@ -4,6 +4,7 @@ MenuState::MenuState(sf::RenderWindow* wdw) : State(wdw){
 }
 
 void MenuState::Render(){
+	window->draw(Menu);
 	Play.draw(*window);
 	Quit.draw(*window);
 	window->draw(Title);
@@ -36,6 +37,9 @@ void MenuState::initalizeButtons(){
 	Logo.setTexture(LogoTexture);
 	Logo.setScale(.7, .7);
 	Logo.setPosition(sf::Vector2f(window->getSize().x * .42, window->getSize().y * .223));
+
+	MenuTexture.loadFromFile("content/title.jpg");
+	Menu.setTexture(MenuTexture);
 }
 
 void MenuState::Update(){

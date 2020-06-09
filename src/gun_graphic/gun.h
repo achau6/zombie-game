@@ -34,7 +34,7 @@ public:
 	int GLOBALIDENTIFIER;
 //mutators
 	void Draw(sf::RenderWindow& window, int identifier);
-	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
+	bool fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
 	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void erase();
 	std::pair<int, int> getAmmo();
@@ -50,7 +50,7 @@ private:
 	sf::Vector2f bulletPosition;
 	sf::Vector2f bulletCenter;
 	sf::Vector2f knifeCenter;
-
+	std::map<int, sf::SoundBuffer> gunBuffer;
 };
 
 #endif // GUN_H

@@ -21,6 +21,7 @@ void Melee::push(KnifeBullet b)
     else if(fireRate >= 9){
             std::cout<<"Fire"<<std::endl;
             melees.push_back(b);
+            w.play(0);
             fireRate = 0;
 
     }

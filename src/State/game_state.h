@@ -36,19 +36,11 @@ private:
 	sf::Vector2i mouse_pos_window;
 	sf::Vector2f mouse_pos_view;
 	sf::Vector2u mouse_pos_grid;
-	sf::Font font;
-	sf::Font csfont;
-	sf::Text UI[2];
+	sf::Font font, csfont;
 	//0 = Heatlh/Ammo, 1 = Zombies/Waves #
-	sf::Text cord_pos;
+	sf::Text UI[2], cord_pos;
 	std::stringstream ss;
-	sf::Sprite crosshair;
-	sf::Sprite healthIcon;
-	sf::Sprite BulletIcon;
-	sf::Sprite GunIcon;
-	sf::Texture CrosshairTexture;
-	sf::Texture HealthTexture;
-	sf::Texture BulletTexture;
-	sf::Texture GunIconTexture;
+	sf::Sprite crosshair, healthIcon, BulletIcon, GunIcon;
+	sf::Texture CrosshairTexture, HealthTexture, BulletTexture, GunIconTexture;
 };
 #endif // GAME_STATE_H

@@ -11,8 +11,8 @@ Player::Player(sf::RenderTarget* target) {
 	position = sf::Vector2f(grid_pos_to_screen_pos, grid_pos_to_screen_pos);
 	initSpriteTextures();
 	initHitBox();
+	initSound();
 	velocity = sf::Vector2f(0.f,0.f);
-	walk.loadFromFile("content/Audio/gravel.wav");
 }
 
 void Player::Update() {
@@ -27,33 +27,30 @@ void Player::movement(){
 	//Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		velocity.y += -movement_speed;
-		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
-			WalkingSound();
+		WalkingSound();
 	}
 	//Move Left
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		velocity.x += -movement_speed;
-		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
-			WalkingSound();
+		WalkingSound();
 	}
 	//Move Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		velocity.y += movement_speed;
-		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
-			WalkingSound();
+		WalkingSound();
 	}
 	//Move Right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		velocity.x += movement_speed;
-		if (Footsteps.getStatus() == sf::SoundSource::Stopped)
-			WalkingSound();
+		WalkingSound();
 	}
 }
 
 void Player::WalkingSound(){
-	Footsteps.setBuffer(walk);
-	Footsteps.setVolume(5);
-	Footsteps.play();
+	if (Footsteps.getStatus() == sf::SoundSource::Stopped){
+		Footsteps.setBuffer(walk);
+		Footsteps.play();
+	}
 }
 
 sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
@@ -93,8 +90,44 @@ void Player::look(sf::RenderWindow& window){
 
 void Player::changeGun(int GLOBALIDENTIFIER){
 	//0 = knife, 1 = pistol, 2 = smg, 3 = rifle, 4 = shotgun
-	entity_sprite.setTexture(sprites[GLOBALIDENTIFIER]);
+	int x = sprites[GLOBALIDENTIFIER].getSize().x;
+	int y = sprites[GLOBALIDENTIFIER].getSize().y;
+	entity_sprite.setTextureRect(sf::IntRect(0, 0, x, y));
+	if (!knifeAnimation)
+		entity_sprite.setTexture(sprites[GLOBALIDENTIFIER]);
+	else
+		knifeSwings();
 }
+
+void Player::shootGun(int GLOBALIDENTIFIER){
+	int x = shootingSprites[GLOBALIDENTIFIER].getSize().x;
+	int y = shootingSprites[GLOBALIDENTIFIER].getSize().y;
+	entity_sprite.setTextureRect(sf::IntRect(0, 0, x, y));
+	if (GLOBALIDENTIFIER > 0 && !knifeAnimation)
+		entity_sprite.setTexture(shootingSprites[GLOBALIDENTIFIER]);
+	else{
+		knifeAnimation = true;
+		knifeSwings();
+	}
+}
+
+void Player::knifeSwings(){
+	std::cout<<"melee\n";
+	if (knifeCount == count){
+		entity_sprite.setTexture(knifeShooting[knifeCount]);
+		knifeCount++;
+	}
+	else{
+		entity_sprite.setTexture(knifeShooting[count]);
+		count++;
+	}
+	if (knifeCount == 15 && count == 15){
+		knifeAnimation = false;
+		knifeCount = 0;
+		count = 0;
+	}
+}
+
 void Player::Draw(sf::RenderWindow& window){
 	//window.draw(area);
 	window.draw(entity_sprite);
@@ -102,7 +135,11 @@ void Player::Draw(sf::RenderWindow& window){
 }
 
 void Player::initSpriteTextures(){
-	sf::Texture rifle, pistol, knife, shotgun;
+	sf::Texture rifle, rifleShooting, pistol, pistolShooting, knife, shotgun, shotgunShooting;
+	std::string knifeInput;
+	knifeAnimation = false;
+	knifeCount = 0;
+	count = 0;
 	knife.loadFromFile("content/Top_Down_Survivor/knife/idle/survivor-idle_knife_0.png");
 	pistol.loadFromFile("content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png");
 	rifle.loadFromFile("content/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png");
@@ -112,10 +149,26 @@ void Player::initSpriteTextures(){
 	sprites[2] = pistol;
 	sprites[3] = rifle;
 	sprites[4] = shotgun;
-	entity_sprite.setTexture(sprites[1]);
+	entity_sprite.setTexture(sprites[0]);
 	entity_sprite.setScale(0.5, 0.5);
 	entity_sprite.setOrigin(sprites[1].getSize().x/2, sprites[1].getSize().y/2);
 	entity_sprite.setPosition(position.x, position.y);
+
+	pistolShooting.loadFromFile("content/Top_Down_Survivor/handgun/shoot/weiner.png");
+	rifleShooting.loadFromFile("content/Top_Down_Survivor/rifle/shoot/weiner1.png");
+	shotgunShooting.loadFromFile("content/Top_Down_Survivor/shotgun/shoot/weiner2.png");
+	shootingSprites[0] = knife;
+	shootingSprites[1] = pistolShooting;
+	shootingSprites[2] = pistolShooting;
+	shootingSprites[3] = rifleShooting;
+	shootingSprites[4] = shotgunShooting;
+	for (int i = 0; i < 15; i++){
+		knifeInput = "content/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_" + std::to_string(i);
+		knifeInput += ".png";
+		knifeShooting[i].loadFromFile(knifeInput);
+		knifeInput = "";
+	}
+
 }
 
 void Player::initHitBox(){
@@ -133,4 +186,10 @@ void Player::initHitBox(){
     area.setFillColor(sf::Color::Green);
     area.setOrigin(75.0, 75.0);
     area.setPosition(position.x, position.y);
+}
+
+void Player::initSound(){
+	sf::SoundBuffer rifleBuffer, handgunBuffer, shotgunBuffer, knifeBuffer;
+	walk.loadFromFile("content/Audio/gravel.wav");
+	Footsteps.setVolume(7);
 }

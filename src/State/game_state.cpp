@@ -37,7 +37,6 @@ void GameState::Update() {
 	// map update checks for collision and sets velocity to 0 if collision occurs
 	map.Update(p1, zombie_pool);
 	// EntityCollision::Update(p1, zombie_pool, map);
-
 	p1.changeGun(g.getGlobalIdentifier());
 	p1.look(*window);
 
@@ -54,7 +53,8 @@ void GameState::Update() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool());
+	if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool()) == true)
+		p1.shootGun(g.getGlobalIdentifier());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
