@@ -17,7 +17,8 @@ void EntityPool::Movement() {
 
 void EntityPool::Update(Player& player) {
 	for(auto zombies : pool) {
-		zombies->Update();
+		zombies->Update(player);
+		zombies->Look(player);
 	}
 }
 

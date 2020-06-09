@@ -4,7 +4,7 @@ Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
 }
 
-void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
+void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool, Player& player)
 {
 	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
