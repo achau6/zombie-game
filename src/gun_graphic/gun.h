@@ -28,13 +28,12 @@ public:
 	Shotgun sh;
 	smg s;
 	weapons w;
-	Player p1;
+	// Player p1;
 	Melee m;
-	EntityPool zombie_pool;
 	int GLOBALIDENTIFIER;
 //mutators
 	void Draw(sf::RenderWindow& window);
-	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
+	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool, Player& p);
 	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void erase();
 	std::pair<int, int> getAmmo();

@@ -18,6 +18,7 @@ public:
 	GameMap& GetGameMap() {return game_map;}
 	const GameMap& GetGameMap() const {return game_map;}
 	size_t GetLayers() {return layers;}
+	const sf::Vector2u GetSize() const {return grid_size;}
 
 private:
 	const size_t layers = 2;
