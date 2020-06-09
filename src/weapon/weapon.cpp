@@ -14,7 +14,7 @@ weapons::weapons(){
 	drawBuffer[4].loadFromFile("content/Audio/shotgun/nova_draw.wav");
 
     sound.setVolume(30);
-    drawSound.setVolume(50);
+    drawSound.setVolume(25);
 }
 
 void weapons::play(int identifier)

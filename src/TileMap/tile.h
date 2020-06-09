@@ -8,10 +8,9 @@
 class Tile {
 public:
 	Tile() = default;
-	Tile(sf::Vector2f size, sf::Vector2f pos, sf::Color color, std::shared_ptr<sf::Texture> texture)
+	Tile(sf::Vector2f size, sf::Vector2f pos, std::shared_ptr<sf::Texture> texture)
 		: tile_size{size} {
 		shape.setSize(tile_size);
-		shape.setFillColor(color);
 		shape.setPosition(pos);
 		shape.setTexture(texture.get());
 		// shape.setOutlineColor(sf::Color::Green);

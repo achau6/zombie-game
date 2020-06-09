@@ -1,6 +1,10 @@
 #include "menu_state.h"
 MenuState::MenuState(sf::RenderWindow* wdw) : State(wdw){
 	initalizeButtons();
+	ThemeSong.openFromFile("content/Audio/themesong.wav");
+	ThemeSong.setLoop(true);
+	ThemeSong.setVolume(50);
+	ThemeSong.play();
 }
 
 void MenuState::Render(){

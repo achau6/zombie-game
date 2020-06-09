@@ -19,4 +19,5 @@ private:
 	sf::Font csFont;
 	sf::Text Title;
 	Button Play, Quit;
+	sf::Music ThemeSong;
 };

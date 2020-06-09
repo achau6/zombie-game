@@ -17,6 +17,7 @@ public:
 	~GameState();
 	void Update();
 	void Render();
+	void playMusic() {ambientNoise.play();}
 	EntityPool zombie_pool;
 
 
@@ -44,6 +45,7 @@ private:
 	//0 = Heatlh/Ammo, 1 = Zombies/Waves #
 	sf::Text UI[2], cord_pos;
 	std::stringstream ss;
+	sf::Music ambientNoise;
 	sf::Sprite crosshair, healthIcon, BulletIcon, GunIcon;
 	sf::Texture CrosshairTexture, HealthTexture, BulletTexture, GunIconTexture;
 };

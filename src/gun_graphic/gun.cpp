@@ -12,23 +12,23 @@ bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	/*
 	This helps us switch weapon
 	*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) && GLOBALIDENTIFIER != 0){
 		//identifier = 0;
 		GLOBALIDENTIFIER = 0;
 		w.playDraw(GLOBALIDENTIFIER);
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && GLOBALIDENTIFIER != 1){
 		//identifier = 1;
 		GLOBALIDENTIFIER = 1;
 		w.playDraw(GLOBALIDENTIFIER);
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && GLOBALIDENTIFIER != 2){
 		//identifier = 2;
 		GLOBALIDENTIFIER = 2;
 		w.playDraw(GLOBALIDENTIFIER);
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && GLOBALIDENTIFIER != 3){
 		//identifier = 3;
 		GLOBALIDENTIFIER = 3;
 		w.playDraw(GLOBALIDENTIFIER);
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) && GLOBALIDENTIFIER != 4){
 		//identifier = 4;
 		GLOBALIDENTIFIER = 4;
 		w.playDraw(GLOBALIDENTIFIER);
