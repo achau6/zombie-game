@@ -9,6 +9,7 @@
 #include <cctype>
 #include <ctime>
 #include <sstream>
+#include "../src/Utility/button.h"
 #include <map>
 #include "Platform/Platform.hpp"
 
