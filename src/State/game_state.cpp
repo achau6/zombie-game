@@ -38,7 +38,7 @@ void GameState::Update() {
 	p1.movement();
 	zombie_pool.Movement();
 	health.movement(p1.getHitbox());
-	ammo.movement(p1.getHitbox());
+	ammo.movement(p1.getHitbox(), g.getGlobalIdentifier());
 
 	// map update checks for collision and sets velocity to 0 if collision occurs
 	map.Update(p1, zombie_pool);

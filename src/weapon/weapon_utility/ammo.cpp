@@ -12,15 +12,26 @@ void Ammo_Box::Draw(sf::RenderWindow& window){
 
 }
 
-bool Ammo_Box::movement(sf::RectangleShape player)
+void Ammo_Box::movement(sf::RectangleShape player, int identifier)
 {
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
 		if(collisionCheck(player, ammo_pack[i].second) == true){
 			ammo_pack.erase(ammo_pack.begin() + i);
-			return true;
+			if(identifier == 1){
+				//p.add_ammo();
+				p.flag_check();
+				std::cout<<"help"<<std::endl;
+			} else if(identifier == 2){
+				//s.push(Bullet(b));
+			} else if(identifier == 3){
+				//r.push(Bullet(b));
+			} else if(identifier == 4){
+				//sh.push(Bullet(b));
+			}
+
 		}
 	}
-	return false;
+
 }
 
 
@@ -52,7 +63,6 @@ bool Ammo_Box::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
 {
     sf::FloatRect zombie_entity = pool.getGlobalBounds();
     sf::FloatRect bullet = rect.getGlobalBounds();
-
 
     if(rect.getPosition().x < pool.getPosition().x + zombie_entity.width &&
 			rect.getPosition().x + bullet.width > pool.getPosition().x &&

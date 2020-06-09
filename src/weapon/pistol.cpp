@@ -5,16 +5,23 @@ pistol::pistol()
     //how fast it shoots
     fireRate = 0;
     //max ammo guy has
-    maxAMMO = 0;
+    maxAMMO = 10;
     //how much ammo he has
     currentAMMO = 20;
     shotFire = 0;
+    flag = false;
 }
 
 void pistol::push(Bullet b)
 {
+    std::cout<<"flag: "<<ammo_add()<<std::endl;
+    if(ammo_add() == true){
+        maxAMMO += 25;
+        std::cout<<"help111111111111"<<std::endl;
+        flag = false;
+    }
     fire(b, pistols, fireRate, 16, currentAMMO, maxAMMO);
-
+    //std::cout<<"max: "<<maxAMMO<<std::endl;
     /*
     controls how fast the gun is shooting.
     it takes every 10 counts for the next shot to fire
@@ -114,4 +121,14 @@ void pistol::Draw(sf::RenderWindow& window)
 void pistol::add_ammo()
 {
     maxAMMO += 15;
+    push(b);
+}
+
+bool pistol::ammo_add()
+{
+    return flag;
+}
+
+void pistol::flag_check(){
+    flag = true;
 }
