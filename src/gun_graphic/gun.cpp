@@ -4,7 +4,7 @@ Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
 }
 
-void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
+void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool, Player& player)
 {
 	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
@@ -15,27 +15,27 @@ void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
 		//identifier = 0;
 		GLOBALIDENTIFIER = 0;
-		p1.changeGun(0);
+		player.changeGun(0);
 		std::cout<<"Melee"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
 		//identifier = 1;
 		GLOBALIDENTIFIER = 1;
-		p1.changeGun(1);
+		player.changeGun(1);
 		std::cout<<"Pistol"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
 		//identifier = 2;
 		GLOBALIDENTIFIER = 2;
-		p1.changeGun(2);
+		player.changeGun(2);
 		std::cout<<"SMG"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
 		//identifier = 3;
 		GLOBALIDENTIFIER = 3;
-		p1.changeGun(3);
+		player.changeGun(3);
 		std::cout<<"Rifle"<<std::endl;
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
 		//identifier = 4;
 		GLOBALIDENTIFIER = 4;
-		p1.changeGun(4);
+		player.changeGun(4);
 		std::cout<<"Shotgun"<<std::endl;
 	}
 	/*

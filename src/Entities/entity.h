@@ -18,8 +18,10 @@ public:
 	const sf::Vector2f getVelocity() const {return velocity;}
 	sf::Vector2f& getVelocity() {return velocity;}
 
+	float getHP() const {return hp;}
+
 protected:
-	float HP;
+	float hp;
 	sf::Vector2f velocity;
 	sf::Sprite entity_sprite;
 	sf::RectangleShape hitbox;

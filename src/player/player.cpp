@@ -1,11 +1,12 @@
 #include "player.h"
 
 Player::Player(sf::RenderTarget* target) {
+	hp = 100;
 	this->target = target;
 	// TODO: REMOVE THIS
 	// PLAYER SPAWN LOCATION
 	const int grid_size = 50;
-	const int grid_pos = 3;
+	const int grid_pos = 25;
 	const int grid_pos_to_screen_pos = grid_size * grid_pos;
 	position = sf::Vector2f(grid_pos_to_screen_pos, grid_pos_to_screen_pos);
 	if (!texture.loadFromFile("../zombie-game/content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png"))

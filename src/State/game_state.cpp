@@ -21,7 +21,7 @@ GameState::~GameState() {
 void GameState::SpawnZombies() {
 	//TODO: WAVE SYSTEM
 	// Gridsize * grid position = pixelcoords
-	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 2, map.getGridSize().y * 2), game_textures, map);
+	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 10, map.getGridSize().y * 10), game_textures, map);
 }
 
 void GameState::SpawnHealth_Pack() {
@@ -54,7 +54,7 @@ void GameState::Update() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool());
+	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1);
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
