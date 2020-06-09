@@ -26,6 +26,7 @@ public:
 	void knifeSwings();
 	void shootGun(int GLOBALIDENTIFIER);
 	void WalkingSound();
+	void DamagePlayer(float dmg_amount) {this->hp-=dmg_amount;}
 //accessors
 	const sf::Vector2f getPosition() const {return position;}
 	sf::Vector2f& getPosition() {return position;}

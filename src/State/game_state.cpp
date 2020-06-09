@@ -22,7 +22,7 @@ GameState::~GameState() {
 void GameState::SpawnZombies() {
 	//TODO: WAVE SYSTEM
 	// Gridsize * grid position = pixelcoords
-	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 2, map.getGridSize().y * 2), game_textures, map);
+	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 10, map.getGridSize().y * 10), game_textures, map);
 }
 
 void GameState::SpawnHealth_Pack() {

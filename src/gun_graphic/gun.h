@@ -28,9 +28,8 @@ public:
 	Shotgun sh;
 	smg s;
 	weapons w;
-	Player p1;
+	// Player p1;
 	Melee m;
-	EntityPool zombie_pool;
 	int GLOBALIDENTIFIER;
 //mutators
 	void Draw(sf::RenderWindow& window);
