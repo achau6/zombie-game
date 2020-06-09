@@ -28,14 +28,14 @@ void Zombie::initHitbox() {
 	hitbox.setPosition(position);
 }
 
-sf::Vector2u Zombie::getGridPosition(const sf::Vector2u& grid_size) {
-	if(position.x > 0)
-		grid_pos.x = position.x / grid_size.x;
-	if(position.y > 0)
-		grid_pos.y = position.y / grid_size.y;
+// sf::Vector2u Zombie::getGridPosition(const sf::Vector2u& grid_size) {
+// 	if(position.x > 0)
+// 		grid_pos.x = position.x / grid_size.x;
+// 	if(position.y > 0)
+// 		grid_pos.y = position.y / grid_size.y;
 
-	return grid_pos;
-}
+// 	return grid_pos;
+// }
 
 void Zombie::Look(Player& player){
 	sf::Vector2f playerPos = player.getPlayerSprite().getPosition();
@@ -108,7 +108,8 @@ void Zombie::MoveOneTile(sf::Vector2u tohere) {
 
 void Zombie::Attack(Player& player) {
 	if(entity_sprite.getGlobalBounds().intersects(player.getHitbox().getGlobalBounds())) {
-		player.DamagePlayer(zombie_damage);
+		if(player.getHP() > 0)
+			player.DamagePlayer(zombie_damage);
 	}
 }
 
@@ -132,6 +133,6 @@ std::vector<std::shared_ptr<Node>> Zombie::FindPlayer(Player& player, TileMap& t
 }
 
 void Zombie::Render(sf::RenderTarget& target) {
-	target.draw(hitbox);
+	// target.draw(hitbox);
 	target.draw(entity_sprite);
 }

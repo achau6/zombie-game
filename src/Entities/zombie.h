@@ -19,7 +19,7 @@ public:
 	void Attack(Player& player);
 	bool IsDead() {return is_dead;}
 	std::vector<std::shared_ptr<Node>> FindPlayer(Player& player, TileMap& tilemap);
-	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
+	// sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 
 private:
 	void initSprite(sf::Texture* texture);
@@ -27,13 +27,10 @@ private:
 
 	const sf::Vector2u grid_size;
 	const float movement_speed = 3;
-	const float zombie_damage = 5.0/144.f;
+	const float zombie_damage = 10.0/144.f;
 	bool is_dead = false;
 
-	// TEST REMOVE LATER
 	sf::Vector2u next_pos;
-
-	// int increment = 0;
 
 	std::vector<std::vector<std::shared_ptr<Node>>> node_grid;
 

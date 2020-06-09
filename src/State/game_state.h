@@ -54,5 +54,7 @@ private:
 	sf::Texture HealthTexture;
 	sf::Texture BulletTexture;
 	sf::Texture GunIconTexture;
+
+	sf::Clock timer;
 };
 #endif // GAME_STATE_H

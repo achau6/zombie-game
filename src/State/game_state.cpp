@@ -22,7 +22,9 @@ GameState::~GameState() {
 void GameState::SpawnZombies() {
 	//TODO: WAVE SYSTEM
 	// Gridsize * grid position = pixelcoords
-	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 10, map.getGridSize().y * 10), game_textures, map);
+	for(int i = 1; i <= 30; i++) {
+		zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * i, map.getGridSize().y * 3), game_textures, map);
+	}
 }
 
 void GameState::SpawnHealth_Pack() {
@@ -52,6 +54,12 @@ void GameState::Update() {
 	zombie_pool.Update(p1);
 	// zombie_pool.Update(p1, map);
 
+	if(timer.getElapsedTime().asMilliseconds() >= 500) {
+		zombie_pool.FindPlayer(p1, map);
+		std::cout << "MOVED\n";
+		timer.restart();
+	}
+
 	camera.UpdateCam(p1.getPosition());
 
 	/*
@@ -74,12 +82,12 @@ void GameState::Update() {
 	// clearing string stream
 	ss.str("");
 	//Sets HP, ammo counter, zombies left, and Wave number, UI stuff
-	ss << "HP: " << p1.getHP() << std::setw(150) << g.getAmmo().first << "/" << g.getAmmo().second;
+	ss << "HP: " << static_cast<int>(p1.getHP()) << std::setw(150) << g.getAmmo().first << "/" << g.getAmmo().second;
 	UI[0].setString(ss.str());
 	ss.str("");
 	//change the numbers when the wave and zombie functions are added
 	ss << "Wave Number: " << 5 << "\n";
-	ss << "Zombies Left: " << 30;
+	ss << "Zombies Left: " << zombie_pool.GetPoolSize();
 	UI[1].setString(ss.str());
 	ss.str("");
 	sf::Vector2f mousePosition;
@@ -192,6 +200,8 @@ void GameState::changeWeaponIcons(){
 			GunIcon.setTexture(*game_textures["shotgun"]);
 			GunIcon.setPosition(window->getSize().x * .85, window->getSize().y * .88);
 			GunIcon.setScale(.8, .8);
+			break;
+		default:
 			break;
 	}
 }
