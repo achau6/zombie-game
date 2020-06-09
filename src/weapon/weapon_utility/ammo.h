@@ -6,15 +6,15 @@
 /*
 Why I didn't make a class that Ammo and Health can inherit from. Double inheritance is probably not a good idea.
 */
-class Ammo : public Entity
+class Ammo_Box : public Entity
 {
 public:
 	//constructors
-	Ammo();
+	Ammo_Box();
 	//Mutators
 	void Draw(sf::RenderWindow& window);
 	void spawn_pack(sf::Vector2f position);
-	void movement(sf::RectangleShape player);
+	bool movement(sf::RectangleShape player);
 	void delete_health_pack();
 	int GetSize(){return ammo_pack.size();}
 	bool collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool);

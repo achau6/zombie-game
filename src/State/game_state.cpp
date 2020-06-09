@@ -11,6 +11,7 @@ GameState::GameState(sf::RenderWindow* wdw)
 		SpawnZombies();
 		initUISprites();
 		SpawnHealth_Pack();
+		SpawnAmmo_Pack();
 		zombie_pool.FindPlayer(p1, map);
 }
 
@@ -28,11 +29,16 @@ void GameState::SpawnHealth_Pack() {
 	health.spawn_pack(sf::Vector2f(300, 300));
 }
 
+void GameState::SpawnAmmo_Pack() {
+	ammo.spawn_pack(sf::Vector2f(500, 500));
+}
+
 void GameState::Update() {
 	// Moves the player
 	p1.movement();
 	zombie_pool.Movement();
 	health.movement(p1.getHitbox());
+	ammo.movement(p1.getHitbox());
 
 	// map update checks for collision and sets velocity to 0 if collision occurs
 	map.Update(p1, zombie_pool);
@@ -86,6 +92,8 @@ void GameState::Update() {
 void GameState::Render() {
 	// GAME VIEW
 	map.Render(window);
+	health.Draw(*window);
+	ammo.Draw(*window);
 	p1.Draw(*window);
 	/*
 	This is complete overhaul of my code
@@ -93,8 +101,7 @@ void GameState::Render() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.Draw(*window, g.GLOBALIDENTIFIER);
-	health.Draw(*window);
+	g.Draw(*window);
 
 	zombie_pool.Render(*window);
 

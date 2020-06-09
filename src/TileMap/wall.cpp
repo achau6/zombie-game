@@ -50,7 +50,7 @@ bool Wall::isCollision(Entity& entity) {
 					&& entity_bounds.top + entity_bounds.height > wall_bounds.top
 					)
 				{
-					// std::cout << "right collision" << std::endl;
+					//std::cout << "right collision" << std::endl;
 					entity.getVelocity().x = 0.f;
 				}
 		return true;

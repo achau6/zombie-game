@@ -114,6 +114,10 @@ bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 	return fired;
 }
 
+// void Gun::SpawnHealth_Pack() {
+// 	health_pack.spawn_pack(sf::Vector2f(300, 300));
+// }
+
 /*
 Gives the movement of the gun path
 */
@@ -124,20 +128,29 @@ void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, fl
 		s.movement(pool);
 		r.movement(pool);
 		sh.movement(pool);
-
+		//std::cout<<"nig: "<<p1.getHitbox().x<<", "<<p1.getHitbox().y<<std::endl;
+		//health_pack.movement(player.getHitbox());
+		// if(identifier == 1 && a.movement(player.getHitbox()) == true){
+		// 	p.add_ammo();
+		// } else if(identifier == 2 && a.movement(player.getHitbox()) == true){
+		// 	s.add_ammo();
+		// } else if(identifier == 3 && a.movement(player.getHitbox()) == true){
+		// 	r.add_ammo();
+		// } else if(identifier == 4 && a.movement(player.getHitbox()) == true){
+		// 	sh.add_ammo();
+		// }
 }
 
 /*
 Draws the bullet and bullet movement path
 */
-void Gun::Draw(sf::RenderWindow& window, int identifier)
+void Gun::Draw(sf::RenderWindow& window)
 {
 	m.Draw(window);
 	p.Draw(window);
 	s.Draw(window);
 	r.Draw(window);
 	sh.Draw(window);
-
 }
 //returns ammo for current gun, 1st is current, 2nd is reserve
 std::pair<int, int> Gun::getAmmo(){
