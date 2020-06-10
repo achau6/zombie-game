@@ -125,7 +125,7 @@ void weapons::fire(Bullet b)
 
            //using time pauses the game or crashes
                 //double startTime = GetTickCount();
-
+            reload = true;
             while(maxAMMO > 0 && currentAMMO < 11)
             {
                 // double currentTime = GetTickCount() - startTime;
@@ -136,10 +136,13 @@ void weapons::fire(Bullet b)
                 //     currentAMMO ++;
                 //     maxAMMO --;
                 // }
-
-                currentAMMO ++;
-                 maxAMMO --;
+                playReload();
+                if(reload == true) {
+                    currentAMMO ++;
+                    maxAMMO --;
+                }
             }
+            reload = false;
         }
     }
 
