@@ -1,19 +1,11 @@
 #include "pistol.h"
 
-pistol::pistol()
-{
-    //how fast it shoots
-    fireRate = 0;
-    //max ammo guy has
-    maxAMMO = 0;
-    //how much ammo he has
-    currentAMMO = 20;
-    shotFire = 0;
-}
+pistol::pistol() : weapons(21, 16, 0, 10000, 0, 1)//fireRate(21), maxAMMO(0), currentAMMO(10000), shotFire(0)
+{}
 
-void pistol::push(Bullet b)
-{
-    fire(b, pistols, fireRate, 16, currentAMMO, maxAMMO);
+// void pistol::push(Bullet b)
+// {
+//     fire(b, pistols, fireRate, 16, currentAMMO, maxAMMO);
 
     /*
     controls how fast the gun is shooting.
@@ -53,11 +45,11 @@ void pistol::push(Bullet b)
     //     }
     // }
 
-}
+//}
 
-void pistol::movement(std::vector<std::shared_ptr<Zombie>> pool)
-{
-    movements(pistols, pool);
+// void pistol::movement(std::vector<std::shared_ptr<Zombie>> pool)
+// {
+//     movements(pistols, pool);
 // /*
 // checks if bullet exceed map grid
 // if so remove
@@ -81,7 +73,7 @@ void pistol::movement(std::vector<std::shared_ptr<Zombie>> pool)
 //             }
 //         }
 // 	}
-}
+//}
 
 // bool pistol::collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count)
 // {
@@ -104,14 +96,14 @@ void pistol::movement(std::vector<std::shared_ptr<Zombie>> pool)
 
 //     return false;
 //}
-void pistol::Draw(sf::RenderWindow& window)
-{
-	for(unsigned int i = 0; i < pistols.size(); i ++){
-		window.draw(pistols[i].bullet);
-	}
-}
+// void pistol::Draw(sf::RenderWindow& window)
+// {
+// 	for(unsigned int i = 0; i < pistols.size(); i ++){
+// 		window.draw(pistols[i].bullet);
+// 	}
+// }
 
-void pistol::add_ammo()
-{
-    maxAMMO += 15;
-}
+// void pistol::add_ammo()
+// {
+//     maxAMMO += 15;
+// }

@@ -1,16 +1,11 @@
 #include "shotgun.h"
 
-Shotgun::Shotgun()
-{
-    fireRate = 10;
-    maxAMMO = 0;
-    currentAMMO = 10;
-    shotFire = 0;
-}
+Shotgun::Shotgun() : weapons(10, 39, 0, 10, 0, 4)
+{}
 
-void Shotgun::push(Bullet b)
-{
-    fire(b, shotguns, fireRate, 39, currentAMMO, maxAMMO);
+// void Shotgun::push(Bullet b)
+// {
+//     fire(b, shotguns, fireRate, 39, currentAMMO, maxAMMO);
 
     // /*
     // controls how fast the gun is shooting.
@@ -50,11 +45,11 @@ void Shotgun::push(Bullet b)
     //     }
     // }
 
-}
+//}
 
-void Shotgun::movement(std::vector<std::shared_ptr<Zombie>> pool)
-{
-    movements(shotguns, pool);
+// void Shotgun::movement(std::vector<std::shared_ptr<Zombie>> pool)
+// {
+//     movements(shotguns, pool);
 
 	// for(unsigned int i = 0; i < shotguns.size(); i ++){
 	// 	shotguns[i].bullet.move(shotguns[i].velocity);
@@ -73,7 +68,7 @@ void Shotgun::movement(std::vector<std::shared_ptr<Zombie>> pool)
     //         }
     //     }
 	// }
-}
+//}
 
 // bool Shotgun::collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count)
 // {
@@ -90,14 +85,14 @@ void Shotgun::movement(std::vector<std::shared_ptr<Zombie>> pool)
 
 //     return false;
 // }
-void Shotgun::Draw(sf::RenderWindow& window)
-{
-	for(unsigned int i = 0; i < shotguns.size(); i ++){
-		window.draw(shotguns[i].bullet);
-	}
-}
+// void Shotgun::Draw(sf::RenderWindow& window)
+// {
+// 	for(unsigned int i = 0; i < shotguns.size(); i ++){
+// 		window.draw(shotguns[i].bullet);
+// 	}
+// }
 
-void Shotgun::add_ammo()
-{
-    maxAMMO += 5;
-}
+// void Shotgun::add_ammo()
+// {
+//     maxAMMO += 5;
+// }

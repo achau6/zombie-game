@@ -146,9 +146,8 @@ void Player::initSpriteTextures(){
 	shotgun.loadFromFile("content/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_0.png");
 	sprites[0] = knife;
 	sprites[1] = pistol;
-	sprites[2] = pistol;
-	sprites[3] = rifle;
-	sprites[4] = shotgun;
+	sprites[2] = rifle;
+	sprites[3] = shotgun;
 	entity_sprite.setTexture(sprites[0]);
 	entity_sprite.setScale(0.5, 0.5);
 	entity_sprite.setOrigin(sprites[1].getSize().x/2, sprites[1].getSize().y/2);
@@ -159,9 +158,8 @@ void Player::initSpriteTextures(){
 	shotgunShooting.loadFromFile("content/Top_Down_Survivor/shotgun/shoot/weiner2.png");
 	shootingSprites[0] = knife;
 	shootingSprites[1] = pistolShooting;
-	shootingSprites[2] = pistolShooting;
-	shootingSprites[3] = rifleShooting;
-	shootingSprites[4] = shotgunShooting;
+	shootingSprites[2] = rifleShooting;
+	shootingSprites[3] = shotgunShooting;
 	for (int i = 0; i < 15; i++){
 		knifeInput = "content/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_" + std::to_string(i);
 		knifeInput += ".png";

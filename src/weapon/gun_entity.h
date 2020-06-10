@@ -3,6 +3,7 @@
 #include "Entities/entity_pool.h"
 #include "gun_graphic/bullet.h"
 #include "weapon.h"
+#include "TileMap/tilemap.h"
 
 class Gun_Entity{
 public:

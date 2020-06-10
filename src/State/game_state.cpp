@@ -77,6 +77,7 @@ void GameState::Update() {
 			p1.shootGun(g.getGlobalIdentifier());
 	}
 	else{
+		camera.UpdateCam(sf::Vector2f(960, 540));
 		dead = true;
 		Retry.is_over(*window);
 		Leave.is_over(*window);
@@ -158,7 +159,7 @@ void GameState::initUISprites(){
 	UI[0].setFillColor(sf::Color::White);
 	UI[1].setFillColor(sf::Color::White);
 	UI[0].setCharacterSize(45);
-	UI[0].setPosition(window->getSize().x * .05, window->getSize().y * .94);
+	UI[0].setPosition(window->getSize().x * .05, window->getSize().y * .95);
 	UI[1].setCharacterSize(35);
 	UI[1].setPosition(window->getSize().x * .85, 0);
 
@@ -207,12 +208,12 @@ void GameState::changeWeaponIcons(){
 			GunIcon.setPosition(window->getSize().x * .85, window->getSize().y * .88);
 			GunIcon.setScale(.25, .25);
 			break;
-		case 3:
+		case 2:
 			GunIcon.setTexture(*game_textures["rifle"]);
 			GunIcon.setPosition(window->getSize().x * .85, window->getSize().y * .88);
 			GunIcon.setScale(.3, .3);
 			break;
-		case 4:
+		case 3:
 			GunIcon.setTexture(*game_textures["shotgun"]);
 			GunIcon.setPosition(window->getSize().x * .85, window->getSize().y * .88);
 			GunIcon.setScale(.8, .8);

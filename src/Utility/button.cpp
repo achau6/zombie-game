@@ -54,7 +54,7 @@ void Button::set_pos(sf::Vector2f point)
 
 void Button::draw(sf::RenderWindow &window)
 {
-    window.draw(button);
+    //window.draw(button);
     window.draw(text);
 }
 void Button::set_size(sf::Vector2f size){

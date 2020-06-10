@@ -1,16 +1,11 @@
 #include "rifle.h"
 
-rifle::rifle()
-{
-    fireRate = 21;
-    maxAMMO = 0;
-    currentAMMO = 15;
-    shotFire = 0;
-}
+rifle::rifle() : weapons(21, 21, 0, 15, 0, 3)//fireRate(21), maxAMMO(0), currentAMMO(15), shotFire(0)
+{}
 
-void rifle::push(Bullet b)
-{
-    fire(b, rifles, fireRate, 21, currentAMMO, maxAMMO);
+// void rifle::push(Bullet b)
+// {
+//     fire(b, rifles, fireRate, 21, currentAMMO, maxAMMO);
 
     // /*
     // controls how fast the gun is shooting.
@@ -49,11 +44,11 @@ void rifle::push(Bullet b)
     //     }
     // }
 
-}
+//}
 
-void rifle::movement(std::vector<std::shared_ptr<Zombie>> pool)
-{
-    movements(rifles, pool);
+// void rifle::movement(std::vector<std::shared_ptr<Zombie>> pool)
+// {
+//     movements(rifles, pool);
 	// for(unsigned int i = 0; i < rifles.size(); i ++){
 	// 	rifles[i].bullet.move(rifles[i].velocity);
 	// 	if(rifles[i].bullet.getPosition().x < 0 || rifles[i].bullet.getPosition().y < 0
@@ -71,7 +66,7 @@ void rifle::movement(std::vector<std::shared_ptr<Zombie>> pool)
     //         }
     //     }
 	// }
-}
+//}
 
 // bool rifle::collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count)
 // {
@@ -88,14 +83,14 @@ void rifle::movement(std::vector<std::shared_ptr<Zombie>> pool)
 
 //     return false;
 // }
-void rifle::Draw(sf::RenderWindow& window)
-{
-	for(unsigned int i = 0; i < rifles.size(); i ++){
-		window.draw(rifles[i].bullet);
-	}
-}
+// void rifle::Draw(sf::RenderWindow& window)
+// {
+// 	for(unsigned int i = 0; i < rifles.size(); i ++){
+// 		window.draw(rifles[i].bullet);
+// 	}
+// }
 
-void rifle::add_ammo()
-{
-    maxAMMO += 15;
-}
+// void rifle::add_ammo()
+// {
+//     maxAMMO += 15;
+// }

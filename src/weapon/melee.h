@@ -7,7 +7,7 @@
 #include "math.h"
 #include "Entities/entity_pool.h"
 
-class Melee
+class Melee : public weapons
 {
 public:
 //constructor

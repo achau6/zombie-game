@@ -17,17 +17,18 @@
 
 class Gun
 {
+	typedef std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> GameMap;
 public:
 //contructors
 	Gun();
 //typedef
 	Bullet b;
 	KnifeBullet k;
-	pistol p;
-	rifle r;
-	Shotgun sh;
-	smg s;
-	weapons w;
+	// pistol p;
+	// rifle r;
+	// Shotgun sh;
+	//smg s;
+	weapons p, r, sh;
 	// Player p1;
 	Melee m;
 	int GLOBALIDENTIFIER;
@@ -37,7 +38,6 @@ public:
 	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void erase();
 	std::pair<int, int> getAmmo();
-
 
 //accessors
 	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}
