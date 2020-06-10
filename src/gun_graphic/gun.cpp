@@ -4,35 +4,35 @@ Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
 }
 
-void Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
+bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
 sf::RectangleShape player)
 {
 	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
-
+	bool fired = false;
 	/*
 	This helps us switch weapon
 	*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) && GLOBALIDENTIFIER != 0){
 		//identifier = 0;
 		GLOBALIDENTIFIER = 0;
-		std::cout<<"Melee"<<std::endl;
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
+		w.playDraw(GLOBALIDENTIFIER);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && GLOBALIDENTIFIER != 1){
 		//identifier = 1;
 		GLOBALIDENTIFIER = 1;
-		std::cout<<"Pistol"<<std::endl;
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+		w.playDraw(GLOBALIDENTIFIER);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && GLOBALIDENTIFIER != 2){
 		//identifier = 2;
 		GLOBALIDENTIFIER = 2;
-		std::cout<<"SMG"<<std::endl;
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
+		w.playDraw(GLOBALIDENTIFIER);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && GLOBALIDENTIFIER != 3){
 		//identifier = 3;
 		GLOBALIDENTIFIER = 3;
-		std::cout<<"Rifle"<<std::endl;
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
+		w.playDraw(GLOBALIDENTIFIER);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) && GLOBALIDENTIFIER != 4){
 		//identifier = 4;
 		GLOBALIDENTIFIER = 4;
-		std::cout<<"Shotgun"<<std::endl;
+		w.playDraw(GLOBALIDENTIFIER);
 	}
 	/*
 	Complicated calculation to find mouse position
@@ -109,8 +109,10 @@ sf::RectangleShape player)
 		} else if(GLOBALIDENTIFIER == 4){
 			sh.push(Bullet(b));
 		}
+		fired = true;
 	}
-	movement(GLOBALIDENTIFIER, pool, Xpos, Ypos, player);
+	movement(pool, Xpos, Ypos, player);
+	return fired;
 }
 
 // void Gun::SpawnHealth_Pack() {
@@ -123,13 +125,14 @@ void Gun::spawnAmmo_Box(sf::Vector2f position){
 /*
 Gives the movement of the gun path
 */
-void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y, sf::RectangleShape player)
+void Gun::movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
+sf::RectangleShape player)
 {
 		m.movement(pool, x, y);
 		p.movement(pool);
-		s.movement(pool);
-		r.movement(pool);
-		sh.movement(pool);
+		//s.movement(pool, array);
+		//r.movement(pool);
+		//sh.movement(pool);
 		//health.movement(player);
 		ammo.delete_box(player, getGlobalIdentifier(), p, r, sh);
 

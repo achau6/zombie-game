@@ -17,7 +17,7 @@ void pistol::push(Bullet b)
         maxAMMO += 25;
         flag = false;
     }
-    fire(b, pistols, fireRate, 16, currentAMMO, maxAMMO);
+    fire(1, b, pistols, fireRate, 16, currentAMMO, maxAMMO);
 
 }
 

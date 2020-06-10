@@ -6,6 +6,7 @@
 #include <map>
 #include <sstream>
 #include <vector>
+#include <string>
 #include "Collision/collision.h"
 #include "../Entities/entity.h"
 
@@ -22,6 +23,8 @@ public:
 	void look(sf::RenderWindow& window);
 	void setPosition(sf::Vector2f pos) {entity_sprite.setPosition(pos);}
 	void changeGun(int GLOBALIDENTIFIER);
+	void knifeSwings();
+	void shootGun(int GLOBALIDENTIFIER);
 	void WalkingSound();
 	void DamagePlayer(float dmg_amount) {this->hp-=dmg_amount;}
 //accessors
@@ -36,16 +39,20 @@ public:
 private:
 	void initSpriteTextures();
 	void initHitBox();
+	void initSound();
 
 	const float movement_speed = 3.f;
-	int count = 1;
+	bool knifeAnimation;
+	int knifeCount, count;
 	sf::CircleShape area;
 	sf::Vector2f mousePosition;
 	sf::RenderTarget* target;
 	Collision collisionCheck;
 	std::map<int, sf::Texture> sprites;
+	std::map<int, sf::Texture> shootingSprites;
 	sf::SoundBuffer walk;
 	sf::Sound Footsteps;
+	sf::Texture knifeShooting[15];
 };
 
 #endif // PLAYER_H

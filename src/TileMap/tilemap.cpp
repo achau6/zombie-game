@@ -13,21 +13,23 @@ TileMap::TileMap(std::map<std::string, std::shared_ptr<sf::Texture>>& game_textu
 				game_map[x][y].reserve(layers);
 				if(z == GROUND_LAYER) {
 					sf::Color brown(139,69,19);
-					game_map[x][y].push_back(std::make_shared<Tile>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), brown, game_textures["dirt"]));
+					game_map[x][y].push_back(std::make_shared<Tile>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), game_textures["dirt"]));
 				}
 				// Puttings walls on the edges of the map
-				else if(y == 0 && z == OBJECT_LAYER) {
-					game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
-				}
-				else if(x == 0 && z == OBJECT_LAYER) {
-					game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
-				}
-				else if(y == grid_size.y-1 && z == OBJECT_LAYER) {
-					game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
-				}
-				else if(x == grid_size.x-1 && z == OBJECT_LAYER) {
-					game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
-				}
+				// else if(y == 0 && z == OBJECT_LAYER) {
+				// 	game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
+				// }
+				// else if(x == 0 && z == OBJECT_LAYER) {
+				// 	game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
+				// }
+				// else if(y == grid_size.y-1 && z == OBJECT_LAYER) {
+				// 	game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
+				// }
+				// else if(x == grid_size.x-1 && z == OBJECT_LAYER) {
+				// 	game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), sf::Color::Blue, game_textures["dirt"]));
+				// }
+				if (level[y][x] == 1)
+					game_map[x][y].push_back(std::make_shared<Wall>(tile_size, sf::Vector2f(x*tile_size.x, y*tile_size.y), game_textures["concrete"]));
 				// adding this so elements that are empty will not be rendered
 				// makes rendering code shorter
 				else {

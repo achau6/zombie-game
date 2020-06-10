@@ -3,10 +3,9 @@
 #include <iostream>
 #include <vector>
 #include "gun_graphic/bullet.h"
-#include "weapon.h"
-#include "math.h"
 #include "Entities/entity_pool.h"
 #include "gun_entity.h"
+#include "TileMap/tilemap.h"
 
 class Shotgun : public Gun_Entity
 {

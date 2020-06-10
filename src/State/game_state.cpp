@@ -13,6 +13,9 @@ GameState::GameState(sf::RenderWindow* wdw)
 		// SpawnHealth_Pack();
 		SpawnAmmo_Pack();
 		zombie_pool.FindPlayer(p1, map);
+		ambientNoise.openFromFile("content/Audio/ambientNoise.wav");
+		ambientNoise.setVolume(3);
+		ambientNoise.setLoop(true);
 }
 
 GameState::~GameState() {
@@ -22,7 +25,7 @@ GameState::~GameState() {
 void GameState::SpawnZombies() {
 	//TODO: WAVE SYSTEM
 	// Gridsize * grid position = pixelcoords
-	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 10, map.getGridSize().y * 10), game_textures, map);
+	zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 3, map.getGridSize().y * 4), game_textures, map);
 }
 
 // void GameState::SpawnHealth_Pack() {
@@ -42,8 +45,8 @@ void GameState::Update() {
 
 	// map update checks for collision and sets velocity to 0 if collision occurs
 	map.Update(p1, zombie_pool);
+	//gun_entity.getTileMap(map);
 	// EntityCollision::Update(p1, zombie_pool, map);
-
 	p1.changeGun(g.getGlobalIdentifier());
 	p1.look(*window);
 
@@ -60,7 +63,8 @@ void GameState::Update() {
 	when it goes off screen because it deleted entire bullet list.
 	Will continue working on getting the list to work and switch it back
 	*/
-	g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1.getHitbox());
+	if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1.getHitbox()) == true)
+		p1.shootGun(g.getGlobalIdentifier());
 
 	// also updates the current mouse positions for the grid
 	initMousePositions();
@@ -74,7 +78,7 @@ void GameState::Update() {
 	// clearing string stream
 	ss.str("");
 	//Sets HP, ammo counter, zombies left, and Wave number, UI stuff
-	ss << "HP: " << p1.getHP() << std::setw(150) << g.getAmmo().first << "/" << g.getAmmo().second;
+	ss << "HP: " << p1.getHP() << std::setw(152) << g.getAmmo().first << "/" << g.getAmmo().second;
 	UI[0].setString(ss.str());
 	ss.str("");
 	//change the numbers when the wave and zombie functions are added

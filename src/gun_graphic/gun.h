@@ -6,12 +6,13 @@
 #include <vector>
 #include "bullet.h"
 #include "constants.h"
+#include "TileMap/tilemap.h"
+
 
 #include "weapon/pistol.h"
 #include "weapon/smg.h"
 #include "weapon/shotgun.h"
 #include "weapon/rifle.h"
-#include "player/player.h"
 #include "weapon/melee.h"
 
 
@@ -31,17 +32,18 @@ public:
 	Shotgun sh;
 	smg s;
 	weapons w;
-	// Player p1;
+
 	Melee m;
 	Ammo_Box ammo;
 	Health health;
 	int GLOBALIDENTIFIER;
 //mutators
 	void Draw(sf::RenderWindow& window);
-	void fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
+	bool fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
 	sf::RectangleShape player);
-	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
+	void movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
 	sf::RectangleShape player);
+
 	void erase();
 	void spawnAmmo_Box(sf::Vector2f position);
 	std::pair<int, int> getAmmo();
@@ -58,7 +60,7 @@ private:
 	sf::Vector2f bulletPosition;
 	sf::Vector2f bulletCenter;
 	sf::Vector2f knifeCenter;
-
+	std::map<int, sf::SoundBuffer> gunBuffer;
 };
 
 #endif // GUN_H

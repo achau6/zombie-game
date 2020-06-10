@@ -51,6 +51,7 @@ void ZombieGame::UpdateEvents(sf::Event& event) {
 						delete states.top();
 						states.pop();
 						MenuActive = false;
+						static_cast<GameState*>(states.top())->playMusic();
 					}
 					else if (static_cast<MenuState*>(states.top())->checkPress() == 2)
 						window->close();
