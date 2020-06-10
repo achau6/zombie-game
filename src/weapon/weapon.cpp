@@ -23,8 +23,20 @@ void weapons::initSounds(){
 	drawBuffer[2].loadFromFile("content/Audio/ak/ak47_draw.wav");
 	drawBuffer[3].loadFromFile("content/Audio/shotgun/nova_draw.wav");
 
+    akBuffer[0].loadFromFile("content/Audio/ak/ak47_clipout.wav");
+    akBuffer[1].loadFromFile("content/Audio/ak/ak47_clipin.wav");
+    akBuffer[2].loadFromFile("content/Audio/ak/ak47_boltpull.wav");
+
+    pistolBuffer[0].loadFromFile("content/Audio/handgun/glock_clipout.wav");
+    pistolBuffer[1].loadFromFile("content/Audio/handgun/glock_clipin.wav");
+    pistolBuffer[2].loadFromFile("content/Audio/handgun/glock_slideback.wav");
+    pistolBuffer[3].loadFromFile("content/Audio/handgun/glock_sliderelease.wav");
+
+    shotgunBuffer[0].loadFromFile("content/Audio/shotgun/nova_pump.wav");
+    shotgunBuffer[1].loadFromFile("content/Audio/shotgun/nova_insertshell.wav");
     sound.setVolume(10);
     drawSound.setVolume(25);
+    reloadSound.setVolume(25);
 }
 
 void weapons::play()
@@ -36,6 +48,41 @@ void weapons::play()
 void weapons::playDraw(){
     drawSound.setBuffer(drawBuffer[identifier]);
     drawSound.play();
+}
+
+void weapons::playReload(){
+    int requiredBuffers;
+    if (reloadSound.getStatus() == sf::Sound::Stopped){
+        if (identifier == 1){
+            requiredBuffers = 3;
+            reloadSound.setBuffer(pistolBuffer[reloadCount]);
+            if (reloadCount != requiredBuffers)
+                reloadCount++;
+            else
+                reload = false;
+        }
+        else if (identifier == 2){
+            requiredBuffers = 2;
+            reloadSound.setBuffer(akBuffer[reloadCount]);
+            if (reloadCount != requiredBuffers)
+                reloadCount++;
+            else
+                reload = false;
+        }
+        else if (identifier == 3){
+            requiredBuffers = 10;
+            if (reloadCount == 0)
+                reloadSound.setBuffer(shotgunBuffer[reloadCount]);
+            else{
+                reloadSound.setBuffer(shotgunBuffer[1]);
+                if (reloadCount != requiredBuffers)
+                    reloadCount++;
+                else
+                    reload = false;
+            }
+        }
+    }
+    reloadSound.play();
 }
 
 void weapons::fire(Bullet b)
@@ -75,7 +122,7 @@ void weapons::fire(Bullet b)
             Adds ammo to his clip if he still has reserve up to the clip
             capacity
             */
-           
+
            //using time pauses the game or crashes
                 //double startTime = GetTickCount();
 
@@ -169,7 +216,5 @@ void weapons::add_ammo(){
     else if (identifier == 2)
         maxAMMO += 15;
     else if (identifier == 3)
-        maxAMMO += 15;
-    else if (identifier == 4)
         maxAMMO += 5;
 }
