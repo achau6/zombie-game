@@ -6,13 +6,7 @@
 #include <vector>
 #include "bullet.h"
 #include "constants.h"
-#include "TileMap/tilemap.h"
 
-
-#include "weapon/pistol.h"
-#include "weapon/smg.h"
-#include "weapon/shotgun.h"
-#include "weapon/rifle.h"
 #include "weapon/melee.h"
 
 
@@ -21,18 +15,14 @@
 
 class Gun
 {
+	typedef std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> GameMap;
 public:
 //contructors
 	Gun();
 //typedef
 	Bullet b;
 	KnifeBullet k;
-	pistol p;
-	rifle r;
-	Shotgun sh;
-	smg s;
-	weapons w;
-
+	weapons p, r, sh;
 	Melee m;
 	Ammo_Box ammo;
 	Health health;
@@ -47,7 +37,6 @@ public:
 	void erase();
 	void spawnAmmo_Box(sf::Vector2f position);
 	std::pair<int, int> getAmmo();
-
 
 //accessors
 	int getGlobalIdentifier() {return GLOBALIDENTIFIER;}

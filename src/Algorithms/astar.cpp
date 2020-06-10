@@ -1,24 +1,24 @@
 #include "astar.h"
 
 // Converts the object layer to a node based grid
-std::vector<std::vector<std::shared_ptr<Node>>> Astar::TileToNodeGrid(const std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>>& grid, size_t layer) {
+// TODO: FIX MAGIC NUMS
+std::vector<std::vector<std::shared_ptr<Node>>> Astar::TileToNodeGrid(const std::vector<std::vector<int>>& grid) {
    std::vector<std::vector<std::shared_ptr<Node>>> node_grid;
+   const int WALL = 1;
    node_grid.reserve(grid.size());
    for(size_t i = 0; i < grid.size(); i++) {
-       node_grid.reserve(grid[i].size());
+       node_grid.reserve(grid.size());
        node_grid.push_back(std::vector<std::shared_ptr<Node>>());
-       for(size_t j = 0; j < grid[i].size(); j++) {
-           if(grid[i][j][layer] != nullptr) {
-               if(grid[i][j][layer]->isWall()) {
-                   // here
-                   node_grid[i].push_back(std::make_shared<Node>());
-                   node_grid[i][j]->isWall = true;
-               }
-           }
-           else {
-               node_grid[i].push_back(std::make_shared<Node>());
-               node_grid[i][j]->isWall = false;
-           }
+       for(size_t j = 0; j < grid.size(); j++) {
+            if(grid[i][j] == WALL ) {
+                 // here
+                 node_grid[i].push_back(std::make_shared<Node>());
+                 node_grid[i][j]->isWall = true;
+            }
+            else {
+                node_grid[i].push_back(std::make_shared<Node>());
+                node_grid[i][j]->isWall = false;
+            }
        }
    }
    return node_grid;
@@ -31,7 +31,7 @@ double Astar::calculateHValue(Node current, Node dest)
     return ((double)sqrt((current.pos.x-dest.pos.x)*(current.pos.x-dest.pos.x)+(current.pos.y-dest.pos.y)*(current.pos.y-dest.pos.y)));
 }
 
-std::vector<std::shared_ptr<Node>> Astar::GetNeighbors(std::shared_ptr<Node> n, sf::Vector2u grid_size) {
+std::vector<std::shared_ptr<Node>> Astar::GetNeighbors(std::shared_ptr<Node> n, const std::vector<std::vector<std::shared_ptr<Node>>>& grid) {
     std::vector<std::shared_ptr<Node>> neighbors;
     for(int i = -1; i <= 1; i++) {
         for(int j = -1; j <= 1; j++) {
@@ -50,7 +50,12 @@ std::vector<std::shared_ptr<Node>> Astar::GetNeighbors(std::shared_ptr<Node> n, 
             temp_node->pos.x = checkX;
             temp_node->pos.y = checkY;
 
-            if(checkX >= 0 && checkX < grid_size.x && checkY >= 0 && checkY < grid_size.y) {
+            if(checkX >= 0 && checkX < grid.size() && checkY >= 0 && checkY < grid.size()) {
+                if(grid[checkY][checkX] != nullptr) {
+                    if(grid[checkY][checkX]->isWall) {
+                        temp_node->isWall = true;
+                    }
+                }
                 neighbors.push_back(temp_node);
                 // std::cout << "NEIGHBORS " << temp_node->pos.x << " " << temp_node->pos.y << std::endl;
             }
@@ -105,15 +110,15 @@ std::vector<std::shared_ptr<Node>> Astar::AStarSearch(std::shared_ptr<Node> star
             return path;
         }
 
-        // first is x grid size and grid[0] is y grid size
-        unsigned int grid_size_x = grid.size();
-        unsigned int grid_size_y = grid[0].size();
-        std::vector<std::shared_ptr<Node>> neighbors_list = GetNeighbors(current, sf::Vector2u(grid_size_x, grid_size_y));
+        std::vector<std::shared_ptr<Node>> neighbors_list = GetNeighbors(current, grid);
+
         for(auto& neighbor : neighbors_list) {
             // if neighbor is not traversable or neighbor is in the closed set
+            // std::cout << "WALL:" << neighbor->isWall << std::endl;
+
             if(neighbor->isWall || (std::find(closed_set.begin(), closed_set.end(), neighbor) != closed_set.end())) {
                 // closed_set.push_back(neighbor);
-//                std::cout << "WALL:" << current->pos.x << " " << current->pos.y << std::endl;
+                // std::cout << "WALL:" << current->pos.x << " " << current->pos.y << std::endl;
                 // skip to the next neighboring node
                 continue;
             }

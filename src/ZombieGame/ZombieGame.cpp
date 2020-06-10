@@ -46,16 +46,31 @@ void ZombieGame::UpdateEvents(sf::Event& event) {
 				window->close();
 				break;
 		case sf::Event::MouseButtonPressed:
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && MenuActive == true){
-					if (static_cast<MenuState*>(states.top())->checkPress() == 1){
-						delete states.top();
-						states.pop();
-						MenuActive = false;
-						static_cast<GameState*>(states.top())->playMusic();
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+					if (MenuActive){
+						if (static_cast<MenuState*>(states.top())->checkPress() == 1){
+							delete states.top();
+							states.pop();
+							MenuActive = false;
+							static_cast<GameState*>(states.top())->playMusic();
+						}
+						else if (static_cast<MenuState*>(states.top())->checkPress() == 2)
+							window->close();
 					}
-					else if (static_cast<MenuState*>(states.top())->checkPress() == 2)
-						window->close();
+					else{
+						if (static_cast<GameState*>(states.top())->isDead()){
+							if (static_cast<GameState*>(states.top())->retry()){
+								delete states.top();
+								states.pop();
+								states.push(new GameState(window));
+								static_cast<GameState*>(states.top())->playMusic();
+							}
+							else if (static_cast<GameState*>(states.top())->quit())
+								window->close();
+						}
+					}
 				}
+
                 break;
 			case sf::Event::KeyPressed:
 				break;

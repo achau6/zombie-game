@@ -1,7 +1,7 @@
 #include "melee.h"
 
 
-Melee::Melee()
+Melee::Melee() : weapons(0, 10, 0, 10000, 0, 0)
 {
     fireRate = 0;
 }
@@ -20,7 +20,7 @@ void Melee::push(KnifeBullet b)
     */
     else if(fireRate >= 9){
             melees.push_back(b);
-            w.play(0);
+            w.play();
             fireRate = 0;
 
     }

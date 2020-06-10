@@ -59,13 +59,3 @@ bool Wall::isCollision(Entity& entity) {
 	return false;
 }
 
-void Wall::tileToBulletCollision(sf::RectangleShape& bullet, std::vector<Bullet> &gun_type, unsigned int count) {
-	sf::FloatRect entity_bounds = bullet.getGlobalBounds();
-	sf::FloatRect wall_bounds = getTileBounds();
-	obj_next_pos = entity_bounds;
-
-
-	if(wall_bounds.intersects(obj_next_pos)) {
-        gun_type.erase(gun_type.begin() + count);
-	}
-}

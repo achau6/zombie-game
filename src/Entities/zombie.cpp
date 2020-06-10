@@ -7,7 +7,34 @@ Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tile
 	grid_pos = getGridPosition(tilemap.GetSize());
 	initSprite(texture);
 	initHitbox();
-	node_grid = Astar::TileToNodeGrid(tilemap.GetGameMap(), tilemap.getObjectLayerNum());
+	node_grid = Astar::TileToNodeGrid(tilemap.getLevelMap());
+	// for(auto x : tilemap.GetGameMap()) {
+	// 	for(auto y : x) {
+	// 		for(auto z : y) {
+	// 			if(z != nullptr) {
+	// 				if(z->isWall()) {
+	// 					std::cout << "W";
+	// 				}
+	// 			}
+	// 			else {
+	// 				std::cout << " ";
+	// 			}
+	// 		}
+	// 	}
+	// 	std::cout << "\n";
+	// }
+
+	for(auto grid : node_grid) {
+		for(auto x : grid) {
+			if(x->isWall) {
+				std::cout << "W";
+			}
+			else {
+				std::cout << " ";
+			}
+		}
+		std::cout << "\n";
+	}
 	// next_pos = {grid_pos.x, grid_pos.y};
 }
 
@@ -28,14 +55,14 @@ void Zombie::initHitbox() {
 	hitbox.setPosition(position);
 }
 
-sf::Vector2u Zombie::getGridPosition(const sf::Vector2u& grid_size) {
-	if(position.x > 0)
-		grid_pos.x = position.x / grid_size.x;
-	if(position.y > 0)
-		grid_pos.y = position.y / grid_size.y;
+// sf::Vector2u Zombie::getGridPosition(const sf::Vector2u& grid_size) {
+// 	if(position.x > 0)
+// 		grid_pos.x = position.x / grid_size.x;
+// 	if(position.y > 0)
+// 		grid_pos.y = position.y / grid_size.y;
 
-	return grid_pos;
-}
+// 	return grid_pos;
+// }
 
 void Zombie::Look(Player& player){
 	sf::Vector2f playerPos = player.getPlayerSprite().getPosition();
@@ -108,7 +135,8 @@ void Zombie::MoveOneTile(sf::Vector2u tohere) {
 
 void Zombie::Attack(Player& player) {
 	if(entity_sprite.getGlobalBounds().intersects(player.getHitbox().getGlobalBounds())) {
-		player.DamagePlayer(zombie_damage);
+		if(player.getHP() > 0)
+			player.DamagePlayer(zombie_damage);
 	}
 }
 

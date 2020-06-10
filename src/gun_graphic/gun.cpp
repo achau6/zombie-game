@@ -2,6 +2,9 @@
 
 Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
+	p = weapons(21, 16, 0, 10000, 0, 1);
+	r = weapons(21, 21, 0, 15, 0, 2);
+	sh = weapons(10, 39, 0, 10, 0 ,3);
 }
 
 bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
@@ -16,23 +19,19 @@ sf::RectangleShape player)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) && GLOBALIDENTIFIER != 0){
 		//identifier = 0;
 		GLOBALIDENTIFIER = 0;
-		w.playDraw(GLOBALIDENTIFIER);
+		m.playDraw();
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && GLOBALIDENTIFIER != 1){
 		//identifier = 1;
 		GLOBALIDENTIFIER = 1;
-		w.playDraw(GLOBALIDENTIFIER);
+		p.playDraw();
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && GLOBALIDENTIFIER != 2){
 		//identifier = 2;
 		GLOBALIDENTIFIER = 2;
-		w.playDraw(GLOBALIDENTIFIER);
+		r.playDraw();
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && GLOBALIDENTIFIER != 3){
 		//identifier = 3;
 		GLOBALIDENTIFIER = 3;
-		w.playDraw(GLOBALIDENTIFIER);
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) && GLOBALIDENTIFIER != 4){
-		//identifier = 4;
-		GLOBALIDENTIFIER = 4;
-		w.playDraw(GLOBALIDENTIFIER);
+		sh.playDraw();
 	}
 	/*
 	Complicated calculation to find mouse position
@@ -98,17 +97,15 @@ sf::RectangleShape player)
 		although may move it to individual class (ex. pistol.h)
 		*/
 
-		if(GLOBALIDENTIFIER == 0){
+		if(GLOBALIDENTIFIER == 0)
 			m.push(KnifeBullet(k));
-		} else if(GLOBALIDENTIFIER == 1){
-			p.push(Bullet(b));
-		} else if(GLOBALIDENTIFIER == 2){
-			s.push(Bullet(b));
-		} else if(GLOBALIDENTIFIER == 3){
-			r.push(Bullet(b));
-		} else if(GLOBALIDENTIFIER == 4){
-			sh.push(Bullet(b));
-		}
+		else if(GLOBALIDENTIFIER == 1)
+			p.fire(Bullet(b));
+		else if(GLOBALIDENTIFIER == 2)
+			r.fire(Bullet(b));
+		else if(GLOBALIDENTIFIER == 3)
+			sh.fire(Bullet(b));
+
 		fired = true;
 	}
 	movement(pool, Xpos, Ypos, player);
@@ -129,14 +126,12 @@ void Gun::movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
 sf::RectangleShape player)
 {
 		m.movement(pool, x, y);
-		p.movement(pool);
-		//s.movement(pool, array);
-		//r.movement(pool);
-		//sh.movement(pool);
-		//health.movement(player);
+		p.movements(pool);
+		r.movements(pool);
+		sh.movements(pool);
 		ammo.delete_box(player, getGlobalIdentifier(), p, r, sh);
-
-
+		//health_pack.movement(player.getHitbox());
+		
 }
 
 /*
@@ -146,7 +141,6 @@ void Gun::Draw(sf::RenderWindow& window)
 {
 	m.Draw(window);
 	p.Draw(window);
-	s.Draw(window);
 	r.Draw(window);
 	sh.Draw(window);
 	//health.Draw(window);
@@ -165,14 +159,10 @@ std::pair<int, int> Gun::getAmmo(){
 			ammo.second = p.getMaxAmmo();
 			break;
 		case 2:
-			ammo.first = s.getCurrentAmmo();
-			ammo.second = s.getMaxAmmo();
-			break;
-		case 3:
 			ammo.first = r.getCurrentAmmo();
 			ammo.second = r.getMaxAmmo();
 			break;
-		case 4:
+		case 3:
 			ammo.first = sh.getCurrentAmmo();
 			ammo.second = sh.getMaxAmmo();
 			break;

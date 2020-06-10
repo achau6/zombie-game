@@ -53,14 +53,14 @@ void Player::WalkingSound(){
 	}
 }
 
-sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
-	if(position.x > 0)
-		grid_pos.x = position.x / grid_size.x;
-	if(position.y > 0)
-		grid_pos.y = position.y / grid_size.y;
+// sf::Vector2u Player::getGridPosition(const sf::Vector2u& grid_size) {
+// 	if(position.x > 0)
+// 		grid_pos.x = position.x/ grid_size.x;
+// 	if(position.y > 0)
+// 		grid_pos.y = position.y / grid_size.y;
 
-	return grid_pos;
-}
+// 	return grid_pos;
+// }
 
 void Player::look(sf::RenderWindow& window){
 	//float x, y;
@@ -130,7 +130,7 @@ void Player::knifeSwings(){
 void Player::Draw(sf::RenderWindow& window){
 	//window.draw(area);
 	window.draw(entity_sprite);
-	window.draw(hitbox);
+	// window.draw(hitbox);
 }
 
 void Player::initSpriteTextures(){
@@ -145,9 +145,8 @@ void Player::initSpriteTextures(){
 	shotgun.loadFromFile("content/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_0.png");
 	sprites[0] = knife;
 	sprites[1] = pistol;
-	sprites[2] = pistol;
-	sprites[3] = rifle;
-	sprites[4] = shotgun;
+	sprites[2] = rifle;
+	sprites[3] = shotgun;
 	entity_sprite.setTexture(sprites[0]);
 	entity_sprite.setScale(0.5, 0.5);
 	entity_sprite.setOrigin(sprites[1].getSize().x/2, sprites[1].getSize().y/2);
@@ -158,9 +157,8 @@ void Player::initSpriteTextures(){
 	shotgunShooting.loadFromFile("content/Top_Down_Survivor/shotgun/shoot/weiner2.png");
 	shootingSprites[0] = knife;
 	shootingSprites[1] = pistolShooting;
-	shootingSprites[2] = pistolShooting;
-	shootingSprites[3] = rifleShooting;
-	shootingSprites[4] = shotgunShooting;
+	shootingSprites[2] = rifleShooting;
+	shootingSprites[3] = shotgunShooting;
 	for (int i = 0; i < 15; i++){
 		knifeInput = "content/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_" + std::to_string(i);
 		knifeInput += ".png";

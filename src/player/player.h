@@ -30,7 +30,7 @@ public:
 //accessors
 	const sf::Vector2f getPosition() const {return position;}
 	sf::Vector2f& getPosition() {return position;}
-	sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
+	// sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 	sf::Vector2f getdirectionalViewNormalized();
 	sf::Sprite getPlayerSprite() {return entity_sprite;}
 	float getPlayerSpd() {return movement_speed;}
