@@ -130,7 +130,7 @@ void Player::knifeSwings(){
 void Player::Draw(sf::RenderWindow& window){
 	//window.draw(area);
 	window.draw(entity_sprite);
-	// window.draw(hitbox);
+	window.draw(hitbox);
 }
 
 void Player::initSpriteTextures(){
