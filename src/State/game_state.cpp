@@ -33,11 +33,26 @@ void GameState::SpawnZombies() {
 }
 
 void GameState::SpawnHealth_Pack() {
+	/*
+	SPAWN MORE
+	*/
 	g.SpawnHealth_Pack(sf::Vector2f(300, 300));
+	g.SpawnHealth_Pack(sf::Vector2f(3800, 3800));
+	g.SpawnHealth_Pack(sf::Vector2f(1000, 2000));
 }
 
 void GameState::SpawnAmmo_Pack() {
+	/*
+	SPAWN MORE
+	*/
 	g.spawnAmmo_Box(sf::Vector2f(500, 500));
+	g.spawnAmmo_Box(sf::Vector2f(2567, 1248));
+	g.spawnAmmo_Box(sf::Vector2f(1673, 3000));
+	g.spawnAmmo_Box(sf::Vector2f(3500, 500));
+	g.spawnAmmo_Box(sf::Vector2f(500, 1500));
+	g.spawnAmmo_Box(sf::Vector2f(3100, 3100));
+	g.spawnAmmo_Box(sf::Vector2f(500, 3100));
+
 }
 
 void GameState::Update() {
