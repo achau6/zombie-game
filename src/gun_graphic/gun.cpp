@@ -2,9 +2,9 @@
 
 Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
-	p = weapons(21, 16, 0, 10000, 0, 1);
-	r = weapons(21, 21, 0, 15, 0, 2);
-	sh = weapons(10, 39, 0, 10, 0 ,3);
+	p = weapons(0, 35, 24, 12, 12, 0, 1, 20.f);
+	r = weapons(0, 18, 30, 30, 30, 0, 2, 30.f);
+	sh = weapons(60, 80, 8, 8, 8, 0 , 3, 50.f);
 }
 
 bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
@@ -98,15 +98,14 @@ Player& player)
 		*/
 
 		if(GLOBALIDENTIFIER == 0)
-			m.push(KnifeBullet(k));
+			fired = m.push(KnifeBullet(k));
 		else if(GLOBALIDENTIFIER == 1)
-			p.fire(Bullet(b));
+			fired = p.fire(Bullet(b));
 		else if(GLOBALIDENTIFIER == 2)
-			r.fire(Bullet(b));
+			fired = r.fire(Bullet(b));
 		else if(GLOBALIDENTIFIER == 3)
-			sh.fire(Bullet(b));
+			fired = sh.fire(Bullet(b));
 
-		fired = true;
 	}
 	movement(pool, Xpos, Ypos, player);
 	return fired;
@@ -146,6 +145,23 @@ void Gun::Draw(sf::RenderWindow& window)
 	health.Draw(window);
 	ammo.Draw(window);
 }
+
+bool Gun::Update(){
+	if (p.getReload()){
+		p.playReload();
+		return true;
+	}
+	else if (r.getReload()){
+		r.playReload();
+		return true;
+	}
+	else if (sh.getReload()){
+		sh.playReload();
+		return true;
+	}
+	return false;
+}
+
 //returns ammo for current gun, 1st is current, 2nd is reserve
 std::pair<int, int> Gun::getAmmo(){
 	std::pair<int, int> ammo;

@@ -27,12 +27,12 @@ void Health::delete_health_pack(Player& player)
 
 
 void Health::spawn_pack(sf::Vector2f position){
-	if (!texture.loadFromFile("../zombie-game/content/Fix_Later_Health_pack.PNG")){
+	if (!texture.loadFromFile("../zombie-game/content/Health_pack.PNG")){
 		std::cout<<"Shit dont work\n";
 	}
 	//initalization of sprite values
 	entity_sprite.setTexture(texture);
-	entity_sprite.setScale(.25,.25);
+	entity_sprite.setScale(.12,.12);
 	//entity_sprite.setOrigin(texture.getSize().x/2, texture.getSize().y/2);
 	entity_sprite.setPosition(position);
 	//initalization of hitbox values
@@ -42,7 +42,7 @@ void Health::spawn_pack(sf::Vector2f position){
 	hitbox.setOutlineThickness(10);
 	//hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
 	hitbox.setPosition(position);
-	hitbox.setScale(.25, .25);
+	hitbox.setScale(.12, .12);
 
 
 	health_pack.push_back(std::make_pair(entity_sprite, hitbox));

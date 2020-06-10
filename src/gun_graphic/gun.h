@@ -28,6 +28,7 @@ public:
 	int GLOBALIDENTIFIER;
 //mutators
 	void Draw(sf::RenderWindow& window);
+	bool Update();
 	bool fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
 	Player& player);
 	void movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,

@@ -1,18 +1,18 @@
 #include "melee.h"
 
 
-Melee::Melee() : weapons(0, 10, 0, 10000, 0, 0)
+Melee::Melee() : weapons(0, 10, 0, 0, 0, 0, 0, 15)
 {
     fireRate = 0;
 }
 
-void Melee::push(KnifeBullet b)
+bool Melee::push(KnifeBullet b)
 {
     /*
     controls how fast the gun is shooting.
     it takes every 10 counts for the next shot to fire
     */
-    if(fireRate < 10){
+    if(fireRate < 20){
         fireRate ++;
     }
     /*
@@ -22,8 +22,9 @@ void Melee::push(KnifeBullet b)
             melees.push_back(b);
             w.play();
             fireRate = 0;
-
+            return true;
     }
+    return false;
 
 }
 

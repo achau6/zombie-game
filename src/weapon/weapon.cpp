@@ -5,12 +5,12 @@ weapons::weapons(){
     flag = false;
 }
 
-weapons::weapons(int rate, int maxRate, int max, int current, int fire, int id) : fireRate(rate), maxFireRate(maxRate), maxAMMO(max),
-currentAMMO(current), shotFire(fire),  identifier(id){
+weapons::weapons(int rate, int maxRate, int max, int current, int clipSize, int fire, int id, float dmg) : fireRate(rate), maxFireRate(maxRate), maxAMMO(max),
+currentAMMO(current), clipSize(clipSize), shotFire(fire),  identifier(id), damage(dmg){
     initSounds();
     flag = false;
 
-};
+}
 
 void weapons::initSounds(){
     Buffer[0].loadFromFile("content/Audio/knife/knife_slash1.wav");
@@ -37,6 +37,7 @@ void weapons::initSounds(){
     sound.setVolume(10);
     drawSound.setVolume(25);
     reloadSound.setVolume(25);
+    reloadSound.setPitch(.8f);
 }
 
 void weapons::play()
@@ -52,40 +53,52 @@ void weapons::playDraw(){
 
 void weapons::playReload(){
     int requiredBuffers;
-    if (reloadSound.getStatus() == sf::Sound::Stopped){
+    if (reloadSound.getStatus() == sf::Sound::Stopped && reload == true){
         if (identifier == 1){
             requiredBuffers = 3;
             reloadSound.setBuffer(pistolBuffer[reloadCount]);
             if (reloadCount != requiredBuffers)
                 reloadCount++;
-            else
+            else{
                 reload = false;
+                reloadCount = 0;
+            }
         }
         else if (identifier == 2){
             requiredBuffers = 2;
             reloadSound.setBuffer(akBuffer[reloadCount]);
             if (reloadCount != requiredBuffers)
                 reloadCount++;
-            else
+            else{
                 reload = false;
+                reloadCount = 0;
+            }
         }
         else if (identifier == 3){
-            requiredBuffers = 10;
-            if (reloadCount == 0)
+            requiredBuffers = 8;
+            if (reloadCount == 0){
                 reloadSound.setBuffer(shotgunBuffer[reloadCount]);
+                reloadCount++;
+            }
             else{
                 reloadSound.setBuffer(shotgunBuffer[1]);
                 if (reloadCount != requiredBuffers)
                     reloadCount++;
-                else
+                else{
                     reload = false;
+                    reloadCount = 0;
+                }
             }
         }
+        reloadSound.play();
     }
-    reloadSound.play();
+    else if (reload == false && identifier == 3){
+        reloadSound.setBuffer(shotgunBuffer[0]);
+        reloadSound.play();
+    }
 }
 
-void weapons::fire(Bullet b)
+bool weapons::fire(Bullet b)
 {
     if(getFlag() == true){
         add_ammo();
@@ -107,9 +120,12 @@ void weapons::fire(Bullet b)
             std::cout<<"Fire"<<std::endl;
             gun.push_back(b);
             play();
+            if (identifier == 3)
+                playReload();
             currentAMMO --;
             fireRate = 0;
-        } else {
+            return true;
+        } else if (maxAMMO > 0){
             /*
             Fire stops when no bullet is found either in current ammo or his
             max ammo (stash)
@@ -126,8 +142,6 @@ void weapons::fire(Bullet b)
            //using time pauses the game or crashes
                 //double startTime = GetTickCount();
             reload = true;
-            while(maxAMMO > 0 && currentAMMO < 11)
-            {
                 // double currentTime = GetTickCount() - startTime;
                 // // sf::Clock start;
                 // // //start = clock();
@@ -136,16 +150,18 @@ void weapons::fire(Bullet b)
                 //     currentAMMO ++;
                 //     maxAMMO --;
                 // }
-                playReload();
-                if(reload == true) {
-                    currentAMMO ++;
-                    maxAMMO --;
-                }
+            playReload();
+            if (maxAMMO >= clipSize){
+                currentAMMO = clipSize;
+                maxAMMO -= clipSize;
             }
-            reload = false;
+            else{
+                currentAMMO = maxAMMO;
+                maxAMMO = 0;
+            }
         }
     }
-
+return false;
 
 }
 

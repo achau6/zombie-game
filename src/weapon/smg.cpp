@@ -1,8 +1,8 @@
 #include "smg.h"
 
 
-smg::smg() : weapons(10, 14, 0, 10, 0, 2)
-{}
+//smg::smg() : weapons(10, 14, 0, 10, 0, 2)
+//{}
 
 // void smg::push(Bullet b)
 // {

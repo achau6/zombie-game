@@ -16,7 +16,7 @@ public:
 	KnifeBullet b;
 	weapons w;
 	//mutators
-	void push(KnifeBullet b);
+	bool push(KnifeBullet b);
 	void movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
 	void Draw(sf::RenderWindow& window);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
