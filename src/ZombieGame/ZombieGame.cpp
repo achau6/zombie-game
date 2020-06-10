@@ -3,7 +3,7 @@
 ZombieGame::ZombieGame(sf::RenderWindow* window) {
 	this->window = window;
 	image_path = "../zombie-game/content/game_thumbnail.png";
-	title = "InfestionZ";
+	title = "InfestationZ";
 	// initWindow();
 	// initStates();
 }
