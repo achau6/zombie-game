@@ -58,3 +58,4 @@ bool Wall::isCollision(Entity& entity) {
 
 	return false;
 }
+

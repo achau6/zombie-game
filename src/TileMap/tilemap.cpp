@@ -72,3 +72,4 @@ void TileMap::Render(sf::RenderWindow* window) {
 		}
 	}
 }
+

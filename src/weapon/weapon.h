@@ -3,20 +3,19 @@
 #include "map"
 #include "Entities/entity_pool.h"
 #include "gun_graphic/bullet.h"
-#include "weapon.h"
-#include "TileMap/tilemap.h"
 class weapons
 {
 public:
 //constructors
     weapons();
     weapons(int rate, int maxRate, int max, int current, int fire, int id);
-    sf::Sound sound, drawSound;
-    sf::SoundBuffer Buffer[5], drawBuffer[5];
+    sf::Sound sound, drawSound, reloadSound;
+    sf::SoundBuffer Buffer[4], drawBuffer[4], akBuffer[3], pistolBuffer[4], shotgunBuffer[2];
 
     //mutators
     void play();
     void playDraw();
+	void playReload();
 	//void push(Bullet b);
 	int getCurrentAmmo() {return currentAMMO;}
 	void Draw(sf::RenderWindow& window);
@@ -25,12 +24,13 @@ public:
 	void movements(std::vector<std::shared_ptr<Zombie>> pool);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
 	void add_ammo();
-
+protected:
 	int fireRate, maxAMMO, currentAMMO, shotFire, identifier, maxFireRate;
-private:
-	void initSounds();
-
 	std::vector<Bullet> gun;
+private:
+	int reloadCount = 0, timesReloaded = 0;
+	void initSounds();
+	bool reload = false;
     std::vector<std::vector<int>> level =
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
