@@ -19,6 +19,9 @@ bool Wall::isCollision(Entity& entity) {
 				{
 					// std::cout << "top collision" << std::endl;
 					entity.getVelocity().y = 0.f;
+					// SO ENTITY CAN SLIDE IF THEY KEEP WALKING INTO THE WALL
+					// entity.getSprite().setPosition(entity_bounds.left, entity_bounds.top);
+					// entity.getHitbox().setPosition(entity_bounds.left, entity_bounds.top);
 				}
 
 				// bottom collision
@@ -30,6 +33,8 @@ bool Wall::isCollision(Entity& entity) {
 				{
 					// std::cout << "bottom collision" << std::endl;
 					entity.getVelocity().y = 0.f;
+					// // SO ENTITY CAN SLIDE IF THEY KEEP WALKING INTO THE WALL
+					// entity.getVelocity().x = 1.f;
 				}
 
 				// left collision
@@ -41,6 +46,8 @@ bool Wall::isCollision(Entity& entity) {
 				{
 					// std::cout << "left collision" << std::endl;
 					entity.getVelocity().x = 0.f;
+					// SO ENTITY CAN SLIDE IF THEY KEEP WALKING INTO THE WALL
+					// entity.getVelocity().y = 1.f;
 				}
 
 				// right collision
@@ -52,6 +59,8 @@ bool Wall::isCollision(Entity& entity) {
 				{
 					//std::cout << "right collision" << std::endl;
 					entity.getVelocity().x = 0.f;
+					// SO ENTITY CAN SLIDE IF THEY KEEP WALKING INTO THE WALL
+					// entity.getVelocity().y = -1.f;
 				}
 		return true;
 	}

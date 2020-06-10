@@ -24,17 +24,17 @@ Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tile
 	// 	std::cout << "\n";
 	// }
 
-	for(auto grid : node_grid) {
-		for(auto x : grid) {
-			if(x->isWall) {
-				std::cout << "W";
-			}
-			else {
-				std::cout << " ";
-			}
-		}
-		std::cout << "\n";
-	}
+	// for(auto grid : node_grid) {
+	// 	for(auto x : grid) {
+	// 		if(x->isWall) {
+	// 			std::cout << "W";
+	// 		}
+	// 		else {
+	// 			std::cout << " ";
+	// 		}
+	// 	}
+	// 	std::cout << "\n";
+	// }
 	// next_pos = {grid_pos.x, grid_pos.y};
 }
 
@@ -144,7 +144,6 @@ void Zombie::Update(Player& player) {
 	entity_sprite.move(velocity);
 	hitbox.move(velocity);
 	velocity = sf::Vector2f(0,0);
-	// TODO: CHANGE THIS SO PLAYER DOESNT TAKE DAMAGE EVERY FRAME
 	Attack(player);
 	// std::cout << player.getHP() << std::endl;
 }
