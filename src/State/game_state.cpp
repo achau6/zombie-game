@@ -11,7 +11,7 @@ GameState::GameState(sf::RenderWindow* wdw)
 		cord_pos.setCharacterSize(char_size);
 		SpawnZombies();
 		initUISprites();
-		// SpawnHealth_Pack();
+		SpawnHealth_Pack();
 		SpawnAmmo_Pack();
 		initDeathScreen();
 		zombie_pool.FindPlayer(p1, map);
@@ -32,9 +32,9 @@ void GameState::SpawnZombies() {
 	}
 }
 
-// void GameState::SpawnHealth_Pack() {
-// 	health.spawn_pack(sf::Vector2f(300, 300));
-// }
+void GameState::SpawnHealth_Pack() {
+	g.SpawnHealth_Pack(sf::Vector2f(300, 300));
+}
 
 void GameState::SpawnAmmo_Pack() {
 	g.spawnAmmo_Box(sf::Vector2f(500, 500));
@@ -72,7 +72,7 @@ void GameState::Update() {
 		when it goes off screen because it deleted entire bullet list.
 		Will continue working on getting the list to work and switch it back
 		*/
-		if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1.getHitbox()) == true)
+		if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1) == true)
 			p1.shootGun(g.getGlobalIdentifier());
 	}
 	else{

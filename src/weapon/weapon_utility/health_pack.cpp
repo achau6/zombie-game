@@ -13,11 +13,12 @@ void Health::Draw(sf::RenderWindow& window){
 
 }
 
-void Health::movement(sf::RectangleShape player)
+void Health::delete_health_pack(Player& player)
 {
 	for(unsigned int i = 0; i < health_pack.size(); i ++){
-		if(collisionCheck(player, health_pack[i].second) == true){
+		if(collisionCheck(player.getHitbox(), health_pack[i].second) == true){
 			health_pack.erase(health_pack.begin() + i);
+			player.addHp();
 		}
 	}
 }

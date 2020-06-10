@@ -2,6 +2,7 @@
 #define HEALTH_PACK_H
 #include "Entities/entity.h"
 #include <iostream>
+#include "player/player.h"
 
 /*
 Why I didn't make a class that Ammo and Health can inherit from. Double inheritance is probably not a good idea.
@@ -17,8 +18,7 @@ public:
 	//Mutators
 	void Draw(sf::RenderWindow& window);
 	void spawn_pack(sf::Vector2f position);
-	void movement(sf::RectangleShape player);
-	void delete_health_pack();
+	void delete_health_pack(Player& player);
 	bool collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool);
 	//accessors
 	int GetSize(){return health_pack.size();}

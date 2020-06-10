@@ -30,6 +30,7 @@ public:
 	}
 
 	float getHP() const {return hp;}
+	void addHp() {hp += 25.00;}
 
 protected:
 	float hp;

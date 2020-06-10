@@ -8,7 +8,7 @@ Gun::Gun(){
 }
 
 bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
-sf::RectangleShape player)
+Player& player)
 {
 	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
@@ -112,9 +112,9 @@ sf::RectangleShape player)
 	return fired;
 }
 
-// void Gun::SpawnHealth_Pack() {
-// 	health_pack.spawn_pack(sf::Vector2f(300, 300));
-// }
+void Gun::SpawnHealth_Pack(sf::Vector2f position) {
+	health.spawn_pack(position);
+}
 
 void Gun::spawnAmmo_Box(sf::Vector2f position){
 	ammo.spawn_pack(position);
@@ -123,15 +123,15 @@ void Gun::spawnAmmo_Box(sf::Vector2f position){
 Gives the movement of the gun path
 */
 void Gun::movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
-sf::RectangleShape player)
+Player& player)
 {
 		m.movement(pool, x, y);
 		p.movements(pool);
 		r.movements(pool);
 		sh.movements(pool);
-		ammo.delete_box(player, getGlobalIdentifier(), p, r, sh);
-		//health_pack.movement(player.getHitbox());
-		
+		ammo.delete_box(player.getHitbox(), getGlobalIdentifier(), p, r, sh);
+		health.delete_health_pack(player);
+
 }
 
 /*
@@ -143,7 +143,7 @@ void Gun::Draw(sf::RenderWindow& window)
 	p.Draw(window);
 	r.Draw(window);
 	sh.Draw(window);
-	//health.Draw(window);
+	health.Draw(window);
 	ammo.Draw(window);
 }
 //returns ammo for current gun, 1st is current, 2nd is reserve

@@ -9,13 +9,12 @@
 
 #include "weapon/melee.h"
 
-
+#include"player/player.h"
 #include "weapon/weapon_utility/ammo.h"
 #include "weapon/weapon_utility/health_pack.h"
 
 class Gun
 {
-	typedef std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> GameMap;
 public:
 //contructors
 	Gun();
@@ -30,11 +29,10 @@ public:
 //mutators
 	void Draw(sf::RenderWindow& window);
 	bool fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
-	sf::RectangleShape player);
+	Player& player);
 	void movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
-	sf::RectangleShape player);
-
-	void erase();
+	Player& player);
+	void SpawnHealth_Pack(sf::Vector2f position);
 	void spawnAmmo_Box(sf::Vector2f position);
 	std::pair<int, int> getAmmo();
 
