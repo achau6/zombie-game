@@ -7,7 +7,8 @@ Gun::Gun(){
 	sh = weapons(10, 39, 0, 10, 0 ,3);
 }
 
-bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool)
+bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
+sf::RectangleShape player)
 {
 	float slope, degree, x, y, copyX, copyY;
 	int quadrant;
@@ -107,7 +108,7 @@ bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 
 		fired = true;
 	}
-	movement(GLOBALIDENTIFIER, pool, Xpos, Ypos);
+	movement(pool, Xpos, Ypos, player);
 	return fired;
 }
 
@@ -115,26 +116,22 @@ bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std
 // 	health_pack.spawn_pack(sf::Vector2f(300, 300));
 // }
 
+void Gun::spawnAmmo_Box(sf::Vector2f position){
+	ammo.spawn_pack(position);
+}
 /*
 Gives the movement of the gun path
 */
-void Gun::movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y)
+void Gun::movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
+sf::RectangleShape player)
 {
 		m.movement(pool, x, y);
 		p.movements(pool);
 		r.movements(pool);
 		sh.movements(pool);
-		//std::cout<<"nig: "<<p1.getHitbox().x<<", "<<p1.getHitbox().y<<std::endl;
+		ammo.delete_box(player, getGlobalIdentifier(), p, r, sh);
 		//health_pack.movement(player.getHitbox());
-		// if(identifier == 1 && a.movement(player.getHitbox()) == true){
-		// 	p.add_ammo();
-		// } else if(identifier == 2 && a.movement(player.getHitbox()) == true){
-		// 	s.add_ammo();
-		// } else if(identifier == 3 && a.movement(player.getHitbox()) == true){
-		// 	r.add_ammo();
-		// } else if(identifier == 4 && a.movement(player.getHitbox()) == true){
-		// 	sh.add_ammo();
-		// }
+		
 }
 
 /*
@@ -146,6 +143,8 @@ void Gun::Draw(sf::RenderWindow& window)
 	p.Draw(window);
 	r.Draw(window);
 	sh.Draw(window);
+	//health.Draw(window);
+	ammo.Draw(window);
 }
 //returns ammo for current gun, 1st is current, 2nd is reserve
 std::pair<int, int> Gun::getAmmo(){

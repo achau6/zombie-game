@@ -112,7 +112,6 @@ void Player::shootGun(int GLOBALIDENTIFIER){
 }
 
 void Player::knifeSwings(){
-	std::cout<<"melee\n";
 	if (knifeCount == count){
 		entity_sprite.setTexture(knifeShooting[knifeCount]);
 		knifeCount++;

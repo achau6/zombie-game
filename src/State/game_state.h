@@ -7,11 +7,12 @@
 #include "Camera/camera.h"
 #include "gun_graphic/gun.h"
 #include <iomanip>
-#include "weapon/weapon_utility/health_pack.h"
-#include "weapon/weapon_utility/ammo.h"
+
 
 class GameState : public State {
 public:
+	typedef std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> GameMap;
+
 	GameState(sf::RenderWindow* wdw);
 	~GameState();
 	void Update();
@@ -35,12 +36,11 @@ private:
 
 	TileMap map;
 	bool dead;
-	//EntityPool zombie_pool;
 	Player p1;
 	Gun g;
-	Camera camera;
 	Health health;
 	Ammo_Box ammo;
+	Camera camera;
 	sf::Vector2i mouse_pos_screen;
 	sf::Vector2i mouse_pos_window;
 	sf::Vector2f mouse_pos_view;

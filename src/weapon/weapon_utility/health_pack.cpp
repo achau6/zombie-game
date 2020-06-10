@@ -6,7 +6,6 @@ Health::Health()
 }
 
 void Health::Draw(sf::RenderWindow& window){
-	//std::cout<<"fuck: "<<health_pack.size()<<std::endl;
 
 	for(unsigned int i = 0; i < health_pack.size(); i ++){
 		window.draw(health_pack[i].first);

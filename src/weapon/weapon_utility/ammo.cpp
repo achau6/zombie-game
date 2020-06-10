@@ -1,9 +1,5 @@
 #include "ammo.h"
 
-Ammo_Box::Ammo_Box()
-{
-
-}
 
 void Ammo_Box::Draw(sf::RenderWindow& window){
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
@@ -12,15 +8,22 @@ void Ammo_Box::Draw(sf::RenderWindow& window){
 
 }
 
-bool Ammo_Box::movement(sf::RectangleShape player)
+void Ammo_Box::delete_box(sf::RectangleShape player, int identifier, weapons& p,
+weapons& r, weapons& sh)
 {
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
 		if(collisionCheck(player, ammo_pack[i].second) == true){
 			ammo_pack.erase(ammo_pack.begin() + i);
-			return true;
+				if(identifier == 1){
+					p.flaggin();
+				} else if(identifier == 2){
+					r.flaggin();
+				} else if(identifier == 3){
+					sh.flaggin();
+				}
 		}
 	}
-	return false;
+
 }
 
 
@@ -33,14 +36,11 @@ void Ammo_Box::spawn_pack(sf::Vector2f position){
 	//initalization of sprite values
 	entity_sprite.setTexture(texture);
 	entity_sprite.setScale(.25,.25);
-	//entity_sprite.setOrigin(texture.getSize().x/2, texture.getSize().y/2);
 	entity_sprite.setPosition(position);
-	//initalization of hitbox values
 	hitbox.setSize({entity_sprite.getGlobalBounds().width, entity_sprite.getGlobalBounds().height});
 	hitbox.setFillColor(sf::Color(0,0,0,0));
 	hitbox.setOutlineColor(sf::Color::White);
 	hitbox.setOutlineThickness(10);
-	//hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
 	hitbox.setPosition(position);
 	hitbox.setScale(.25, .25);
 
@@ -52,7 +52,6 @@ bool Ammo_Box::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
 {
     sf::FloatRect zombie_entity = pool.getGlobalBounds();
     sf::FloatRect bullet = rect.getGlobalBounds();
-
 
     if(rect.getPosition().x < pool.getPosition().x + zombie_entity.width &&
 			rect.getPosition().x + bullet.width > pool.getPosition().x &&

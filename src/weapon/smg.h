@@ -1,12 +1,7 @@
 #ifndef SMG_H
 #define SMG_H
 #include <iostream>
-#include <vector>
-#include "gun_graphic/bullet.h"
 #include "weapon.h"
-#include "math.h"
-#include "Entities/entity_pool.h"
-#include "gun_entity.h"
 
 class smg : public weapons
 {

@@ -2,12 +2,15 @@
 #include <iostream>
 weapons::weapons(){
     initSounds();
+    flag = false;
 }
 
 weapons::weapons(int rate, int maxRate, int max, int current, int fire, int id) : fireRate(rate), maxFireRate(maxRate), maxAMMO(max),
 currentAMMO(current), shotFire(fire),  identifier(id){
     initSounds();
-}
+    flag = false;
+
+};
 
 void weapons::initSounds(){
     Buffer[0].loadFromFile("content/Audio/knife/knife_slash1.wav");
@@ -31,7 +34,7 @@ void weapons::initSounds(){
 
     shotgunBuffer[0].loadFromFile("content/Audio/shotgun/nova_pump.wav");
     shotgunBuffer[1].loadFromFile("content/Audio/shotgun/nova_insertshell.wav");
-    sound.setVolume(30);
+    sound.setVolume(10);
     drawSound.setVolume(25);
     reloadSound.setVolume(25);
 }
@@ -84,8 +87,12 @@ void weapons::playReload(){
 
 void weapons::fire(Bullet b)
 {
-    //std::cout<<
-/*
+    if(getFlag() == true){
+        add_ammo();
+        flag = false;
+        std::cout<<"adding ammo"<<std::endl;
+    }
+    /*
     controls how fast the gun is shooting.
     it takes every 10 counts for the next shot to fire
     */
@@ -115,10 +122,23 @@ void weapons::fire(Bullet b)
             Adds ammo to his clip if he still has reserve up to the clip
             capacity
             */
+
+           //using time pauses the game or crashes
+                //double startTime = GetTickCount();
+
             while(maxAMMO > 0 && currentAMMO < 11)
             {
+                // double currentTime = GetTickCount() - startTime;
+                // // sf::Clock start;
+                // // //start = clock();
+                // int counter = 0;
+		        // if(currentTime > 5000) {
+                //     currentAMMO ++;
+                //     maxAMMO --;
+                // }
+
                 currentAMMO ++;
-                maxAMMO --;
+                 maxAMMO --;
             }
         }
     }

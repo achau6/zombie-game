@@ -2,7 +2,6 @@
 
 #include "tile.h"
 #include "Entities/entity.h"
-#include "gun_graphic/bullet.h"
 // add this
 
 // create an vector of wall pointers then pass them into the tile map

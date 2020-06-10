@@ -19,7 +19,6 @@ void Melee::push(KnifeBullet b)
         Decrease the amount of current bullet in the 'clip' (which is 10)
     */
     else if(fireRate >= 9){
-            std::cout<<"Fire"<<std::endl;
             melees.push_back(b);
             w.play();
             fireRate = 0;

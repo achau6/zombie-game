@@ -3,6 +3,9 @@
 #include "map"
 #include "Entities/entity_pool.h"
 #include "gun_graphic/bullet.h"
+#include <time.h>
+#include <conio.h>
+
 class weapons
 {
 public:
@@ -21,12 +24,15 @@ public:
 	void Draw(sf::RenderWindow& window);
 	int getMaxAmmo() {return maxAMMO;}
     void fire(Bullet b);
+	void flaggin(){flag = true;}
 	void movements(std::vector<std::shared_ptr<Zombie>> pool);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
 	void add_ammo();
 protected:
 	int fireRate, maxAMMO, currentAMMO, shotFire, identifier, maxFireRate;
 	std::vector<Bullet> gun;
+	bool getFlag(){return flag;}
+	bool flag;
 private:
 	int reloadCount = 0, timesReloaded = 0;
 	void initSounds();

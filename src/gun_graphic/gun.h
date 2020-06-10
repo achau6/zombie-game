@@ -6,14 +6,12 @@
 #include <vector>
 #include "bullet.h"
 #include "constants.h"
-#include "weapon/pistol.h"
-#include "weapon/smg.h"
-#include "weapon/shotgun.h"
-#include "weapon/rifle.h"
-#include "weapon/weapon.h"
-#include "player/player.h"
-#include "Entities/entity_pool.h"
+
 #include "weapon/melee.h"
+
+
+#include "weapon/weapon_utility/ammo.h"
+#include "weapon/weapon_utility/health_pack.h"
 
 class Gun
 {
@@ -24,19 +22,20 @@ public:
 //typedef
 	Bullet b;
 	KnifeBullet k;
-	// pistol p;
-	// rifle r;
-	// Shotgun sh;
-	//smg s;
 	weapons p, r, sh;
-	// Player p1;
 	Melee m;
+	Ammo_Box ammo;
+	Health health;
 	int GLOBALIDENTIFIER;
 //mutators
 	void Draw(sf::RenderWindow& window);
-	bool fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool);
-	void movement(int identifier, std::vector<std::shared_ptr<Zombie>> pool, float x, float y);
+	bool fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
+	sf::RectangleShape player);
+	void movement(std::vector<std::shared_ptr<Zombie>> pool, float x, float y,
+	sf::RectangleShape player);
+
 	void erase();
+	void spawnAmmo_Box(sf::Vector2f position);
 	std::pair<int, int> getAmmo();
 
 //accessors
