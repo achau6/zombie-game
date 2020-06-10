@@ -75,20 +75,23 @@ void weapons::fire(Bullet b)
             Adds ammo to his clip if he still has reserve up to the clip
             capacity
             */
-                double startTime = GetTickCount();
+           
+           //using time pauses the game or crashes
+                //double startTime = GetTickCount();
 
             while(maxAMMO > 0 && currentAMMO < 11)
             {
-                double currentTime = GetTickCount() - startTime;
-                // sf::Clock start;
-                // //start = clock();
-                int counter = 0;
-		        if(currentTime > 5000) {
-                    currentAMMO ++;
-                    maxAMMO --;
-                }
+                // double currentTime = GetTickCount() - startTime;
+                // // sf::Clock start;
+                // // //start = clock();
+                // int counter = 0;
+		        // if(currentTime > 5000) {
+                //     currentAMMO ++;
+                //     maxAMMO --;
+                // }
 
-
+                currentAMMO ++;
+                 maxAMMO --;
             }
         }
     }
