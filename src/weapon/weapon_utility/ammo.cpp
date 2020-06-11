@@ -56,20 +56,8 @@ bool Ammo_Box::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
 {
 	sf::FloatRect new_rect = rect.getGlobalBounds();
 	sf::FloatRect new_pool = pool.getGlobalBounds();
-    sf::FloatRect zombie_entity = pool.getGlobalBounds();
-    sf::FloatRect bullet = rect.getGlobalBounds();
 
-
-    // if(new_rect.top < new_pool.top
-	// 	&& new_rect.top + new_rect.height < new_pool.top + new_pool.height
-	// 	&& new_rect.left < new_pool.left + new_pool.width
-	// 	&& new_rect.left + new_rect.width > new_pool.left){
-	// 		std::cout<<"remove"<<std::endl;
-    //             return true;
-    //         }
 	if(new_rect.intersects(new_pool)){
-					std::cout<<"remove"<<std::endl;
-
 		return true;
 	}
 

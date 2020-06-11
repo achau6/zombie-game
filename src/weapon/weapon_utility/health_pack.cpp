@@ -51,22 +51,19 @@ void Health::spawn_pack(sf::Vector2f position){
 
 bool Health::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
 {
-/*
-Get the bounds of the rectangle shape
-*/
-    sf::FloatRect zombie_entity = pool.getGlobalBounds();
-    sf::FloatRect bullet = rect.getGlobalBounds();
 
 /*
 Checks the all corners of the rectangle (init x pos, init y pos, width, and length)
 it checks a rectangle touches another rectange 'area' then return true
 */
-    if(rect.getPosition().x < pool.getPosition().x + zombie_entity.width &&
-			rect.getPosition().x + bullet.width > pool.getPosition().x &&
-			rect.getPosition().y < pool.getPosition().y + zombie_entity.height &&
-			bullet.height + rect.getPosition().y > pool.getPosition().y){
-                return true;
-            }
+	sf::FloatRect new_rect = rect.getGlobalBounds();
+	sf::FloatRect new_pool = pool.getGlobalBounds();
+
+	if(new_rect.intersects(new_pool)){
+		return true;
+	}
+
+    return false;
 
     return false;
 }
