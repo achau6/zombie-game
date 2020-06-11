@@ -5,6 +5,7 @@ Gun::Gun(){
 	p = weapons(0, 35, 24, 12, 12, 0, 1, 20.f);
 	r = weapons(0, 18, 30, 30, 30, 0, 2, 30.f);
 	sh = weapons(60, 80, 8, 8, 8, 0 , 3, 50.f);
+	degreeAngle = 22;
 }
 
 bool Gun::fire(sf::RenderWindow& window, float Xpos, float Ypos, std::vector<std::shared_ptr<Zombie>> pool,
@@ -14,28 +15,7 @@ Player& player)
 	int quadrant;
 	bool fired = false;
 	/*
-	This helps us switch weapon
-	*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) && GLOBALIDENTIFIER != 0){
-		//identifier = 0;
-		GLOBALIDENTIFIER = 0;
-		m.playDraw();
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && GLOBALIDENTIFIER != 1){
-		//identifier = 1;
-		GLOBALIDENTIFIER = 1;
-		p.playDraw();
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && GLOBALIDENTIFIER != 2){
-		//identifier = 2;
-		GLOBALIDENTIFIER = 2;
-		r.playDraw();
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && GLOBALIDENTIFIER != 3){
-		//identifier = 3;
-		GLOBALIDENTIFIER = 3;
-		sh.playDraw();
-	}
-	/*
-	Complicated calculation to find mouse position
-	Edit: will edit this later if i have time
+	find mouse position relative to game window
 	*/
 	mousePosition.x = sf::Mouse::getPosition(window).x;
     mousePosition.y = sf::Mouse::getPosition(window).y;
@@ -57,8 +37,31 @@ Player& player)
 			degree = atan(slope) * (180 / PI);
 			break;
 	}
+		/*
+	This helps us switch weapon
+	*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) && GLOBALIDENTIFIER != 0){
+		//identifier = 0;
+		GLOBALIDENTIFIER = 0;
+		m.playDraw();
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && GLOBALIDENTIFIER != 1){
+		//identifier = 1;
+		GLOBALIDENTIFIER = 1;
+		degreeAngle = 22;
+		p.playDraw();
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && GLOBALIDENTIFIER != 2){
+		//identifier = 2;
+		GLOBALIDENTIFIER = 2;
+		degreeAngle = 18;
+		r.playDraw();
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && GLOBALIDENTIFIER != 3){
+		//identifier = 3;
+		GLOBALIDENTIFIER = 3;
+		degreeAngle = 18;
+		sh.playDraw();
+	}
 	//Small increase in degrees to move from the center of the sprite to where the gun is pointing at
-	degree += 22;
+	degree += degreeAngle;
 	//Determines the x and y axis to find the position where the comes out from
 	x = Xpos + 60*cos(degree * (PI/180));
 	y = Ypos + 64*sin(degree * (PI/180));
@@ -75,7 +78,7 @@ Player& player)
 	degree += 50;
 
 	//back to radian
-	degree -= 22;
+	degree -= degreeAngle;
 	degree = degree * (PI/180);
 
 	//get x and y values for linear displacement
@@ -105,8 +108,6 @@ Player& player)
 			fired = r.fire(Bullet(b));
 		else if(GLOBALIDENTIFIER == 3)
 			fired = sh.fire(Bullet(b));
-		movement(pool, Xpos, Ypos, player);
-
 	}
 	movement(pool, Xpos, Ypos, player);
 	return fired;

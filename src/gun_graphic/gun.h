@@ -49,6 +49,7 @@ private:
 	sf::Vector2f bulletCenter;
 	sf::Vector2f knifeCenter;
 	std::map<int, sf::SoundBuffer> gunBuffer;
+	int degreeAngle;
 };
 
 #endif // GUN_H
