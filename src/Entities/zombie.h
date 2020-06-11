@@ -27,7 +27,7 @@ private:
 	void initHitbox();
 
 	const sf::Vector2u grid_size;
-	const float movement_speed = 3.5;
+	float movement_speed = 0;
 	const float zombie_damage = 10.0/144.f;
 
 	sf::Vector2u next_pos;
