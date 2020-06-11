@@ -5,11 +5,11 @@
 int main() {
     bool GAME_STARTED = true;
 
-    sf::RenderWindow window(sf::VideoMode(1920,1080,32),"DaveStation");
+    sf::RenderWindow window(sf::VideoMode(1920,1080,32),"InfestationZ");
     window.setFramerateLimit(144);
-    // sf::Image icon;
-    // icon.loadFromFile("../zombie-game/content/game_thumbnail.png"); // File/Image/Pixel
-    // window.SetIcon(icon.GetWidth(), icon.GetHeight(), icon.GetPixelsPtr());
+    sf::Image icon;
+    icon.loadFromFile("../zombie-game/content/game_thumbnail.png"); // File/Image/Pixel
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     ZombieGame game(&window);
 
     game.start(window);

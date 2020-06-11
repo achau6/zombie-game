@@ -172,6 +172,6 @@ std::vector<std::shared_ptr<Node>> Zombie::FindPlayer(Player& player, TileMap& t
 }
 
 void Zombie::Render(sf::RenderTarget& target) {
-	target.draw(hitbox);
+	//target.draw(hitbox);
 	target.draw(entity_sprite);
 }

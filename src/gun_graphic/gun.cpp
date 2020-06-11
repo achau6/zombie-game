@@ -42,6 +42,8 @@ Player& player)
 	//Finds the quadrant
 	if (mousePosition.x <= window.getSize().x/2)
 		quadrant = 1;
+	else
+		quadrant = 0;
 	mousePosition.x -= window.getSize().x/2;
     mousePosition.y -= window.getSize().y/2;
     mousePosition.x += Xpos;

@@ -71,8 +71,10 @@ void Player::look(sf::RenderWindow& window){
 	mousePosition.x = sf::Mouse::getPosition(window).x;
     mousePosition.y = sf::Mouse::getPosition(window).y;
 	//determines the quadrant your mouse is looking at
-	if (mousePosition.x < window.getSize().x/2)
+	if (mousePosition.x > window.getSize().x/2)
 		quadrant = 1;
+	else
+		quadrant = 0;
 	//figures out the actual mouse position relative to the application, not the window
 	mousePosition.x -= window.getSize().x/2;
     mousePosition.y -= window.getSize().y/2;
@@ -81,9 +83,10 @@ void Player::look(sf::RenderWindow& window){
 	slope = ((mousePosition.y - position.y) / (mousePosition.x - position.x));
 	//finds the degree where the character is supposed to be looking at
 	if (quadrant == 1)
-		degree = (atan(slope) * (180 / PI)) - 180;
+		degree = (atan(slope) * (180 / PI));
 	else
-		degree = atan(slope) * (180 / PI);
+		degree = (atan(slope) * (180 / PI)) - 180;
+	std::cout<<"quadrant "<<quadrant<<std::endl;
 	//changes where the player is looking at according to where the mouse is pointing
 	entity_sprite.setRotation(degree);
 }
@@ -165,7 +168,7 @@ void Player::reloadGun(int GLOBALIDENTIFIER){
 void Player::Draw(sf::RenderWindow& window){
 	//window.draw(area);
 	window.draw(entity_sprite);
-	window.draw(hitbox);
+	//window.draw(hitbox);
 }
 
 void Player::initSpriteTextures(){

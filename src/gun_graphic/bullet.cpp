@@ -3,16 +3,16 @@
 Bullet::Bullet()
 {
 	//bullet.setRadius(40);
-	bullet.setSize(sf::Vector2f(5, 5));
-	bullet.setFillColor(sf::Color::White);
+	bullet.setSize(sf::Vector2f(4, 4));
+	bullet.setFillColor(sf::Color::Yellow);
 	velocity = sf::Vector2f(0.f, 0.f);
-	maxSpeed = 10.f;
+	maxSpeed = 15.f;
 }
 
 KnifeBullet::KnifeBullet()
 {
-	bullet.setSize(sf::Vector2f(10, 10));
-	bullet.setFillColor(sf::Color::White);
+	bullet.setSize(sf::Vector2f(15, 15));
+	bullet.setFillColor(sf::Color::Yellow);
 	velocity = sf::Vector2f(0.f, 0.f);
-	maxSpeed = 10.f;
+	maxSpeed = 15.f;
 }
