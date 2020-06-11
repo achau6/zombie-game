@@ -91,6 +91,8 @@ void GameState::Update() {
 			if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1))
 				p1.shootGun(g.getGlobalIdentifier());
 		}
+		else
+			p1.reloadGun(g.getGlobalIdentifier());
 	}
 	else{
 		camera.UpdateCam(sf::Vector2f(960, 540));

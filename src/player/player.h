@@ -27,6 +27,7 @@ public:
 	void shootGun(int GLOBALIDENTIFIER);
 	void WalkingSound();
 	void DamagePlayer(float dmg_amount) {this->hp-=dmg_amount;}
+	void reloadGun(int GLOBALIDENTIFIER);
 //accessors
 	const sf::Vector2f getPosition() const {return position;}
 	sf::Vector2f& getPosition() {return position;}
@@ -43,16 +44,17 @@ private:
 
 	const float movement_speed = 3.f;
 	bool knifeAnimation;
-	int knifeCount, count;
+	int knifeCount, count, reloadCount;
 	sf::CircleShape area;
 	sf::Vector2f mousePosition;
 	sf::RenderTarget* target;
 	Collision collisionCheck;
 	std::map<int, sf::Texture> sprites;
 	std::map<int, sf::Texture> shootingSprites;
+	sf::Sprite reloadingSprite;
 	sf::SoundBuffer walk;
 	sf::Sound Footsteps;
-	sf::Texture knifeShooting[15];
+	sf::Texture knifeShooting[15], akReload[20], shotgunReload[20], pistolReload[15];
 };
 
 #endif // PLAYER_H

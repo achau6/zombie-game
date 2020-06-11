@@ -100,6 +100,7 @@ void Player::changeGun(int GLOBALIDENTIFIER){
 }
 
 void Player::shootGun(int GLOBALIDENTIFIER){
+	reloadCount = 0;
 	int x = shootingSprites[GLOBALIDENTIFIER].getSize().x;
 	int y = shootingSprites[GLOBALIDENTIFIER].getSize().y;
 	entity_sprite.setTextureRect(sf::IntRect(0, 0, x, y));
@@ -127,6 +128,40 @@ void Player::knifeSwings(){
 	}
 }
 
+void Player::reloadGun(int GLOBALIDENTIFIER){
+	int required, count;
+	count = reloadCount;
+	if (GLOBALIDENTIFIER > 1){
+		if (GLOBALIDENTIFIER == 2){
+			required = 114;
+			while (count % 6 != 0)
+				count--;
+			count /= 6;
+			entity_sprite.setTexture(akReload[count]);
+		}
+		else{
+			required = 114;
+			while (count % 6 != 0)
+				count--;
+			count /= 6;
+			entity_sprite.setTexture(shotgunReload[count]);
+		}
+		reloadCount++;
+		if (reloadCount == 20)
+			reloadCount = 0;
+	}
+	else{
+		required = 168;
+		while (count % 12 != 0)
+			count--;
+		count /= 12;
+		entity_sprite.setTexture(pistolReload[count]);
+		reloadCount++;
+		if (reloadCount == required)
+			reloadCount = 0;
+	}
+}
+
 void Player::Draw(sf::RenderWindow& window){
 	//window.draw(area);
 	window.draw(entity_sprite);
@@ -135,10 +170,11 @@ void Player::Draw(sf::RenderWindow& window){
 
 void Player::initSpriteTextures(){
 	sf::Texture rifle, rifleShooting, pistol, pistolShooting, knife, shotgun, shotgunShooting;
-	std::string knifeInput;
+	std::string knifeInput, akInput, shotGunInput, handgunInput;
 	knifeAnimation = false;
 	knifeCount = 0;
 	count = 0;
+	reloadCount = 0;
 	knife.loadFromFile("content/Top_Down_Survivor/knife/idle/survivor-idle_knife_0.png");
 	pistol.loadFromFile("content/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png");
 	rifle.loadFromFile("content/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png");
@@ -159,13 +195,26 @@ void Player::initSpriteTextures(){
 	shootingSprites[1] = pistolShooting;
 	shootingSprites[2] = rifleShooting;
 	shootingSprites[3] = shotgunShooting;
-	for (int i = 0; i < 15; i++){
-		knifeInput = "content/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_" + std::to_string(i);
-		knifeInput += ".png";
-		knifeShooting[i].loadFromFile(knifeInput);
-		knifeInput = "";
+	for (int i = 0; i < 20; i++){
+		if (i < 15){
+			knifeInput = "content/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_" + std::to_string(i);
+			handgunInput = "content/Top_Down_Survivor/handgun/reload/survivor-reload_handgun_" + std::to_string(i);
+			knifeInput += ".png";
+			handgunInput += ".png";
+			knifeShooting[i].loadFromFile(knifeInput);
+			pistolReload[i].loadFromFile(handgunInput);
+			handgunInput = "";
+			knifeInput = "";
+		}
+		akInput = "content/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_" + std::to_string(i);
+		shotGunInput = "content/Top_Down_Survivor/shotgun/reload/survivor-reload_shotgun_" + std::to_string(i);
+		akInput += ".png";
+		shotGunInput += ".png";
+		akReload[i].loadFromFile(akInput);
+		shotgunReload[i].loadFromFile(shotGunInput);
+		akInput = "";
+		shotGunInput = "";
 	}
-
 }
 
 void Player::initHitBox(){
