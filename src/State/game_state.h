@@ -23,7 +23,6 @@ public:
 	bool quit();
 	EntityPool zombie_pool;
 
-
 private:
 	void initMousePositions();
 	void SpawnZombies();
@@ -33,6 +32,10 @@ private:
 	void SpawnAmmo_Pack();
 	void initDeathScreen();
 	void drawDeathScreen();
+
+	const float grid_multiplier = 1.4;
+	const unsigned int spawn_amount = 10;
+	unsigned int current_wave = 0;
 
 	TileMap map;
 	bool dead;

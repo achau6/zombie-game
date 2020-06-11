@@ -3,6 +3,7 @@
 
 Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tilemap)
  : grid_size(tilemap.GetSize()) {
+	hp = 100;
 	position = spawn_pos;
 	grid_pos = getGridPosition(tilemap.GetSize());
 	initSprite(texture);
@@ -41,7 +42,7 @@ Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tile
 void Zombie::initSprite(sf::Texture* texture) {
 	entity_sprite.setTexture(*texture);
 	entity_sprite.setPosition(position);
-	entity_sprite.scale(1.1,1.1);
+	entity_sprite.scale(1.2,1.2);
 	entity_sprite.setOrigin(texture->getSize().x/2, texture->getSize().y/2);
 }
 
@@ -51,7 +52,7 @@ void Zombie::initHitbox() {
 	hitbox.setOutlineColor(sf::Color::White);
 	hitbox.setOutlineThickness(2);
 	hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
-	hitbox.setScale(0.7,0.7);
+	hitbox.setScale(0.65,0.65);
 	hitbox.setPosition(position);
 }
 
@@ -73,13 +74,25 @@ void Zombie::Look(Player& player){
 	entity_sprite.setRotation(angle+90.f);
 }
 
-void Zombie::Movement() {
+void Zombie::Movement(Player& player) {
 	// std::cout << position.x << position.y << std::endl;
 
-	MoveOneTile(path_to_player.begin()->get()->pos);
-	// std::cout << "TO HERE: " << path_to_player.begin()->get()->pos.x << " " << path_to_player.begin()->get()->pos.y << std::endl;
-	if(!path_to_player.empty() && grid_pos == path_to_player.begin()->get()->pos)
-		path_to_player.erase(path_to_player.begin());
+	if(path_to_player.size() > 15) {
+		float offset = 150 + rand() % 100;
+		position = sf::Vector2f(player.getPosition().x + offset, player.getPosition().y + offset);
+		entity_sprite.setPosition(position);
+		hitbox.setPosition(position);
+		this->grid_pos = player.getGridPosition({50,50});
+		// std::cout << "SIZE: " << path_to_player.size() << std::endl;
+	}
+	else {
+		if(!path_to_player.empty()) {
+			MoveOneTile(path_to_player.begin()->get()->pos);
+			// std::cout << "TO HERE: " << path_to_player.begin()->get()->pos.x << " " << path_to_player.begin()->get()->pos.y << std::endl;
+			if(!path_to_player.empty() && grid_pos == path_to_player.begin()->get()->pos)
+				path_to_player.erase(path_to_player.begin());
+		}
+	}
 
 	// std::cout << "GRID POS: " << grid_pos.x << " " << grid_pos.y << std::endl;
 
@@ -91,7 +104,7 @@ void Zombie::MoveOneTile(sf::Vector2u tohere) {
 		velocity.y += -movement_speed;
 	}
 	// Move down
-	if(grid_pos.y+1 == tohere.y) {
+	else if(grid_pos.y+1 == tohere.y) {
 		velocity.y += movement_speed;
 	}
 	// Move left
@@ -99,7 +112,7 @@ void Zombie::MoveOneTile(sf::Vector2u tohere) {
 		velocity.x += -movement_speed;
 	}
 	// Move right
-	if(grid_pos.x+1 == tohere.x) {
+	else if(grid_pos.x+1 == tohere.x) {
 		velocity.x += movement_speed;
 	}
 	// Move up and left
