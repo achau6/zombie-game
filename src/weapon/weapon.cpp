@@ -60,6 +60,9 @@ void weapons::playDraw(){
 
 void weapons::playReload(){
     int requiredBuffers;
+    /*
+    check if gun must be reloaded and sounds is playing
+    */
     if (reloadSound.getStatus() == sf::Sound::Stopped && reload == true){
         if (identifier == 1){
             requiredBuffers = 3;
@@ -142,17 +145,8 @@ bool weapons::fire(Bullet b)
             capacity
             */
 
-           //using time pauses the game or crashes
-                //double startTime = GetTickCount();
             reload = true;
-                // double currentTime = GetTickCount() - startTime;
-                // // sf::Clock start;
-                // // //start = clock();
-                // int counter = 0;
-		        // if(currentTime > 5000) {
-                //     currentAMMO ++;
-                //     maxAMMO --;
-                // }
+
             playReload();
             if (maxAMMO >= clipSize){
                 currentAMMO = clipSize;
@@ -226,6 +220,9 @@ it checks a rectangle touches another rectange 'area' then return true
             }
         }
     }
+    /*
+    checks if the bullet hits the zombie hitbox
+    */
     if(rect.getPosition().x < pool[count]->getHitbox().getPosition().x + zombie_entity.width &&
 			rect.getPosition().x + bullet.width > pool[count]->getHitbox().getPosition().x &&
 			rect.getPosition().y < pool[count]->getHitbox().getPosition().y + zombie_entity.height &&

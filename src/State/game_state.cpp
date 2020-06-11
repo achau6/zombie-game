@@ -48,7 +48,7 @@ void GameState::SpawnAmmo_Pack() {
 	g.spawnAmmo_Box(sf::Vector2f(500, 500));
 	g.spawnAmmo_Box(sf::Vector2f(2567, 1248));
 	g.spawnAmmo_Box(sf::Vector2f(1673, 3000));
-	g.spawnAmmo_Box(sf::Vector2f(3500, 500));
+	g.spawnAmmo_Box(sf::Vector2f(3300, 500));
 	g.spawnAmmo_Box(sf::Vector2f(500, 1500));
 	g.spawnAmmo_Box(sf::Vector2f(3100, 3100));
 	g.spawnAmmo_Box(sf::Vector2f(500, 3100));

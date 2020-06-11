@@ -7,6 +7,7 @@ void Ammo_Box::Draw(sf::RenderWindow& window){
 		window.draw(ammo_pack[i].second);
 	}
 
+
 }
 
 void Ammo_Box::delete_box(sf::RectangleShape player, int identifier, weapons& p,
@@ -37,11 +38,14 @@ void Ammo_Box::spawn_pack(sf::Vector2f position){
 	//initalization of sprite values
 	entity_sprite.setTexture(texture);
 	entity_sprite.setScale(.18,.18);
+	entity_sprite.setOrigin({texture.getSize().x/2, texture.getSize().y/2});
 	entity_sprite.setPosition(position);
-	hitbox.setSize({entity_sprite.getGlobalBounds().width, entity_sprite.getGlobalBounds().height});
-	hitbox.setFillColor(sf::Color(0,0,0,0));
-	hitbox.setOutlineColor(sf::Color::White);
-	hitbox.setOutlineThickness(10);
+
+
+	hitbox.setSize({entity_sprite.getGlobalBounds().width+150, entity_sprite.getGlobalBounds().height+150});
+	hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
+	hitbox.setOutlineColor(sf::Color::Black);
+	hitbox.setOutlineThickness(5);
 	hitbox.setPosition(position);
 	hitbox.setScale(.18, .18);
 
@@ -51,15 +55,12 @@ void Ammo_Box::spawn_pack(sf::Vector2f position){
 
 bool Ammo_Box::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
 {
-    sf::FloatRect zombie_entity = pool.getGlobalBounds();
-    sf::FloatRect bullet = rect.getGlobalBounds();
+	sf::FloatRect new_rect = rect.getGlobalBounds();
+	sf::FloatRect new_pool = pool.getGlobalBounds();
 
-    if(rect.getPosition().x < pool.getPosition().x + zombie_entity.width &&
-			rect.getPosition().x + bullet.width > pool.getPosition().x &&
-			rect.getPosition().y < pool.getPosition().y + zombie_entity.height &&
-			bullet.height + rect.getPosition().y > pool.getPosition().y){
-                return true;
-            }
+	if(new_rect.intersects(new_pool)){
+		return true;
+	}
 
     return false;
 }
