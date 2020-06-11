@@ -6,6 +6,7 @@ void Ammo_Box::Draw(sf::RenderWindow& window){
 		window.draw(ammo_pack[i].first);
 	}
 
+
 }
 
 void Ammo_Box::delete_box(sf::RectangleShape player, int identifier, weapons& p,
@@ -36,11 +37,14 @@ void Ammo_Box::spawn_pack(sf::Vector2f position){
 	//initalization of sprite values
 	entity_sprite.setTexture(texture);
 	entity_sprite.setScale(.18,.18);
+	entity_sprite.setOrigin({texture.getSize().x/2, texture.getSize().y/2});
 	entity_sprite.setPosition(position);
-	hitbox.setSize({entity_sprite.getGlobalBounds().width + 10, entity_sprite.getGlobalBounds().height + 10});
-	hitbox.setFillColor(sf::Color(0,0,0,0));
-	hitbox.setOutlineColor(sf::Color::White);
-	hitbox.setOutlineThickness(10);
+
+
+	hitbox.setSize({entity_sprite.getGlobalBounds().width+150, entity_sprite.getGlobalBounds().height+150});
+	hitbox.setOrigin({hitbox.getSize().x/2, hitbox.getSize().y/2});
+	hitbox.setOutlineColor(sf::Color::Black);
+	hitbox.setOutlineThickness(5);
 	hitbox.setPosition(position);
 	hitbox.setScale(.18, .18);
 

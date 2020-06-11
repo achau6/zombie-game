@@ -105,6 +105,7 @@ Player& player)
 			fired = r.fire(Bullet(b));
 		else if(GLOBALIDENTIFIER == 3)
 			fired = sh.fire(Bullet(b));
+		movement(pool, Xpos, Ypos, player);
 
 	}
 	movement(pool, Xpos, Ypos, player);
@@ -144,6 +145,7 @@ void Gun::Draw(sf::RenderWindow& window)
 	sh.Draw(window);
 	health.Draw(window);
 	ammo.Draw(window);
+
 }
 
 bool Gun::Update(){
