@@ -9,6 +9,7 @@ Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tile
 	initSprite(texture);
 	initHitbox();
 	node_grid = Astar::TileToNodeGrid(tilemap.getLevelMap());
+	this->movement_speed = rand() % 6 + 1;
 	// for(auto x : tilemap.GetGameMap()) {
 	// 	for(auto y : x) {
 	// 		for(auto z : y) {
@@ -77,9 +78,9 @@ void Zombie::Look(Player& player){
 void Zombie::Movement(Player& player) {
 	// std::cout << position.x << position.y << std::endl;
 
-	if(path_to_player.size() > 15) {
-		float offset = 150 + rand() % 100;
-		position = sf::Vector2f(player.getPosition().x + offset, player.getPosition().y + offset);
+	if(path_to_player.size() > 30) {
+		float offset = rand() % 150;
+		position = sf::Vector2f(player.getPosition().x, player.getPosition().y + offset);
 		entity_sprite.setPosition(position);
 		hitbox.setPosition(position);
 		this->grid_pos = player.getGridPosition({50,50});
