@@ -1,18 +1,23 @@
-#include "weapon.h"
+g#include "weapon.h"
 #include <iostream>
 weapons::weapons(){
     initSounds();
     flag = false;
+    reload = false;
+    noAmmo = false;
 }
 
 weapons::weapons(int rate, int maxRate, int max, int current, int clipSize, int fire, int id, float dmg) : fireRate(rate), maxFireRate(maxRate), maxAMMO(max),
 currentAMMO(current), clipSize(clipSize), shotFire(fire),  identifier(id), damage(dmg){
     initSounds();
     flag = false;
-
+    reload = false;
+    noAmmo = false;
 }
 
 void weapons::initSounds(){
+    sf::SoundBuffer noAmmoBuffer;
+    noAmmoBuffer.loadFromFile("content/Audio/noAmmoClick.wav");
     Buffer[0].loadFromFile("content/Audio/knife/knife_slash1.wav");
     Buffer[1].loadFromFile("content/Audio/handgun/glock_01.wav");
     Buffer[2].loadFromFile("content/Audio/ak/ak47_01.wav");
@@ -34,6 +39,8 @@ void weapons::initSounds(){
 
     shotgunBuffer[0].loadFromFile("content/Audio/shotgun/nova_pump.wav");
     shotgunBuffer[1].loadFromFile("content/Audio/shotgun/nova_insertshell.wav");
+    noAmmoSound.setBuffer(noAmmoBuffer);
+    noAmmoSound.setVolume(100);
     sound.setVolume(10);
     drawSound.setVolume(25);
     reloadSound.setVolume(25);
@@ -92,9 +99,13 @@ void weapons::playReload(){
         }
         reloadSound.play();
     }
-    else if (reload == false && identifier == 3){
+    else if (!reload && identifier == 3){
         reloadSound.setBuffer(shotgunBuffer[0]);
         reloadSound.play();
+    }
+    else if (!reload && noAmmo){
+        noAmmoSound.play();
+        std::cout<<"no ammo\n";
     }
 }
 
@@ -127,14 +138,6 @@ bool weapons::fire(Bullet b)
             return true;
         } else if (maxAMMO > 0){
             /*
-            Fire stops when no bullet is found either in current ammo or his
-            max ammo (stash)
-            */
-            if(maxAMMO == 0)
-            {
-                std::cout<<"Rip You got no Ammo"<<std::endl;
-            }
-            /*
             Adds ammo to his clip if he still has reserve up to the clip
             capacity
             */
@@ -159,6 +162,15 @@ bool weapons::fire(Bullet b)
                 currentAMMO = maxAMMO;
                 maxAMMO = 0;
             }
+        }
+        else if (maxAMMO == 0){
+            /*
+            Fire stops when no bullet is found either in current ammo or his
+            max ammo (stash)
+            */
+            noAmmo = true;
+            playReload();
+            std::cout<<"Rip You got no Ammo"<<std::endl;
         }
     }
 return false;
@@ -230,6 +242,7 @@ void weapons::Draw(sf::RenderWindow& window){
 }
 
 void weapons::add_ammo(){
+    noAmmo = false;
     if (identifier == 1)
         maxAMMO += 12;
     else if (identifier == 2)

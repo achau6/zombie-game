@@ -12,7 +12,7 @@ public:
 //constructors
     weapons();
     weapons(int rate, int maxRate, int max, int current, int clipSize, int fire, int id, float dmg);
-    sf::Sound sound, drawSound, reloadSound;
+    sf::Sound sound, drawSound, reloadSound, noAmmoSound;
     sf::SoundBuffer Buffer[4], drawBuffer[4], akBuffer[3], pistolBuffer[4], shotgunBuffer[2];
 
     //mutators
@@ -38,7 +38,7 @@ protected:
 private:
 	int reloadCount = 0, timesReloaded = 0;
 	void initSounds();
-	bool reload = false;
+	bool reload, noAmmo;
     std::vector<std::vector<int>> level =
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
