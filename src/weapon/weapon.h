@@ -28,6 +28,7 @@ public:
 	void movements(std::vector<std::shared_ptr<Zombie>> pool);
 	bool collisionCheck(sf::RectangleShape rect, std::vector<std::shared_ptr<Zombie>> pool, unsigned int count);
 	void add_ammo();
+	void setIdentifier(int id) {identifier = id;}
 	bool getReload() {return reload;}
 protected:
 	int fireRate, maxAMMO, currentAMMO, shotFire, identifier, maxFireRate, clipSize;

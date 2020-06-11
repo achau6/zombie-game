@@ -86,7 +86,6 @@ void Player::look(sf::RenderWindow& window){
 		degree = (atan(slope) * (180 / PI));
 	else
 		degree = (atan(slope) * (180 / PI)) - 180;
-	std::cout<<"quadrant "<<quadrant<<std::endl;
 	//changes where the player is looking at according to where the mouse is pointing
 	entity_sprite.setRotation(degree);
 }
@@ -96,7 +95,7 @@ void Player::changeGun(int GLOBALIDENTIFIER){
 	int x = sprites[GLOBALIDENTIFIER].getSize().x;
 	int y = sprites[GLOBALIDENTIFIER].getSize().y;
 	entity_sprite.setTextureRect(sf::IntRect(0, 0, x, y));
-	if (!knifeAnimation)
+	if (knifeAnimation == false)
 		entity_sprite.setTexture(sprites[GLOBALIDENTIFIER]);
 	else
 		knifeSwings();
@@ -106,12 +105,14 @@ void Player::shootGun(int GLOBALIDENTIFIER){
 	reloadCount = 0;
 	int x = shootingSprites[GLOBALIDENTIFIER].getSize().x;
 	int y = shootingSprites[GLOBALIDENTIFIER].getSize().y;
+	std::cout<<"knife1\n";
 	entity_sprite.setTextureRect(sf::IntRect(0, 0, x, y));
 	if (GLOBALIDENTIFIER > 0 && !knifeAnimation)
 		entity_sprite.setTexture(shootingSprites[GLOBALIDENTIFIER]);
-	else{
+	else if (GLOBALIDENTIFIER == 0){
 		knifeAnimation = true;
 		knifeSwings();
+		std::cout<<"knife\n";
 	}
 }
 

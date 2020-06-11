@@ -142,7 +142,7 @@ Draws the bullet and bullet movement path
 */
 void Gun::Draw(sf::RenderWindow& window)
 {
-	m.Draw(window);
+	//m.Draw(window);
 	p.Draw(window);
 	r.Draw(window);
 	sh.Draw(window);

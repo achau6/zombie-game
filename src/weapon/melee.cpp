@@ -1,13 +1,15 @@
 #include "melee.h"
 
 
-Melee::Melee() : weapons(0, 10, 0, 1, 1, 0, 0, 15)
+Melee::Melee() : weapons(0, 10, 0, 1, 1, 0, 0, 20)
 {
     fireRate = 0;
+    w.setIdentifier(0);
 }
 
 bool Melee::push(KnifeBullet b)
 {
+    std::cout<<"knife3\n";
     /*
     controls how fast the gun is shooting.
     it takes every 10 counts for the next shot to fire
@@ -19,10 +21,10 @@ bool Melee::push(KnifeBullet b)
         Decrease the amount of current bullet in the 'clip' (which is 10)
     */
     else if(fireRate >= 9){
-            melees.push_back(b);
-            w.play();
-            fireRate = 0;
-            return true;
+        melees.push_back(b);
+        w.play();
+        fireRate = 0;
+        return true;
     }
     return false;
 
@@ -48,6 +50,9 @@ if so remove
                 */
                 if(collisionCheck(melees[i].bullet, pool, j) == true){
                     melees.erase(melees.begin() + i);
+                    float bullet_dmg = 20;
+                    pool[j]->Damage(bullet_dmg);
+                    break;
                 }
 
             }
@@ -64,7 +69,6 @@ Get the bounds of the rectangle shape
 
     sf::FloatRect zombie_entity = pool[count]->getHitbox().getGlobalBounds();
     sf::FloatRect bullet = rect.getGlobalBounds();
-
 /*
 Checks the all corners of the rectangle (init x pos, init y pos, width, and length)
 it checks a rectangle touches another rectange 'area' then return true
