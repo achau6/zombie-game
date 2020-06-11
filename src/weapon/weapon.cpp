@@ -171,7 +171,7 @@ void weapons::movements(std::vector<std::shared_ptr<Zombie>> pool)
 checks if bullet exceed map grid
 if so remove
 */
-	for(unsigned int i = 0; i < gun.size(); i ++){
+	for(unsigned int i = 0; i < gun.size(); i++){
 		gun[i].bullet.move(gun[i].velocity);
 		if(gun[i].bullet.getPosition().x < 0 || gun[i].bullet.getPosition().y < 0
 		|| gun[i].bullet.getPosition().x > 3500 || gun[i].bullet.getPosition().y > 3500){
@@ -185,7 +185,14 @@ if so remove
                 */
                 if(collisionCheck(gun[i].bullet, pool, j) == true){
                     gun.erase(gun.begin() + i);
+                    float bullet_dmg = 30.f;
+                    pool[j]->Damage(bullet_dmg);
+                    break;
                 }
+
+                // if(gun[i].bullet.getGlobalBounds().intersects(pool[i]->getHitbox().getGlobalBounds())){
+                //     // gun.erase(gun.begin() + i);
+                // }
 
             }
         }

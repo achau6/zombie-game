@@ -14,10 +14,11 @@ public:
 	void Render(sf::RenderTarget& target);
 
 	void Look(Player& player);
-	void Movement();
+	void Movement(Player& player);
 	void MoveOneTile(sf::Vector2u tohere);
 	void Attack(Player& player);
-	bool IsDead() {return is_dead;}
+	void Damage(float dmg) {hp-=dmg;}
+	bool IsDead() {return this->hp <= 0;}
 	std::vector<std::shared_ptr<Node>> FindPlayer(Player& player, TileMap& tilemap);
 	// sf::Vector2u getGridPosition(const sf::Vector2u& grid_size);
 
@@ -28,7 +29,6 @@ private:
 	const sf::Vector2u grid_size;
 	const float movement_speed = 3.5;
 	const float zombie_damage = 10.0/144.f;
-	bool is_dead = false;
 
 	sf::Vector2u next_pos;
 

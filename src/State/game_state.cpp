@@ -27,8 +27,13 @@ GameState::~GameState() {
 void GameState::SpawnZombies() {
 	//TODO: WAVE SYSTEM
 	// Gridsize * grid position = pixelcoords
-	for(int i = 1; i <= 1; i++) {
-		zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * i, map.getGridSize().y * 3), game_textures, map);
+
+	if(zombie_pool.GetPoolSize() == 0) {
+		current_wave++;
+		for(int i = 1; i <= spawn_amount; i++) {
+			zombie_pool.Spawn(sf::Vector2f(map.getGridSize().x * 30 * grid_multiplier + i, map.getGridSize().y * 30 * grid_multiplier), game_textures, map);
+		}
+		std::cout << "SIZE: " << zombie_pool.GetPoolSize() << std::endl;
 	}
 }
 
@@ -56,10 +61,12 @@ void GameState::SpawnAmmo_Pack() {
 }
 
 void GameState::Update() {
+	SpawnZombies();
+
 	if (p1.getHP() > 0){
 		// Moves the player
 		p1.movement();
-		zombie_pool.Movement();
+		zombie_pool.Movement(p1);
 		//health.movement(p1.getHitbox());
 
 		// map update checks for collision and sets velocity to 0 if collision occurs
@@ -73,7 +80,9 @@ void GameState::Update() {
 		zombie_pool.Update(p1);
 		// zombie_pool.Update(p1, map);
 
-		if(timer.getElapsedTime().asMilliseconds() >= 500) {
+		const float timer_interval = 1000;
+
+		if(timer.getElapsedTime().asMilliseconds() >= timer_interval) {
 			zombie_pool.FindPlayer(p1, map);
 			// std::cout << "MOVED\n";
 			timer.restart();
@@ -93,7 +102,7 @@ void GameState::Update() {
 		}
 	}
 	else{
-		camera.UpdateCam(sf::Vector2f(960, 540));
+		camera.UpdateCam(sf::Vector2f(window->getSize().x/2, window->getSize().y/2));
 		dead = true;
 		Retry.is_over(*window);
 		Leave.is_over(*window);
@@ -115,7 +124,7 @@ void GameState::Update() {
 	UI[0].setString(ss.str());
 	ss.str("");
 	//change the numbers when the wave and zombie functions are added
-	ss << "Wave Number: " << 5 << "\n";
+	ss << "Wave Number: " << current_wave << "\n";
 	ss << "Zombies Left: " << zombie_pool.GetPoolSize();
 	UI[1].setString(ss.str());
 	ss.str("");
