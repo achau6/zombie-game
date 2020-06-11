@@ -12,7 +12,7 @@ public:
 //constructors
     weapons();
     weapons(int rate, int maxRate, int max, int current, int clipSize, int fire, int id, float dmg);
-    sf::Sound sound, drawSound, reloadSound, noAmmoSound;
+    sf::Sound sound, drawSound, reloadSound;
     sf::SoundBuffer Buffer[4], drawBuffer[4], akBuffer[3], pistolBuffer[4], shotgunBuffer[2];
 
     //mutators

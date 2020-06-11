@@ -4,7 +4,7 @@
 void Ammo_Box::Draw(sf::RenderWindow& window){
 	for(unsigned int i = 0; i < ammo_pack.size(); i ++){
 		window.draw(ammo_pack[i].first);
-		window.draw(ammo_pack[i].second);
+		//window.draw(ammo_pack[i].second);
 	}
 
 

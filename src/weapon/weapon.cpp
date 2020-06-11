@@ -1,4 +1,4 @@
-g#include "weapon.h"
+#include "weapon.h"
 #include <iostream>
 weapons::weapons(){
     initSounds();
@@ -16,8 +16,6 @@ currentAMMO(current), clipSize(clipSize), shotFire(fire),  identifier(id), damag
 }
 
 void weapons::initSounds(){
-    sf::SoundBuffer noAmmoBuffer;
-    noAmmoBuffer.loadFromFile("content/Audio/noAmmoClick.wav");
     Buffer[0].loadFromFile("content/Audio/knife/knife_slash1.wav");
     Buffer[1].loadFromFile("content/Audio/handgun/glock_01.wav");
     Buffer[2].loadFromFile("content/Audio/ak/ak47_01.wav");
@@ -39,8 +37,6 @@ void weapons::initSounds(){
 
     shotgunBuffer[0].loadFromFile("content/Audio/shotgun/nova_pump.wav");
     shotgunBuffer[1].loadFromFile("content/Audio/shotgun/nova_insertshell.wav");
-    noAmmoSound.setBuffer(noAmmoBuffer);
-    noAmmoSound.setVolume(100);
     sound.setVolume(10);
     drawSound.setVolume(25);
     reloadSound.setVolume(25);
@@ -106,10 +102,6 @@ void weapons::playReload(){
         reloadSound.setBuffer(shotgunBuffer[0]);
         reloadSound.play();
     }
-    else if (!reload && noAmmo){
-        noAmmoSound.play();
-        std::cout<<"no ammo\n";
-    }
 }
 
 bool weapons::fire(Bullet b)
@@ -162,8 +154,8 @@ bool weapons::fire(Bullet b)
             Fire stops when no bullet is found either in current ammo or his
             max ammo (stash)
             */
-            noAmmo = true;
-            playReload();
+            // noAmmo = true;
+            // playReload();
             std::cout<<"Rip You got no Ammo"<<std::endl;
         }
     }

@@ -2,7 +2,7 @@
 
 Gun::Gun(){
 	GLOBALIDENTIFIER = 0;
-	p = weapons(0, 35, 0, 12, 12, 0, 1, 20.f);
+	p = weapons(0, 35, 24, 12, 12, 0, 1, 20.f);
 	r = weapons(0, 18, 30, 30, 30, 0, 2, 30.f);
 	sh = weapons(60, 80, 8, 8, 8, 0 , 3, 50.f);
 }
