@@ -183,7 +183,7 @@ if so remove
                 */
                 if(collisionCheck(gun[i].bullet, pool, j) == true){
                     gun.erase(gun.begin() + i);
-                    float bullet_dmg = 40.f;
+                    float bullet_dmg = damage;
                     pool[j]->Damage(bullet_dmg);
                     break;
                 }

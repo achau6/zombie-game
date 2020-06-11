@@ -9,7 +9,7 @@ Zombie::Zombie(sf::Vector2f spawn_pos, sf::Texture* texture, const TileMap& tile
 	initSprite(texture);
 	initHitbox();
 	node_grid = Astar::TileToNodeGrid(tilemap.getLevelMap());
-	this->movement_speed = rand() % 6 + 1;
+	this->movement_speed = rand() % 8 + 3;
 	// for(auto x : tilemap.GetGameMap()) {
 	// 	for(auto y : x) {
 	// 		for(auto z : y) {
