@@ -37,7 +37,7 @@ void Ammo_Box::spawn_pack(sf::Vector2f position){
 	entity_sprite.setTexture(texture);
 	entity_sprite.setScale(.18,.18);
 	entity_sprite.setPosition(position);
-	hitbox.setSize({entity_sprite.getGlobalBounds().width, entity_sprite.getGlobalBounds().height});
+	hitbox.setSize({entity_sprite.getGlobalBounds().width + 10, entity_sprite.getGlobalBounds().height + 10});
 	hitbox.setFillColor(sf::Color(0,0,0,0));
 	hitbox.setOutlineColor(sf::Color::White);
 	hitbox.setOutlineThickness(10);
@@ -50,15 +50,24 @@ void Ammo_Box::spawn_pack(sf::Vector2f position){
 
 bool Ammo_Box::collisionCheck(sf::RectangleShape rect, sf::RectangleShape pool)
 {
+	sf::FloatRect new_rect = rect.getGlobalBounds();
+	sf::FloatRect new_pool = pool.getGlobalBounds();
     sf::FloatRect zombie_entity = pool.getGlobalBounds();
     sf::FloatRect bullet = rect.getGlobalBounds();
 
-    if(rect.getPosition().x < pool.getPosition().x + zombie_entity.width &&
-			rect.getPosition().x + bullet.width > pool.getPosition().x &&
-			rect.getPosition().y < pool.getPosition().y + zombie_entity.height &&
-			bullet.height + rect.getPosition().y > pool.getPosition().y){
-                return true;
-            }
+
+    // if(new_rect.top < new_pool.top
+	// 	&& new_rect.top + new_rect.height < new_pool.top + new_pool.height
+	// 	&& new_rect.left < new_pool.left + new_pool.width
+	// 	&& new_rect.left + new_rect.width > new_pool.left){
+	// 		std::cout<<"remove"<<std::endl;
+    //             return true;
+    //         }
+	if(new_rect.intersects(new_pool)){
+					std::cout<<"remove"<<std::endl;
+
+		return true;
+	}
 
     return false;
 }
