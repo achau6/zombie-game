@@ -24,8 +24,8 @@ public:
 	int getMaxAmmo() {return maxAMMO;}
 private:
 	int fireRate;
-	int maxAMMO = 10000;
-	int currentAMMO = 10000;
+	int maxAMMO;
+	int currentAMMO;
 	int shotFire;
 	std::vector<KnifeBullet> melees;
 

@@ -1,7 +1,7 @@
 #include "melee.h"
 
 
-Melee::Melee() : weapons(0, 10, 0, 0, 0, 0, 0, 15)
+Melee::Melee() : weapons(0, 10, 0, 1, 1, 0, 0, 15)
 {
     fireRate = 0;
 }

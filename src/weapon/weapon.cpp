@@ -231,9 +231,9 @@ void weapons::Draw(sf::RenderWindow& window){
 
 void weapons::add_ammo(){
     if (identifier == 1)
-        maxAMMO += 15;
+        maxAMMO += 12;
     else if (identifier == 2)
-        maxAMMO += 15;
+        maxAMMO += 30;
     else if (identifier == 3)
-        maxAMMO += 5;
+        maxAMMO += 8;
 }
