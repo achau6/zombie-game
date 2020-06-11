@@ -146,17 +146,20 @@ void Gun::Draw(sf::RenderWindow& window)
 	ammo.Draw(window);
 }
 
-bool Gun::Update(){
+bool Gun::Update(std::vector<std::shared_ptr<Zombie>> pool){
 	if (p.getReload()){
 		p.playReload();
+		p.movements(pool);
 		return true;
 	}
 	else if (r.getReload()){
 		r.playReload();
+		r.movements(pool);
 		return true;
 	}
 	else if (sh.getReload()){
 		sh.playReload();
+		sh.movements(pool);
 		return true;
 	}
 	return false;

@@ -87,7 +87,7 @@ void GameState::Update() {
 		when it goes off screen because it deleted entire bullet list.
 		Will continue working on getting the list to work and switch it back
 		*/
-		if (!g.Update()){
+		if (!g.Update(zombie_pool.GetPool())){
 			if (g.fire(*window, p1.getPosition().x, p1.getPosition().y, zombie_pool.GetPool(), p1))
 				p1.shootGun(g.getGlobalIdentifier());
 		}
